@@ -7,18 +7,55 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <EditText
-        android:id="@+id/editText"
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="초 입력 "/>
+        android:text="시간 선택"/>
+
+    <RadioGroup android:id="@+id/radioGroup"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <RadioButton android:layout_weight="1"
+            android:text="5분"
+            android:id="@+id/rg_btn1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+        <RadioButton android:layout_weight="1"
+            android:text="10분"
+            android:id="@+id/rg_btn2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+        <RadioButton android:layout_weight="1"
+            android:text="20분"
+            android:id="@+id/rg_btn3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+        <RadioButton android:layout_weight="1"
+            android:text="10초"
+            android:id="@+id/rg_btn4"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+    </RadioGroup>
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/buttonSetTime"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="설정"
-        />
+        android:text="선택" />
 
+    <EditText
+        android:id="@+id/phoneNum"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="보호자 연락처 입력"
+        android:inputType="numberDecimal" />
+
+    <Button
+        android:id="@+id/buttonSetPhoneNum"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="저장" />
 
 </LinearLayout>
