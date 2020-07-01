@@ -38,8 +38,25 @@ public class PhoneManageService extends Service {
 
     @Override
     public void onCreate() {
-        
         super.onCreate();
+        Log.d("PhoneManageService", "PhoneManageService 생성");
+
+    }
+
+    @Override
+    public IBinder onBind(Intent intent) {
+        // TODO: Return the communication channel to the service.
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        Log.d("PhoneManageService", "PhoneManageService 시작");
+        final String phoneNum = intent.getStringExtra("phoneNum");
+        final int timeCheckId = intent.getIntExtra("timeCheckId", 1);
+
+        Log.d("PhoneManageService", phoneNum + " " + timeCheckId);
+
         telephonyManager = (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
         phoneStateListener  = new PhoneStateListener() {
             @Override
@@ -55,6 +72,8 @@ public class PhoneManageService extends Service {
                     // 전화 받음
                     Toast.makeText(PhoneManageService.this, "전화 받음", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(PhoneManageService.this, MyService.class);
+                    intent.putExtra("phoneNum", phoneNum);
+                    intent.putExtra("timeCheckId", timeCheckId);
                     startService(intent);
                 }
             }
@@ -65,16 +84,6 @@ public class PhoneManageService extends Service {
             }
         };
 
-    }
-
-    @Override
-    public IBinder onBind(Intent intent) {
-        // TODO: Return the communication channel to the service.
-        throw new UnsupportedOperationException("Not yet implemented");
-    }
-
-    @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
         return super.onStartCommand(intent, flags, startId);
     }
 

@@ -58,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
 
         sf = getSharedPreferences("settingFile", MODE_PRIVATE);
         int checkId = sf.getInt("timeCheckId", 1);
+        timeCheckId = checkId;
         editor = sf.edit();
 
         switch(checkId) {
@@ -119,6 +120,8 @@ public class MainActivity extends AppCompatActivity {
 
                 //서비스 시작
                 Intent intent = new Intent(MainActivity.this, PhoneManageService.class);
+                intent.putExtra("phoneNum", phoneNum);
+                intent.putExtra("timeCheckId", timeCheckId);
                 startService(intent);
             }
         });

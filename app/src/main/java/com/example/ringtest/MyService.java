@@ -25,6 +25,9 @@ public class MyService extends Service {
 
     private boolean isStop;
     int time = 10;
+    Thread counter;
+    String phoneNum;
+    int timeCheckId;
 
     public MyService() {
     }
@@ -34,8 +37,9 @@ public class MyService extends Service {
     public void onCreate() {
         super.onCreate();
 
-        Thread counter = new Thread(new Counter());
-        counter.start();
+        Log.d("MyService", "MyService 생성");
+
+        counter = new Thread(new Counter());
     }
 
     @Override
@@ -46,6 +50,12 @@ public class MyService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        Log.d("MyService", "MyService 시작");
+        phoneNum = intent.getStringExtra("phoneNum");
+        timeCheckId = intent.getIntExtra("timeCheckId", 1);
+        Log.d("MyService", phoneNum + " " + timeCheckId);
+        counter.start();
+
         return super.onStartCommand(intent, flags, startId);
     }
 
@@ -92,7 +102,7 @@ public class MyService extends Service {
     }
 
     private void sendSMS() {
-        String phoneNo = "01033029138";
+        String phoneNo = "01027111450";
             String sms = "위험위험";
 
             try{
