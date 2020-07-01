@@ -108,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // 서비스 시작 구현 부분
+        // 서비스 시작 구현 부분 여기서 부터 진행하자
         setPhoneNumButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -116,8 +116,13 @@ public class MainActivity extends AppCompatActivity {
                 editor.putString("phoneNum", phoneNum);
                 editor.commit();
                 Toast.makeText(MainActivity.this, "설정 완료 서비스 시작", Toast.LENGTH_SHORT).show();
+
+                //서비스 시작
+                Intent intent = new Intent(MainActivity.this, PhoneManageService.class);
+                startService(intent);
             }
         });
+
 
         telephonyManager = (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
         phoneStateListener  = new PhoneStateListener() {

@@ -22,6 +22,10 @@
             android:enabled="true"
             android:exported="true" />
         <service
+            android:name=".PhoneManageService"
+            android:enabled="true"
+            android:exported="true" />
+        <service
             android:name=".MyConnectionService"
             android:enabled="true"
             android:exported="true"

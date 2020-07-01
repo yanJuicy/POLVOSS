@@ -22,11 +22,13 @@ import androidx.core.app.NotificationCompat;
 
 public class MyService extends Service {
 
+
     private boolean isStop;
     int time = 10;
 
     public MyService() {
     }
+
 
     @Override
     public void onCreate() {
@@ -40,6 +42,11 @@ public class MyService extends Service {
     public IBinder onBind(Intent intent) {
         // TODO: Return the communication channel to the service.
         throw new UnsupportedOperationException("Not yet implemented");
+    }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        return super.onStartCommand(intent, flags, startId);
     }
 
     @Override
@@ -85,7 +92,7 @@ public class MyService extends Service {
     }
 
     private void sendSMS() {
-        String phoneNo = "01040082735";
+        String phoneNo = "01033029138";
             String sms = "위험위험";
 
             try{
