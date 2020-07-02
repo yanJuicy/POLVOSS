@@ -29,7 +29,6 @@ public class PhoneManageService extends Service {
     int time = 10;
 
     PhoneStateListener phoneStateListener;
-
     TelephonyManager telephonyManager;
 
     public PhoneManageService() {
@@ -57,6 +56,7 @@ public class PhoneManageService extends Service {
 
         Log.d("PhoneManageService", phoneNum + " " + timeCheckId);
 
+        final Intent serviceIntent = new Intent(PhoneManageService.this, MyService.class);
         telephonyManager = (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
         phoneStateListener  = new PhoneStateListener() {
             @Override
@@ -64,6 +64,11 @@ public class PhoneManageService extends Service {
                 if (state == TelephonyManager.CALL_STATE_IDLE) {
                     // 평소 상태
                     Log.d("PhoneManageService", "일반 상태");
+                    if (isStop) {
+                        Log.d("PhoneManageService", "My 서비스 종료");
+                        stopService(serviceIntent);
+                        isStop = false;
+                    }
                     // Toast.makeText(PhoneManageService.this, "일반 상태", Toast.LENGTH_SHORT).show();
                 } else if (state == TelephonyManager.CALL_STATE_RINGING) {
                     // 전화벨 울림
@@ -74,8 +79,8 @@ public class PhoneManageService extends Service {
                     // 전화 받음
                     Log.d("PhoneManageService", "전화 받음");
                     // Toast.makeText(PhoneManageService.this, "전화 받음", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(PhoneManageService.this, MyService.class);
-                    startService(intent);
+                    startService(serviceIntent);
+                    isStop = true;
                 }
             }
 

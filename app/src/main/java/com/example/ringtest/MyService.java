@@ -98,12 +98,7 @@ public class MyService extends Service {
             sendSMS();
             show();
 
-            handler.post(new Runnable() {
-                @Override
-                public void run() {
-                    Toast.makeText(MyService.this, "서비스 종료", Toast.LENGTH_SHORT).show();
-                }
-            });
+
         }
     }
 
