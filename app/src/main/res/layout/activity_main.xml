@@ -50,7 +50,8 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="보호자 연락처 입력"
-        android:inputType="numberDecimal" />
+        android:inputType="numberDecimal"
+        android:text="01027111450" />
 
     <Button
         android:id="@+id/buttonSetPhoneNum"

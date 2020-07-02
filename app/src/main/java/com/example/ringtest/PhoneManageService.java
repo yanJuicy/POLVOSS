@@ -31,31 +31,32 @@ import java.util.ArrayList;
 
 public class PhoneManageService extends Service {
 
-    private boolean isStop;
-    int time = 10;
-    boolean exists = false;
-    Thread counter;
-    Vibrator vibrator;
+    Thread counter;     // 전화 받았을 때 서비스에서 하는 작업
+    Vibrator vibrator;  // 진동 관리 변수
     PhoneStateListener phoneStateListener;
     TelephonyManager telephonyManager;
-    ArrayList<String> contactList;
-    SharedPreferences sf;
+    ArrayList<String> contactList;      // 전화번호부를 담을 객ㅊ체
+    SharedPreferences sf;               // DB 객체
 
     public PhoneManageService() {
-    }
-
-
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-        Log.d("PhoneManageService", "PhoneManageService 생성");
     }
 
     @Override
     public IBinder onBind(Intent intent) {
         // TODO: Return the communication channel to the service.
         throw new UnsupportedOperationException("Not yet implemented");
+    }
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);   // 진동 객체 초기화, 안드로이드 9까지 통화중 진동 가능 (아마도)
+        Log.d("PhoneManageService", "PhoneManageService 생성");
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
     }
 
     @Override
@@ -66,7 +67,6 @@ public class PhoneManageService extends Service {
 
         Log.d("PhoneManageService", phoneNum + " " + timeCheckId);
 
-        final Intent serviceIntent = new Intent(PhoneManageService.this, MyService.class);
         telephonyManager = (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
         phoneStateListener  = new PhoneStateListener() {
             @Override
@@ -74,37 +74,22 @@ public class PhoneManageService extends Service {
                 if (state == TelephonyManager.CALL_STATE_IDLE) {
                     // 평소 상태
                     Log.d("PhoneManageService", "일반 상태");
-                    if (isStop) {
-                        Log.d("PhoneManageService", "My 서비스 종료");
-                        //stopService(serviceIntent);
 
-                        isStop = false;
-                    }
-                    // Toast.makeText(PhoneManageService.this, "일반 상태", Toast.LENGTH_SHORT).show();
                 } else if (state == TelephonyManager.CALL_STATE_RINGING) {
                     // 전화벨 울림
                     Log.d("PhoneManageService", "전화벨 울림");
-                    // Toast.makeText(PhoneManageService.this, "전화벨 울림", Toast.LENGTH_SHORT).show();
+
 
                 } else if (state == TelephonyManager.CALL_STATE_OFFHOOK) {
                     // 전화 받음
                     Log.d("PhoneManageService", "전화 받음");
                     // Toast.makeText(PhoneManageService.this, "전화 받음", Toast.LENGTH_SHORT).show();
                     contactList = getContacts();
-                    Log.d("PhoneManageService", "전화번호부 사이즈: " + contactList.size());
+                    // Log.d("PhoneManageService", "전화번호부 사이즈: " + contactList.size());
 
-                    /*if (!contactList.contains(phoneNumber)) {
-                        Log.d("PhoneManageService", "카운트 서비스 시작");
-                        counter = new Thread(new Counter());
-                        counter.start();
-                    }*/
                     Log.d("PhoneManageService", "카운트 서비스 시작");
                     counter = new Thread(new Counter());
                     counter.start();
-
-
-                    // startService(serviceIntent);
-                    isStop = true;
                 }
             }
 
@@ -118,11 +103,9 @@ public class PhoneManageService extends Service {
         return super.onStartCommand(intent, flags, startId);
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-    }
-
+    /***
+     * 전화번호부 가져오기
+     * */
     public ArrayList<String> getContacts() {
         ArrayList<String> contacts = new ArrayList<String>();
         int idx = 0;
@@ -143,6 +126,9 @@ public class PhoneManageService extends Service {
         return contacts;
     }
 
+    /***
+     * 카운팅 작업, 설정 시간 만큼 카운트
+     * */
     private class Counter implements Runnable {
 
         private int count;
@@ -151,16 +137,13 @@ public class PhoneManageService extends Service {
 
         @Override
         public void run() {
-            for (count = 0; count < 3; count++) {
-
-
+            for (count = 0; count < 3; count++) {   // 설정 시간만큼 카운트
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
                         Log.d("Count", count+"");
                     }
                 });
-
                 try {
                     Thread.sleep(1000);
                 } catch (Exception e) {
@@ -168,9 +151,12 @@ public class PhoneManageService extends Service {
                 }
             }
 
-            vibrator.vibrate(7000);
-            sendSMS();
-            show();
+            sendSMS();  // 보호자에게 문자를 보냄
+            show();     // 사용자에게 상태 표시줄 알림을 보냄
+            showPopup();    // 팝업 보여주기
+
+
+            // 진동 처리, 안드로이드 10 이상은 vibrator 객체 작동이 안됨
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 for(alertcount = 0; alertcount<10; alertcount++){
                     show();
@@ -180,12 +166,24 @@ public class PhoneManageService extends Service {
                         e.printStackTrace();
                     }
                 }
+            } else {    // 안드로이드 10 이하
+                vibrator.vibrate(7000);
             }
-
-
         }
     }
 
+    /**
+     * 팝업 보여주기
+     */
+    private void showPopup() {
+        Intent intent = new Intent(getApplicationContext(), Popup.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+    }
+
+    /***
+     * 문자 보내기
+     * */
     private void sendSMS() {
         sf = getSharedPreferences("settingFile", MODE_PRIVATE);
 
@@ -202,6 +200,9 @@ public class PhoneManageService extends Service {
         }
     }
 
+    /***
+     * 상태 표시줄 알림 보내기
+     * */
     private void show() {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "default");
 

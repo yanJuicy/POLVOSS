@@ -27,6 +27,10 @@ import androidx.core.app.NotificationCompat;
 
 import java.util.ArrayList;
 
+/**
+ * MyService 사용 안함, MyService 기능 PhoneManageService로 이동했음
+ */
+
 public class MyService extends Service {
 
     SharedPreferences sf;
@@ -51,7 +55,6 @@ public class MyService extends Service {
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         sf = getSharedPreferences("settingFile", MODE_PRIVATE);
         phoneNum = sf.getString("phoneNum", "");
-
 
         counter = new Thread(new Counter());
         counter.start();
