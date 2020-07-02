@@ -4,7 +4,9 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -13,6 +15,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
+import android.os.Vibrator;
 import android.telephony.PhoneStateListener;
 import android.telephony.SmsManager;
 import android.util.Log;
@@ -22,12 +25,13 @@ import androidx.core.app.NotificationCompat;
 
 public class MyService extends Service {
 
-
+    SharedPreferences sf;
     private boolean isStop;
     int time = 10;
     Thread counter;
     String phoneNum;
     int timeCheckId;
+    Vibrator vibrator;
 
     public MyService() {
     }
@@ -38,8 +42,12 @@ public class MyService extends Service {
         super.onCreate();
 
         Log.d("MyService", "MyService 생성");
-
+        vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        sf = getSharedPreferences("settingFile", MODE_PRIVATE);
+        phoneNum = sf.getString("phoneNum", "");
         counter = new Thread(new Counter());
+        counter.start();
+
     }
 
     @Override
@@ -51,10 +59,7 @@ public class MyService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.d("MyService", "MyService 시작");
-        phoneNum = intent.getStringExtra("phoneNum");
-        timeCheckId = intent.getIntExtra("timeCheckId", 1);
         Log.d("MyService", phoneNum + " " + timeCheckId);
-        counter.start();
 
         return super.onStartCommand(intent, flags, startId);
     }
@@ -89,6 +94,7 @@ public class MyService extends Service {
                 }
             }
 
+            vibrator.vibrate(7000);
             sendSMS();
             show();
 
@@ -102,15 +108,15 @@ public class MyService extends Service {
     }
 
     private void sendSMS() {
-        String phoneNo = "01027111450";
+            String phoneNo = phoneNum;
             String sms = "위험위험";
 
             try{
                 SmsManager smsManager = SmsManager.getDefault();
                 smsManager.sendTextMessage(phoneNo, null, sms, null, null);
-                Toast.makeText(getApplicationContext(), "전송 완료", Toast.LENGTH_SHORT).show();
+                // Toast.makeText(getApplicationContext(), "전송 완료", Toast.LENGTH_SHORT).show();
             }catch(Exception e){
-                Toast.makeText(getApplicationContext(), "전송 실패", Toast.LENGTH_SHORT).show();
+                // Toast.makeText(getApplicationContext(), "전송 실패", Toast.LENGTH_SHORT).show();
                 e.printStackTrace();
             }
     }

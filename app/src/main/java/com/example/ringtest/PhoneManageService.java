@@ -63,17 +63,18 @@ public class PhoneManageService extends Service {
             public void onCallStateChanged(int state, String phoneNumber) {
                 if (state == TelephonyManager.CALL_STATE_IDLE) {
                     // 평소 상태
-                    Toast.makeText(PhoneManageService.this, "일반 상태", Toast.LENGTH_SHORT).show();
+                    Log.d("PhoneManageService", "일반 상태");
+                    // Toast.makeText(PhoneManageService.this, "일반 상태", Toast.LENGTH_SHORT).show();
                 } else if (state == TelephonyManager.CALL_STATE_RINGING) {
                     // 전화벨 울림
-                    Toast.makeText(PhoneManageService.this, "전화벨 울림", Toast.LENGTH_SHORT).show();
+                    Log.d("PhoneManageService", "전화벨 울림");
+                    // Toast.makeText(PhoneManageService.this, "전화벨 울림", Toast.LENGTH_SHORT).show();
 
                 } else if (state == TelephonyManager.CALL_STATE_OFFHOOK) {
                     // 전화 받음
-                    Toast.makeText(PhoneManageService.this, "전화 받음", Toast.LENGTH_SHORT).show();
+                    Log.d("PhoneManageService", "전화 받음");
+                    // Toast.makeText(PhoneManageService.this, "전화 받음", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(PhoneManageService.this, MyService.class);
-                    intent.putExtra("phoneNum", phoneNum);
-                    intent.putExtra("timeCheckId", timeCheckId);
                     startService(intent);
                 }
             }
@@ -83,6 +84,7 @@ public class PhoneManageService extends Service {
                 super.onServiceStateChanged(serviceState);
             }
         };
+        telephonyManager.listen(phoneStateListener, PhoneStateListener.LISTEN_CALL_STATE);
 
         return super.onStartCommand(intent, flags, startId);
     }

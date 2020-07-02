@@ -26,9 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
     final String TAG = "MainActivity";
     PhoneStateListener phoneStateListener;
-
     TelephonyManager telephonyManager;
-
     SharedPreferences sf;
     SharedPreferences.Editor editor;
     RadioGroup radioGroup;
