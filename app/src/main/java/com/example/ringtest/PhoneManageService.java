@@ -59,13 +59,18 @@ public class PhoneManageService extends Service {
         super.onDestroy();
     }
 
+
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+
         Log.d("PhoneManageService", "PhoneManageService 시작");
         final String phoneNum = intent.getStringExtra("phoneNum");
         final int timeCheckId = intent.getIntExtra("timeCheckId", 1);
 
         Log.d("PhoneManageService", phoneNum + " " + timeCheckId);
+
+        startForegroundService();//포어그라운드 동작
+
 
         telephonyManager = (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
         phoneStateListener  = new PhoneStateListener() {
@@ -101,6 +106,32 @@ public class PhoneManageService extends Service {
         telephonyManager.listen(phoneStateListener, PhoneStateListener.LISTEN_CALL_STATE);
 
         return super.onStartCommand(intent, flags, startId);
+
+    }
+
+    /***
+     * 포어그라운드 함수
+     * */
+    private void startForegroundService(){
+        //오래오에서는 채널이 필수이다! 채널
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "default");
+        builder.setSmallIcon(R.mipmap.ic_launcher);//아이콘 설정
+        //위 포어그라운들 아이콘으로 뜰 디스크립션
+        builder.setContentTitle("police_call_stop");
+        builder.setContentText("포그라운드 서비스 실행 중");
+
+        Intent notificationIntent = new Intent(this, PhoneManageService.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
+        builder.setContentIntent(pendingIntent);//팬딩 인텐트 지정
+
+
+        //노티피케이션 매니저 생성
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {     // 오레오 버전 이상 노티피케이션 알림 설정
+            NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+            manager.createNotificationChannel(new NotificationChannel("default", "기본채널", NotificationManager.IMPORTANCE_DEFAULT));
+        }
+
+        startForeground(1, builder.build());
     }
 
     /***

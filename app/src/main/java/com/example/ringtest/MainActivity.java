@@ -85,7 +85,12 @@ public class MainActivity extends AppCompatActivity implements AutoPermissionsLi
                 Intent intent = new Intent(MainActivity.this, PhoneManageService.class);
                 intent.putExtra("phoneNum", phoneNum);
                 intent.putExtra("timeCheckId", timeCheckId);
-                startService(intent);
+                intent.setAction("startForeground");//포그라운드 액션지정
+                if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.O){
+                    startForegroundService(intent);
+                }
+                else {    startService(intent);
+                }
             }
         });
     }
