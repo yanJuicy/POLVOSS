@@ -1,5 +1,6 @@
 package com.example.ringtest;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -12,6 +13,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.Telephony;
 import android.telephony.PhoneStateListener;
 import android.telephony.ServiceState;
 import android.telephony.TelephonyManager;
@@ -22,7 +24,10 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+import com.pedro.library.AutoPermissions;
+import com.pedro.library.AutoPermissionsListener;
+
+public class MainActivity extends AppCompatActivity implements AutoPermissionsListener {
 
     final String TAG = "MainActivity";
     PhoneStateListener phoneStateListener;
@@ -123,37 +128,11 @@ public class MainActivity extends AppCompatActivity {
                 startService(intent);
             }
         });
-
-
-        telephonyManager = (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
-        phoneStateListener  = new PhoneStateListener() {
-            @Override
-            public void onCallStateChanged(int state, String phoneNumber) {
-                if (state == TelephonyManager.CALL_STATE_IDLE) {
-                    // 평소 상태
-                    Toast.makeText(MainActivity.this, "일반 상태", Toast.LENGTH_SHORT).show();
-                } else if (state == TelephonyManager.CALL_STATE_RINGING) {
-                    // 전화벨 울림
-                    Toast.makeText(MainActivity.this, "전화벨 울림", Toast.LENGTH_SHORT).show();
-
-                } else if (state == TelephonyManager.CALL_STATE_OFFHOOK) {
-                    // 전화 받음
-                    Toast.makeText(MainActivity.this, "전화 받음", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(MainActivity.this, MyService.class);
-                    startService(intent);
-                }
-            }
-
-            @Override
-            public void onServiceStateChanged(ServiceState serviceState) {
-                super.onServiceStateChanged(serviceState);
-            }
-        };;
-
-        telephonyManager.listen(phoneStateListener, PhoneStateListener.LISTEN_CALL_STATE);
     }
 
     private void permissionCheck() {
+        AutoPermissions.Companion.loadAllPermissions(this,101);
+
         int permissonCheck= ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS);
         if(permissonCheck == PackageManager.PERMISSION_GRANTED){
             Toast.makeText(getApplicationContext(), "SMS 수신권한 있음", Toast.LENGTH_SHORT).show();
@@ -181,4 +160,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onDenied(int i, String[] strings) {
+
+    }
+
+    @Override
+    public void onGranted(int i, String[] strings) {
+
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        AutoPermissions.Companion.parsePermissions(this, requestCode, permissions, this);
+        Toast.makeText(this, "requestCode : "+requestCode+"  permissions : "+permissions+"  grantResults :"+grantResults, Toast.LENGTH_SHORT).show();
+
+    }
 }

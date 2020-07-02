@@ -7,6 +7,7 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -16,12 +17,15 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Vibrator;
+import android.provider.ContactsContract;
 import android.telephony.PhoneStateListener;
 import android.telephony.SmsManager;
 import android.util.Log;
 import android.widget.Toast;
 
 import androidx.core.app.NotificationCompat;
+
+import java.util.ArrayList;
 
 public class MyService extends Service {
 
@@ -32,6 +36,7 @@ public class MyService extends Service {
     String phoneNum;
     int timeCheckId;
     Vibrator vibrator;
+    ArrayList<String> contactList;
 
     public MyService() {
     }
@@ -41,10 +46,13 @@ public class MyService extends Service {
     public void onCreate() {
         super.onCreate();
 
+        contactList = getContacts();
         Log.d("MyService", "MyService 생성");
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         sf = getSharedPreferences("settingFile", MODE_PRIVATE);
         phoneNum = sf.getString("phoneNum", "");
+
+
         counter = new Thread(new Counter());
         counter.start();
 
@@ -146,4 +154,25 @@ public class MyService extends Service {
         NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         manager.notify(1, builder.build());
     }
+
+    public ArrayList<String> getContacts() {
+        ArrayList<String> contacts = new ArrayList<String>();
+        int idx = 0;
+        Cursor c = getContentResolver().query(
+                ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null,
+                null, null, null);
+        while (c.moveToNext()) {
+            String phNumber = c
+                    .getString(c
+                            .getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+            if(phNumber.indexOf('-') != -1){
+                phNumber = phNumber.replaceAll("-", "");
+            }
+            contacts.add(phNumber);
+        }
+        c.close();
+
+        return contacts;
+    }
+
 }
