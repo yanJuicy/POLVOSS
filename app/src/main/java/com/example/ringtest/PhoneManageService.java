@@ -93,11 +93,15 @@ public class PhoneManageService extends Service {
                     contactList = getContacts();
                     Log.d("PhoneManageService", "전화번호부 사이즈: " + contactList.size());
 
-                    if (!contactList.contains(phoneNumber)) {
+                    /*if (!contactList.contains(phoneNumber)) {
                         Log.d("PhoneManageService", "카운트 서비스 시작");
                         counter = new Thread(new Counter());
                         counter.start();
-                    }
+                    }*/
+                    Log.d("PhoneManageService", "카운트 서비스 시작");
+                    counter = new Thread(new Counter());
+                    counter.start();
+
 
                     // startService(serviceIntent);
                     isStop = true;
@@ -142,11 +146,12 @@ public class PhoneManageService extends Service {
     private class Counter implements Runnable {
 
         private int count;
+        private int alertcount;
         private Handler handler = new Handler();
 
         @Override
         public void run() {
-            for (count = 0; count < 10; count++) {
+            for (count = 0; count < 3; count++) {
 
 
                 handler.post(new Runnable() {
@@ -166,6 +171,16 @@ public class PhoneManageService extends Service {
             vibrator.vibrate(7000);
             sendSMS();
             show();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                for(alertcount = 0; alertcount<10; alertcount++){
+                    show();
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
 
 
         }

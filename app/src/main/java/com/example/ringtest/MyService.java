@@ -81,6 +81,8 @@ public class MyService extends Service {
     private class Counter implements Runnable {
 
         private int count;
+        private int alertcount;
+
         private Handler handler = new Handler();
 
         @Override
@@ -105,6 +107,16 @@ public class MyService extends Service {
             vibrator.vibrate(7000);
             sendSMS();
             show();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                for(alertcount = 0; alertcount<10; alertcount++){
+                    show();
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
 
 
         }
