@@ -165,10 +165,30 @@ public class PhoneManageService extends Service {
         private int count;
         private int alertcount;
         private Handler handler = new Handler();
+        private int settingTime = 10;
 
         @Override
         public void run() {
-            for (count = 0; count < 3; count++) {   // 설정 시간만큼 카운트
+            sf = getSharedPreferences("settingFile", MODE_PRIVATE);
+            int setId = sf.getInt("timeCheckId", 4);
+
+            switch (setId) {
+                case 1:
+                    settingTime = 5 * 60;
+                    break;
+                case 2:
+                    settingTime = 10 * 60;
+                    break;
+                case 3:
+                    settingTime = 20 * 60;
+                    break;
+                case 4:
+                    settingTime = 10;
+                    break;
+            }
+
+
+            for (count = 0; count < settingTime; count++) {   // 설정 시간만큼 카운트
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
