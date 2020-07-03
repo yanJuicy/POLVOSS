@@ -47,7 +47,6 @@ public class UserGuide extends FragmentActivity {
             @Override
             public void onClick(View view){
                 PreferenceManager.setBoolean(mContext, "is_first", false);
-                permissionCheck();
 
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);
@@ -154,15 +153,5 @@ public class UserGuide extends FragmentActivity {
             return NUM_PAGES;
         }
 
-    }
-
-    private void permissionCheck() {
-        AutoPermissions.Companion.loadAllPermissions(this,101); // 권한 설정 오픈소스
-
-        NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE); // 상태 표시줄 알림을 위한 작업
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            manager.createNotificationChannel(new NotificationChannel("default", "기본 채널",
-                    NotificationManager.IMPORTANCE_DEFAULT));
-        }
     }
 }
