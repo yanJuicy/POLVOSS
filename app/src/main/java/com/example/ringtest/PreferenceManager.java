@@ -1,4 +1,4 @@
-package com.example.police_fishing;
+package com.example.ringtest;
 
 import android.content.Context;
 import android.content.SharedPreferences;

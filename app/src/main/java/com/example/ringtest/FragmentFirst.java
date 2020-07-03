@@ -1,4 +1,4 @@
-package com.example.police_fishing;
+package com.example.ringtest;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
