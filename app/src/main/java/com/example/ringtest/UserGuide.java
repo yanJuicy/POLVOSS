@@ -1,4 +1,4 @@
-package com.example.police_fishing;
+package com.example.ringtest;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
@@ -37,7 +37,6 @@ public class UserGuide extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_guide);
-        checkSelfPermission();
 
         mContext = this;
 
@@ -49,6 +48,7 @@ public class UserGuide extends FragmentActivity {
             @Override
             public void onClick(View view){
                 PreferenceManager.setBoolean(mContext, "is_first", false);
+                checkSelfPermission();
 
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);
@@ -160,19 +160,10 @@ public class UserGuide extends FragmentActivity {
     public void checkSelfPermission() {
         String temp = "";
         //파일 읽기 권한 확인
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.MANAGE_OWN_CALLS) != PackageManager.PERMISSION_GRANTED) {
-            temp += Manifest.permission.MANAGE_OWN_CALLS + " ";
-        }
-        //파일 쓰기 권한 확인
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CALL_LOG) != PackageManager.PERMISSION_GRANTED) {
-            temp += Manifest.permission.READ_CALL_LOG + " ";
-        }
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
             temp += Manifest.permission.READ_PHONE_STATE + " ";
         }
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.VIBRATE) != PackageManager.PERMISSION_GRANTED) {
-            temp += Manifest.permission.VIBRATE + " ";
-        }
+        //파일 쓰기 권한 확인
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
             temp += Manifest.permission.SEND_SMS + " ";
         }
@@ -185,8 +176,8 @@ public class UserGuide extends FragmentActivity {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
             temp += Manifest.permission.READ_CONTACTS + " ";
         }
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.FOREGROUND_SERVICE) != PackageManager.PERMISSION_GRANTED) {
-            temp += Manifest.permission.FOREGROUND_SERVICE + " ";
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CALL_LOG) != PackageManager.PERMISSION_GRANTED) {
+            temp += Manifest.permission.READ_CALL_LOG + " ";
         }
         if (TextUtils.isEmpty(temp) == false) {
             // 권한 요청
