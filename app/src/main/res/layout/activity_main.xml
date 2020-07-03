@@ -59,4 +59,10 @@
         android:layout_height="wrap_content"
         android:text="저장" />
 
+    <Button
+        android:id="@+id/buttonCancelService"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="서비스 종료" />
+
 </LinearLayout>

@@ -38,10 +38,12 @@ public class MainActivity extends AppCompatActivity implements AutoPermissionsLi
     Button timeButton;
     EditText inputPhoneNum;
     Button setPhoneNumButton;
+    Button cancelService;
 
     int timeCheckId;    // 설정 시간 번호
     String phoneNum;    // 보호자 연락처 추후 여러개로 추가
 
+    Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +60,7 @@ public class MainActivity extends AppCompatActivity implements AutoPermissionsLi
         timeButton = findViewById(R.id.buttonSetTime);
         inputPhoneNum = findViewById(R.id.phoneNum);
         setPhoneNumButton = findViewById(R.id.buttonSetPhoneNum);
+        cancelService = findViewById(R.id.buttonCancelService);
 
         sf = getSharedPreferences("settingFile", MODE_PRIVATE); // 로컬 DB 객체
         editor = sf.edit(); // DB 편집 객체
@@ -82,7 +85,7 @@ public class MainActivity extends AppCompatActivity implements AutoPermissionsLi
                 Toast.makeText(MainActivity.this, "설정 완료 서비스 시작", Toast.LENGTH_SHORT).show();
 
                 // 서비스 시작
-                Intent intent = new Intent(MainActivity.this, PhoneManageService.class);
+                intent = new Intent(MainActivity.this, PhoneManageService.class);
                 intent.putExtra("phoneNum", phoneNum);
                 intent.putExtra("timeCheckId", timeCheckId);
                 intent.setAction("startForeground");//포그라운드 액션지정
@@ -90,6 +93,19 @@ public class MainActivity extends AppCompatActivity implements AutoPermissionsLi
                     startForegroundService(intent);
                 }
                 else {    startService(intent);
+                }
+            }
+        });
+
+        // 서비스 종료
+        cancelService.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (intent != null) {
+                    Toast.makeText(MainActivity.this, "서비스 종료료", Toast.LENGTH_SHORT).show();
+                    intent.putExtra("stop", true);
+                    startService(intent);
+                    intent = null;
                 }
             }
         });

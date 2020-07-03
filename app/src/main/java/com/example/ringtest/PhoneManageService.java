@@ -37,6 +37,7 @@ public class PhoneManageService extends Service {
     TelephonyManager telephonyManager;
     ArrayList<String> contactList;      // 전화번호부를 담을 객ㅊ체
     SharedPreferences sf;               // DB 객체
+    boolean isServiceStop;
 
     public PhoneManageService() {
     }
@@ -57,11 +58,15 @@ public class PhoneManageService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        isServiceStop = true;
+        Log.d("PhoneManageService ", "PhoneManageService 종료");
     }
 
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        if (intent.getBooleanExtra("stop", false))
+            stopSelf();
 
         Log.d("PhoneManageService", "PhoneManageService 시작");
         final String phoneNum = intent.getStringExtra("phoneNum");
@@ -169,6 +174,8 @@ public class PhoneManageService extends Service {
 
         @Override
         public void run() {
+            if (isServiceStop) return;
+
             sf = getSharedPreferences("settingFile", MODE_PRIVATE);
             int setId = sf.getInt("timeCheckId", 4);
 
