@@ -1,24 +1,23 @@
 package com.example.ringtest;
 
 import androidx.annotation.NonNull;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
-import android.Manifest;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
+
+import com.pedro.library.AutoPermissions;
 
 import me.relex.circleindicator.CircleIndicator3;
 
@@ -48,7 +47,7 @@ public class UserGuide extends FragmentActivity {
             @Override
             public void onClick(View view){
                 PreferenceManager.setBoolean(mContext, "is_first", false);
-                checkSelfPermission();
+                permissionCheck();
 
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);
@@ -157,35 +156,13 @@ public class UserGuide extends FragmentActivity {
 
     }
 
-    public void checkSelfPermission() {
-        String temp = "";
-        //파일 읽기 권한 확인
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
-            temp += Manifest.permission.READ_PHONE_STATE + " ";
-        }
-        //파일 쓰기 권한 확인
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
-            temp += Manifest.permission.SEND_SMS + " ";
-        }
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECEIVE_SMS) != PackageManager.PERMISSION_GRANTED) {
-            temp += Manifest.permission.RECEIVE_SMS + " ";
-        }
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
-            temp += Manifest.permission.WRITE_CONTACTS + " ";
-        }
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
-            temp += Manifest.permission.READ_CONTACTS + " ";
-        }
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CALL_LOG) != PackageManager.PERMISSION_GRANTED) {
-            temp += Manifest.permission.READ_CALL_LOG + " ";
-        }
-        if (TextUtils.isEmpty(temp) == false) {
-            // 권한 요청
-            ActivityCompat.requestPermissions(this, temp.trim().split(" "),1);
-        }
-        else {
-            // 모두 허용 상태
-            Toast.makeText(this, "권한을 모두 허용", Toast.LENGTH_SHORT).show();
+    private void permissionCheck() {
+        AutoPermissions.Companion.loadAllPermissions(this,101); // 권한 설정 오픈소스
+
+        NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE); // 상태 표시줄 알림을 위한 작업
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            manager.createNotificationChannel(new NotificationChannel("default", "기본 채널",
+                    NotificationManager.IMPORTANCE_DEFAULT));
         }
     }
 }
