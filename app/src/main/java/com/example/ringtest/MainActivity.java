@@ -3,14 +3,18 @@ package com.example.ringtest;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Telephony;
@@ -75,6 +79,26 @@ public class MainActivity extends AppCompatActivity implements AutoPermissionsLi
             }
         });
 
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId) {
+                    case R.id.rg_btn1:
+                        timeCheckId = 1;
+                        break;
+                    case R.id.rg_btn2:
+                        timeCheckId = 2;
+                        break;
+                    case R.id.rg_btn3:
+                        timeCheckId = 3;
+                        break;
+                    case R.id.rg_btn4:
+                        timeCheckId = 4;
+                        break;
+                }
+            }
+        });
+
         // 서비스 시작 구현 부분 여기서 부터 진행하자
         setPhoneNumButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,11 +113,13 @@ public class MainActivity extends AppCompatActivity implements AutoPermissionsLi
                 intent.putExtra("phoneNum", phoneNum);
                 intent.putExtra("timeCheckId", timeCheckId);
                 intent.setAction("startForeground");//포그라운드 액션지정
-                if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.O){
+                startService(intent);
+
+                /*if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.O){
                     startForegroundService(intent);
                 }
                 else {    startService(intent);
-                }
+                }*/
             }
         });
 
@@ -104,7 +130,7 @@ public class MainActivity extends AppCompatActivity implements AutoPermissionsLi
                 if (intent != null) {
                     Toast.makeText(MainActivity.this, "서비스 종료료", Toast.LENGTH_SHORT).show();
                     intent.putExtra("stop", true);
-                    startService(intent);
+                    stopService(intent);
                     intent = null;
                 }
             }
@@ -113,12 +139,6 @@ public class MainActivity extends AppCompatActivity implements AutoPermissionsLi
 
     private void permissionCheck() {
         AutoPermissions.Companion.loadAllPermissions(this,101); // 권한 설정 오픈소스
-
-        NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE); // 상태 표시줄 알림을 위한 작업
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            manager.createNotificationChannel(new NotificationChannel("default", "기본 채널",
-                    NotificationManager.IMPORTANCE_DEFAULT));
-        }
     }
 
 

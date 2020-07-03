@@ -1,5 +1,6 @@
 package com.example.ringtest;
 
+import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -74,7 +75,7 @@ public class PhoneManageService extends Service {
 
         Log.d("PhoneManageService", phoneNum + " " + timeCheckId);
 
-        startForegroundService();//포어그라운드 동작
+        //startForegroundService();//포어그라운드 동작
 
 
         telephonyManager = (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
@@ -211,7 +212,7 @@ public class PhoneManageService extends Service {
 
             sendSMS();  // 보호자에게 문자를 보냄
             show();     // 사용자에게 상태 표시줄 알림을 보냄
-            showPopup();    // 팝업 보여주기
+            //showPopup();    // 팝업 보여주기
 
 
             // 진동 처리, 안드로이드 10 이상은 vibrator 객체 작동이 안됨
@@ -262,33 +263,42 @@ public class PhoneManageService extends Service {
      * 상태 표시줄 알림 보내기
      * */
     private void show() {
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "default");
 
-        builder.setSmallIcon(R.mipmap.ic_launcher);
-        builder.setContentTitle("알림 제목");
-        builder.setContentText("알림 세부 텍스트");
+        NotificationManager notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
 
-        Intent intent = new Intent(this, MainActivity.class);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this,
-                0,
-                intent,
-                PendingIntent.FLAG_UPDATE_CURRENT);
+        Intent notificationIntent = new Intent(this, MainActivity.class);
+        notificationIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK) ;
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent,  PendingIntent.FLAG_UPDATE_CURRENT);
 
-        builder.setContentIntent(pendingIntent);
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "0")
+                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher_foreground)) //BitMap 이미지 요구
+                .setContentTitle("상태바 드래그시 보이는 타이틀")
+                .setContentText("상태바 드래그시 보이는 서브타이틀")
+                // 더 많은 내용이라서 일부만 보여줘야 하는 경우 아래 주석을 제거하면 setContentText에 있는 문자열 대신 아래 문자열을 보여줌
+                //.setStyle(new NotificationCompat.BigTextStyle().bigText("더 많은 내용을 보여줘야 하는 경우..."))
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setContentIntent(pendingIntent) // 사용자가 노티피케이션을 탭시 ResultActivity로 이동하도록 설정
+                .setAutoCancel(true);
 
-        Bitmap largeIcon = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
-        builder.setLargeIcon(largeIcon);
+        //OREO API 26 이상에서는 채널 필요
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 
-        builder.setColor(Color.RED);
+            builder.setSmallIcon(R.drawable.ic_launcher_foreground); //mipmap 사용시 Oreo 이상에서 시스템 UI 에러남
+            CharSequence channelName  = "노티페케이션 채널";
+            String description = "오레오 이상을 위한 것임";
+            int importance = NotificationManager.IMPORTANCE_HIGH;
 
-        Uri ringtoneUri = RingtoneManager.getActualDefaultRingtoneUri(this, RingtoneManager.TYPE_NOTIFICATION);
-        builder.setSound(ringtoneUri);
+            NotificationChannel channel = new NotificationChannel("0", channelName , importance);
+            channel.setDescription(description);
 
-        long[] vibrate = {0, 7000};
-        builder.setVibrate(vibrate);
-        builder.setAutoCancel(true);
+            // 노티피케이션 채널을 시스템에 등록
+            assert notificationManager != null;
+            notificationManager.createNotificationChannel(channel);
 
-        NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        manager.notify(1, builder.build());
+        }else
+            builder.setSmallIcon(R.mipmap.ic_launcher); // Oreo 이하에서 mipmap 사용하지 않으면 Couldn't create icon: StatusBarIcon 에러남
+
+        assert notificationManager != null;
+        notificationManager.notify(1234, builder.build()); // 고유숫자로 노티피케이션 동작시킴
     }
 }
