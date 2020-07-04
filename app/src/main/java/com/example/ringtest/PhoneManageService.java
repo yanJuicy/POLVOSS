@@ -230,7 +230,7 @@ public class PhoneManageService extends Service {
             }
 
             if (check >= settingTime) {
-                sendSMS();  // 보호자에게 문자를 보냄
+
                 //showPopup();    // 팝업 보여주기
                 // 커스텀 토스트 보냄
                 handler.post(new Runnable() {//toast 보여주기
@@ -252,9 +252,11 @@ public class PhoneManageService extends Service {
                         e.printStackTrace();
                     }
                     sendNotification();     // 사용자에게 상태 표시줄 알림을 보냄
+                    sendSMS();  // 보호자에게 문자를 보냄
                 } else {
                     showPopup();
                     sendNotification();
+                    sendSMS();  // 보호자에게 문자를 보냄
                 }
             }
         }
