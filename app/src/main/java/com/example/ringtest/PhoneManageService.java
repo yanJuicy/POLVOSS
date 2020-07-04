@@ -181,12 +181,12 @@ public class PhoneManageService extends Service {
     private class Counter implements Runnable {
 
         private int count;
-        private int alertcount;
+
         private int vibratetime = 7000;
         private Handler handler = new Handler();
         private int settingTime = 10;
         private String alertText = "위험 요소가 감지되었습니다.\n1. 금전 요구\n2. 기관 사칭\n3. 협박\n 요소가 있으실 경우 유의 해주세요";
-
+        private int alerttime = 4; //toast 알림 출력 시간(n * 3.5 초 )
 
         @Override
         public void run() {
@@ -237,8 +237,9 @@ public class PhoneManageService extends Service {
 
                     @Override
                     public void run() {
-                        customToast.makeText(PhoneManageService.this, alertText, Toast.LENGTH_LONG).show();
-                        customToast.makeText(PhoneManageService.this, alertText, Toast.LENGTH_LONG).show();
+                        for( int i=0; i<alerttime; i++){
+                            customToast.makeText(PhoneManageService.this, alertText, Toast.LENGTH_LONG).show();
+                        }
                     }
                 });
                 //진동
