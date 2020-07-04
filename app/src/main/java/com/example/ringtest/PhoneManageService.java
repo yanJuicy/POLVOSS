@@ -1,6 +1,5 @@
 package com.example.ringtest;
 
-import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -17,18 +16,24 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
+import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.provider.ContactsContract;
+import android.telephony.PhoneNumberUtils;
 import android.telephony.PhoneStateListener;
 import android.telephony.ServiceState;
 import android.telephony.SmsManager;
 import android.telephony.TelephonyManager;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.core.app.NotificationCompat;
 
 import java.util.ArrayList;
+
+import static java.lang.Thread.sleep;
 
 public class PhoneManageService extends Service {
 
@@ -39,6 +44,7 @@ public class PhoneManageService extends Service {
     ArrayList<String> contactList;      // 전화번호부를 담을 객ㅊ체
     SharedPreferences sf;               // DB 객체
     boolean isServiceStop;
+
 
     public PhoneManageService() {
     }
@@ -52,6 +58,7 @@ public class PhoneManageService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
+
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);   // 진동 객체 초기화, 안드로이드 9까지 통화중 진동 가능 (아마도)
         Log.d("PhoneManageService", "PhoneManageService 생성");
     }
@@ -59,14 +66,16 @@ public class PhoneManageService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        isServiceStop = true;
-        Log.d("PhoneManageService ", "PhoneManageService 종료");
+        isServiceStop=true;
+        Log.d("PhoneManageService", "PhoneManageService 종료");
+
     }
 
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        if (intent.getBooleanExtra("stop", false))
+
+        if (intent.getBooleanExtra("stop",false))
             stopSelf();
 
         Log.d("PhoneManageService", "PhoneManageService 시작");
@@ -98,7 +107,7 @@ public class PhoneManageService extends Service {
                     contactList = getContacts();
                     // Log.d("PhoneManageService", "전화번호부 사이즈: " + contactList.size());
 
-                    if (!contactList.contains(phoneNumber)) {
+                    if(!contactList.contains(phoneNumber)) {
                         Log.d("PhoneManageService", "카운트 서비스 시작");
                         counter = new Thread(new Counter());
                         counter.start();
@@ -172,64 +181,56 @@ public class PhoneManageService extends Service {
 
         private int count;
         private int alertcount;
+        private int vibratetime = 7000;
         private Handler handler = new Handler();
-        private int settingTime = 10;
+
+
+
 
         @Override
         public void run() {
-            if (isServiceStop) return;
-
-            sf = getSharedPreferences("settingFile", MODE_PRIVATE);
-            int setId = sf.getInt("timeCheckId", 4);
-
-            switch (setId) {
-                case 1:
-                    settingTime = 5 * 60;
-                    break;
-                case 2:
-                    settingTime = 10 * 60;
-                    break;
-                case 3:
-                    settingTime = 20 * 60;
-                    break;
-                case 4:
-                    settingTime = 10;
-                    break;
-            }
-
-
-            for (count = 0; count < settingTime; count++) {   // 설정 시간만큼 카운트
+            for (count = 0; count < 3; count++) {   // 설정 시간만큼 카운트
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                        Log.d("Count", count+"");
+                        Log.d("Count", count + "");
                     }
                 });
                 try {
-                    Thread.sleep(1000);
+                    sleep(1000);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
 
             sendSMS();  // 보호자에게 문자를 보냄
-            show();     // 사용자에게 상태 표시줄 알림을 보냄
-            //showPopup();    // 팝업 보여주기
+            showPopup();    // 팝업 보여주기
 
+            handler.post(new Runnable() {//toast 보여주기
 
-            // 진동 처리, 안드로이드 10 이상은 vibrator 객체 작동이 안됨
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                for(alertcount = 0; alertcount<10; alertcount++){
-                    show();
-                    try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
+                @Override
+                public void run() {
+                    customToast.makeText(PhoneManageService.this,"위험위험",Toast.LENGTH_SHORT).show();
                 }
-            } else {    // 안드로이드 10 이하
+            });
+
+            //진동
+            Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+            if (Build.VERSION.SDK_INT >= 26) {
+                vibrator.vibrate(VibrationEffect.createOneShot(vibratetime,70));
+                try {
+                    sleep(vibratetime);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                show();     // 사용자에게 상태 표시줄 알림을 보냄
+            } else {
                 vibrator.vibrate(7000);
             }
+
+
+
+
         }
     }
 
@@ -241,6 +242,10 @@ public class PhoneManageService extends Service {
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }
+
+
+
+
 
     /***
      * 문자 보내기
@@ -265,42 +270,33 @@ public class PhoneManageService extends Service {
      * 상태 표시줄 알림 보내기
      * */
     private void show() {
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "default");
 
-        NotificationManager notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+        builder.setSmallIcon(R.mipmap.ic_launcher);
+        builder.setContentTitle("알림 제목");
+        builder.setContentText("알림 세부 텍스트");
 
-        Intent notificationIntent = new Intent(this, MainActivity.class);
-        notificationIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK) ;
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent,  PendingIntent.FLAG_UPDATE_CURRENT);
+        Intent intent = new Intent(this, MainActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this,
+                0,
+                intent,
+                PendingIntent.FLAG_UPDATE_CURRENT);
 
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "0")
-                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher_foreground)) //BitMap 이미지 요구
-                .setContentTitle("상태바 드래그시 보이는 타이틀")
-                .setContentText("상태바 드래그시 보이는 서브타이틀")
-                // 더 많은 내용이라서 일부만 보여줘야 하는 경우 아래 주석을 제거하면 setContentText에 있는 문자열 대신 아래 문자열을 보여줌
-                //.setStyle(new NotificationCompat.BigTextStyle().bigText("더 많은 내용을 보여줘야 하는 경우..."))
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                .setContentIntent(pendingIntent) // 사용자가 노티피케이션을 탭시 ResultActivity로 이동하도록 설정
-                .setAutoCancel(true);
+        builder.setContentIntent(pendingIntent);
 
-        //OREO API 26 이상에서는 채널 필요
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        Bitmap largeIcon = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
+        builder.setLargeIcon(largeIcon);
 
-            builder.setSmallIcon(R.drawable.ic_launcher_foreground); //mipmap 사용시 Oreo 이상에서 시스템 UI 에러남
-            CharSequence channelName  = "NotificationAlert";
-            String description = "오레오 이상을 위한 것임";
-            int importance = NotificationManager.IMPORTANCE_HIGH;
+        builder.setColor(Color.RED);
 
-            NotificationChannel channel = new NotificationChannel("0", channelName , importance);
-            channel.setDescription(description);
+        Uri ringtoneUri = RingtoneManager.getActualDefaultRingtoneUri(this, RingtoneManager.TYPE_NOTIFICATION);
+        builder.setSound(ringtoneUri);
 
-            // 노티피케이션 채널을 시스템에 등록
-            assert notificationManager != null;
-            notificationManager.createNotificationChannel(channel);
+        long[] vibrate = {0, 7000};
+        builder.setVibrate(vibrate);
+        builder.setAutoCancel(true);
 
-        }else
-            builder.setSmallIcon(R.mipmap.ic_launcher); // Oreo 이하에서 mipmap 사용하지 않으면 Couldn't create icon: StatusBarIcon 에러남
-
-        assert notificationManager != null;
-        notificationManager.notify(1234, builder.build()); // 고유숫자로 노티피케이션 동작시킴
+        NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        manager.notify(1, builder.build());
     }
 }
