@@ -235,7 +235,8 @@ public class PhoneManageService extends Service {
 
                     @Override
                     public void run() {
-                        customToast.makeText(PhoneManageService.this, "위험위험", Toast.LENGTH_SHORT).show();
+                        customToast.makeText(PhoneManageService.this, "위험 요소가 감지되었습니다.\n1. 금전 요구\n2. 기관 사칭\n3. 협박\n 요소가 있으실 경우 유의 해주세요", Toast.LENGTH_LONG).show();
+                        customToast.makeText(PhoneManageService.this, "위험 요소가 감지되었습니다.\n1. 금전 요구\n2. 기관 사칭\n3. 협박\n 요소가 있으실 경우 유의 해주세요", Toast.LENGTH_LONG).show();
                     }
                 });
                 //진동
