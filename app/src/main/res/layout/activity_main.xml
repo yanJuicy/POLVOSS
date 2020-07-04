@@ -51,7 +51,7 @@
         android:ems="10"
         android:hint="보호자 연락처 입력"
         android:inputType="numberDecimal"
-        android:text="01027111450" />
+        android:text="" />
 
     <Button
         android:id="@+id/buttonSetPhoneNum"
@@ -59,10 +59,10 @@
         android:layout_height="wrap_content"
         android:text="저장" />
 
-    <Button
+    <!--<Button
         android:id="@+id/buttonCancelService"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="서비스 종료" />
+        android:text="서비스 종료" />-->
 
 </LinearLayout>

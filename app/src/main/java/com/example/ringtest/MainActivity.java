@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity implements AutoPermissionsLi
         timeButton = findViewById(R.id.buttonSetTime);
         inputPhoneNum = findViewById(R.id.phoneNum);
         setPhoneNumButton = findViewById(R.id.buttonSetPhoneNum);
-        cancelService = findViewById(R.id.buttonCancelService);
+        //cancelService = findViewById(R.id.buttonCancelService);
 
         sf = getSharedPreferences("settingFile", MODE_PRIVATE); // 로컬 DB 객체
         editor = sf.edit(); // DB 편집 객체
@@ -106,15 +106,15 @@ public class MainActivity extends AppCompatActivity implements AutoPermissionsLi
                 phoneNum = inputPhoneNum.getText().toString();
                 editor.putString("phoneNum", phoneNum);     // DB에 보호자 번호 저장
                 editor.commit();
-                Toast.makeText(MainActivity.this, "설정 완료 서비스 시작", Toast.LENGTH_SHORT).show();
-
-                // 서비스 시작
+                Toast.makeText(MainActivity.this, "설정 완료", Toast.LENGTH_SHORT).show();
+                finish();
+                /*// 서비스 시작
                 intent = new Intent(MainActivity.this, PhoneManageService.class);
                 intent.putExtra("phoneNum", phoneNum);
                 intent.putExtra("timeCheckId", timeCheckId);
                 intent.setAction("startForeground");//포그라운드 액션지정
                 startService(intent);
-
+*/
                 /*if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.O){
                     startForegroundService(intent);
                 }
@@ -123,7 +123,7 @@ public class MainActivity extends AppCompatActivity implements AutoPermissionsLi
             }
         });
 
-        // 서비스 종료
+        /*// 서비스 종료
         cancelService.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -134,7 +134,7 @@ public class MainActivity extends AppCompatActivity implements AutoPermissionsLi
                     intent = null;
                 }
             }
-        });
+        });*/
     }
 
     private void permissionCheck() {

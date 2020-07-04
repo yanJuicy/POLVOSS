@@ -77,10 +77,10 @@ public class PhoneManageService extends Service {
             stopSelf();
 
         Log.d("PhoneManageService", "PhoneManageService 시작");
-        final String phoneNum = intent.getStringExtra("phoneNum");
-        final int timeCheckId = intent.getIntExtra("timeCheckId", 1);
+        //final String phoneNum = intent.getStringExtra("phoneNum");
+        //final int timeCheckId = intent.getIntExtra("timeCheckId", 1);
 
-        Log.d("PhoneManageService", phoneNum + " " + timeCheckId);
+        //Log.d("PhoneManageService", phoneNum + " " + timeCheckId);
 
         startForegroundService();//포어그라운드 동작
 

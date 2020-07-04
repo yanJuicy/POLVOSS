@@ -48,7 +48,7 @@ public class UserGuide extends FragmentActivity {
             public void onClick(View view){
                 PreferenceManager.setBoolean(mContext, "is_first", false);
 
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                Intent intent = new Intent(getApplicationContext(), DesignActivity.class);
                 startActivity(intent);
                 finish();
             }

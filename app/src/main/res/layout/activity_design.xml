@@ -29,13 +29,13 @@
                 android:gravity="center">
 
                 <TextView
-                    android:id="@+id/textView98"
+                    android:id="@+id/textState"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_span="2"
                     android:fontFamily="@font/app_main_font"
-                    android:text="안전하게 보호 중입니다."
+                    android:text="보호중이 아닙니다."
                     android:textColor="#FFFFFF"
                     android:textSize="35sp" />
 
@@ -48,10 +48,10 @@
                 android:gravity="center">
 
                 <ImageView
-                    android:id="@+id/imageView12"
+                    android:id="@+id/imageActivate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:srcCompat="@drawable/success"
+                    app:srcCompat="@drawable/warning"
                     tools:ignore="VectorDrawableCompat" />
 
             </TableRow>
@@ -72,12 +72,12 @@
                     android:textSize="40sp" />
 
                 <TextView
-                    android:id="@+id/textView893"
+                    android:id="@+id/textVoiceFishingState"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
                     android:fontFamily="@font/app_main_font"
-                    android:text="활성화 "
+                    android:text="비활성화"
                     android:textColor="#FFFFFF"
                     android:textSize="40sp" />
 
@@ -100,12 +100,12 @@
                     android:textSize="40sp" />
 
                 <TextView
-                    android:id="@+id/textView132"
+                    android:id="@+id/textSmishingState"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
                     android:fontFamily="@font/app_main_font"
-                    android:text="활성화"
+                    android:text="비활성화"
                     android:textColor="#FFFFFF"
                     android:textSize="40sp" />
             </TableRow>
@@ -130,10 +130,10 @@
                 android:layout_width="133dp"
                 android:layout_height="126dp"
                 android:layout_gravity="center"
-                app:srcCompat="@drawable/power_on" />
+                app:srcCompat="@drawable/power_off" />
 
             <ImageView
-                android:id="@+id/imageView32"
+                android:id="@+id/settingButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right|bottom"
