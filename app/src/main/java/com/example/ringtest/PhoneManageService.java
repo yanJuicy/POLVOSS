@@ -19,14 +19,11 @@ import android.os.IBinder;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.provider.ContactsContract;
-import android.telephony.PhoneNumberUtils;
 import android.telephony.PhoneStateListener;
 import android.telephony.ServiceState;
 import android.telephony.SmsManager;
 import android.telephony.TelephonyManager;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
 import android.widget.Toast;
 
 import androidx.core.app.NotificationCompat;
@@ -44,6 +41,7 @@ public class PhoneManageService extends Service {
     ArrayList<String> contactList;      // 전화번호부를 담을 객ㅊ체
     SharedPreferences sf;               // DB 객체
     boolean isServiceStop;
+    boolean isCount;
 
 
     public PhoneManageService() {
@@ -94,6 +92,8 @@ public class PhoneManageService extends Service {
                 if (state == TelephonyManager.CALL_STATE_IDLE) {
                     // 평소 상태
                     Log.d("PhoneManageService", "일반 상태");
+                    isCount = false;
+                    Popup.isVibrate = false;
 
                 } else if (state == TelephonyManager.CALL_STATE_RINGING) {
                     // 전화벨 울림
@@ -109,6 +109,7 @@ public class PhoneManageService extends Service {
 
                     if(!contactList.contains(phoneNumber)) {
                         Log.d("PhoneManageService", "카운트 서비스 시작");
+                        isCount = true;
                         counter = new Thread(new Counter());
                         counter.start();
                     }
@@ -183,54 +184,75 @@ public class PhoneManageService extends Service {
         private int alertcount;
         private int vibratetime = 7000;
         private Handler handler = new Handler();
-
-
-
+        private int settingTime = 10;
 
         @Override
         public void run() {
-            for (count = 0; count < 3; count++) {   // 설정 시간만큼 카운트
-                handler.post(new Runnable() {
+            if (isServiceStop) return;
+
+            sf = getSharedPreferences("settingFile", MODE_PRIVATE);
+            int setId = sf.getInt("timeCheckId", 4);
+
+            switch (setId) {
+                case 1:
+                    settingTime = 5 * 60;
+                    break;
+                case 2:
+                    settingTime = 10 * 60;
+                    break;
+                case 3:
+                    settingTime = 20 * 60;
+                    break;
+                case 4:
+                    settingTime = 10;
+                    break;
+            }
+
+            int check = 0;
+
+            for (count = 0; count < settingTime; count++) {   // 설정 시간만큼 카운트
+                if (isCount) {
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            Log.d("Count", count + "");
+                        }
+                    });
+                    try {
+                        sleep(1000);
+                        check++;
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            if (check >= settingTime) {
+                sendSMS();  // 보호자에게 문자를 보냄
+                //showPopup();    // 팝업 보여주기
+                // 커스텀 토스트 보냄
+                handler.post(new Runnable() {//toast 보여주기
+
                     @Override
                     public void run() {
-                        Log.d("Count", count + "");
+                        customToast.makeText(PhoneManageService.this, "위험위험", Toast.LENGTH_SHORT).show();
                     }
                 });
-                try {
-                    sleep(1000);
-                } catch (Exception e) {
-                    e.printStackTrace();
+                //진동
+                Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+                if (Build.VERSION.SDK_INT >= 26) {
+                    vibrator.vibrate(VibrationEffect.createOneShot(vibratetime, 70));
+                    try {
+                        sleep(vibratetime);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    sendNotification();     // 사용자에게 상태 표시줄 알림을 보냄
+                } else {
+                    showPopup();
+                    sendNotification();
                 }
             }
-
-            sendSMS();  // 보호자에게 문자를 보냄
-            showPopup();    // 팝업 보여주기
-
-            handler.post(new Runnable() {//toast 보여주기
-
-                @Override
-                public void run() {
-                    customToast.makeText(PhoneManageService.this,"위험위험",Toast.LENGTH_SHORT).show();
-                }
-            });
-
-            //진동
-            Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-            if (Build.VERSION.SDK_INT >= 26) {
-                vibrator.vibrate(VibrationEffect.createOneShot(vibratetime,70));
-                try {
-                    sleep(vibratetime);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                show();     // 사용자에게 상태 표시줄 알림을 보냄
-            } else {
-                vibrator.vibrate(7000);
-            }
-
-
-
-
         }
     }
 
@@ -242,9 +264,6 @@ public class PhoneManageService extends Service {
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }
-
-
-
 
 
     /***
@@ -269,7 +288,7 @@ public class PhoneManageService extends Service {
     /***
      * 상태 표시줄 알림 보내기
      * */
-    private void show() {
+    private void sendNotification() {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "default");
 
         builder.setSmallIcon(R.mipmap.ic_launcher);
