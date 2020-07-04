@@ -130,7 +130,7 @@
                 android:layout_width="133dp"
                 android:layout_height="126dp"
                 android:layout_gravity="center"
-                app:srcCompat="@drawable/power_gray" />
+                app:srcCompat="@drawable/power_on" />
 
             <ImageView
                 android:id="@+id/imageView32"
