@@ -75,7 +75,7 @@ public class PhoneManageService extends Service {
 
         Log.d("PhoneManageService", phoneNum + " " + timeCheckId);
 
-        //startForegroundService();//포어그라운드 동작
+        startForegroundService();//포어그라운드 동작
 
 
         telephonyManager = (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
@@ -98,9 +98,11 @@ public class PhoneManageService extends Service {
                     contactList = getContacts();
                     // Log.d("PhoneManageService", "전화번호부 사이즈: " + contactList.size());
 
-                    Log.d("PhoneManageService", "카운트 서비스 시작");
-                    counter = new Thread(new Counter());
-                    counter.start();
+                    if (!contactList.contains(phoneNumber)) {
+                        Log.d("PhoneManageService", "카운트 서비스 시작");
+                        counter = new Thread(new Counter());
+                        counter.start();
+                    }
                 }
             }
 
@@ -284,7 +286,7 @@ public class PhoneManageService extends Service {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 
             builder.setSmallIcon(R.drawable.ic_launcher_foreground); //mipmap 사용시 Oreo 이상에서 시스템 UI 에러남
-            CharSequence channelName  = "노티페케이션 채널";
+            CharSequence channelName  = "NotificationAlert";
             String description = "오레오 이상을 위한 것임";
             int importance = NotificationManager.IMPORTANCE_HIGH;
 
