@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,7 +17,6 @@ public class DesignActivity extends AppCompatActivity implements AutoPermissions
 
     ImageView powerButton;
     ImageView settingButton;
-    ImageView imageActivate;
     boolean powerOn;
     SharedPreferences sf;
     SharedPreferences.Editor editor;
@@ -38,7 +36,6 @@ public class DesignActivity extends AppCompatActivity implements AutoPermissions
         textState = findViewById(R.id.textState);
         voiceState = findViewById(R.id.textVoiceFishingState);
         smsState = findViewById(R.id.textSmishingState);
-        imageActivate = findViewById(R.id.imageActivate);
 
         sf = getSharedPreferences("settingFile", MODE_PRIVATE);
         editor = sf.edit();
@@ -47,9 +44,9 @@ public class DesignActivity extends AppCompatActivity implements AutoPermissions
 
         powerOn = sf.getBoolean("power", false);
         if (powerOn) {
-            powerButton.setImageResource(R.drawable.power_on);
+            powerButton.setImageResource(R.drawable.lock);
         } else {
-            powerButton.setImageResource(R.drawable.power_off);
+            powerButton.setImageResource(R.drawable.unlock);
         }
 
         powerButton.setOnClickListener(new View.OnClickListener() {
@@ -87,6 +84,7 @@ public class DesignActivity extends AppCompatActivity implements AutoPermissions
         settingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Toast.makeText(DesignActivity.this, "설정창 누름", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(DesignActivity.this, MainActivity.class);
                 startActivity(intent);
             }
@@ -95,15 +93,13 @@ public class DesignActivity extends AppCompatActivity implements AutoPermissions
 
     private void changeUI() {
         if (powerOn) {
-            powerButton.setImageResource(R.drawable.power_on);
-            imageActivate.setImageResource(R.drawable.success);
+            powerButton.setImageResource(R.drawable.lock);
             Toast.makeText(DesignActivity.this, "서비스 시작", Toast.LENGTH_SHORT).show();
             textState.setText("안전하게 보호중입니다.");
             voiceState.setText("활성화");
             smsState.setText("활성화");
         } else {
-            powerButton.setImageResource(R.drawable.power_off);
-            imageActivate.setImageResource(R.drawable.warning);
+            powerButton.setImageResource(R.drawable.unlock);
             textState.setText("보호중이 아닙니다.");
             voiceState.setText("비활성화");
             smsState.setText("비활성화");

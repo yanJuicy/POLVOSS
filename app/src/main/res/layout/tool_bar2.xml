@@ -11,7 +11,7 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/textView123"
+            android:id="@+id/title_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center|left"
@@ -22,7 +22,7 @@
             android:textSize="20sp" />
 
         <ImageButton
-            android:id="@+id/imageButton"
+            android:id="@+id/settingButton"
             android:layout_width="27dp"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
