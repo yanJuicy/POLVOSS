@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:accessibilityHeading="true"
-    android:background="#202F8C"
+    android:background="@color/colorMain"
     android:orientation="vertical">
 
     <include layout="@layout/tool_bar" />
@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:background="#3F51B5">
+        android:background="@color/colorSub">
 
         <TableLayout
             android:layout_width="match_parent"
@@ -29,14 +29,14 @@
                 android:gravity="center">
 
                 <TextView
-                    android:id="@+id/textState"
+                    android:id="@+id/textView98"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_span="2"
                     android:fontFamily="@font/app_main_font"
-                    android:text="보호중이 아닙니다."
-                    android:textColor="#FFFFFF"
+                    android:text="안전하게 보호 중입니다."
+                    android:textColor="@color/white"
                     android:textSize="35sp" />
 
             </TableRow>
@@ -48,10 +48,10 @@
                 android:gravity="center">
 
                 <ImageView
-                    android:id="@+id/imageActivate"
+                    android:id="@+id/imageView12"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:srcCompat="@drawable/warning"
+                    app:srcCompat="@drawable/success"
                     tools:ignore="VectorDrawableCompat" />
 
             </TableRow>
@@ -68,17 +68,17 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/app_main_font"
                     android:text="보이스피싱 : "
-                    android:textColor="#FFFFFF"
+                    android:textColor="@color/white"
                     android:textSize="40sp" />
 
                 <TextView
-                    android:id="@+id/textVoiceFishingState"
+                    android:id="@+id/textView893"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
                     android:fontFamily="@font/app_main_font"
-                    android:text="비활성화"
-                    android:textColor="#FFFFFF"
+                    android:text="활성화 "
+                    android:textColor="@color/white"
                     android:textSize="40sp" />
 
             </TableRow>
@@ -96,17 +96,17 @@
                     android:layout_gravity="right"
                     android:fontFamily="@font/app_main_font"
                     android:text="스미싱 : "
-                    android:textColor="#FFFFFF"
+                    android:textColor="@color/white"
                     android:textSize="40sp" />
 
                 <TextView
-                    android:id="@+id/textSmishingState"
+                    android:id="@+id/textView132"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
                     android:fontFamily="@font/app_main_font"
-                    android:text="비활성화"
-                    android:textColor="#FFFFFF"
+                    android:text="활성화"
+                    android:textColor="@color/white"
                     android:textSize="40sp" />
             </TableRow>
 
@@ -130,10 +130,10 @@
                 android:layout_width="133dp"
                 android:layout_height="126dp"
                 android:layout_gravity="center"
-                app:srcCompat="@drawable/power_off" />
+                app:srcCompat="@drawable/power_on" />
 
             <ImageView
-                android:id="@+id/settingButton"
+                android:id="@+id/imageView32"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right|bottom"

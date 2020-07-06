@@ -245,7 +245,7 @@ public class PhoneManageService extends Service {
                 });
                 //진동
                 Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-                if (Build.VERSION.SDK_INT >= 26) {
+                if (Build.VERSION.SDK_INT >= 29) {
                     vibrator.vibrate(VibrationEffect.createOneShot(vibratetime, 70));
                     try {
                         sleep(vibratetime);
