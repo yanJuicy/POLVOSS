@@ -14,10 +14,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.provider.Telephony;
+import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.telephony.PhoneStateListener;
 import android.telephony.ServiceState;
 import android.telephony.TelephonyManager;
@@ -43,6 +47,7 @@ public class MainActivity extends AppCompatActivity implements AutoPermissionsLi
     EditText inputPhoneNum;
     Button setPhoneNumButton;
     Button cancelService;
+    Button setContactButton;
 
     int timeCheckId;    // 설정 시간 번호
     String phoneNum;    // 보호자 연락처 추후 여러개로 추가
@@ -64,6 +69,7 @@ public class MainActivity extends AppCompatActivity implements AutoPermissionsLi
         timeButton = findViewById(R.id.buttonSetTime);
         inputPhoneNum = findViewById(R.id.phoneNum);
         setPhoneNumButton = findViewById(R.id.buttonSetPhoneNum);
+        setContactButton = findViewById(R.id.buttonSetContact);
         //cancelService = findViewById(R.id.buttonCancelService);
 
         sf = getSharedPreferences("settingFile", MODE_PRIVATE); // 로컬 DB 객체
@@ -98,6 +104,16 @@ public class MainActivity extends AppCompatActivity implements AutoPermissionsLi
                 }
             }
         });
+        //내 연락처에서 번호 블러오기
+        setContactButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_PICK);
+                intent.setData(ContactsContract.CommonDataKinds.Phone.CONTENT_URI);
+                startActivityForResult(intent,1);
+            }
+        });
+
 
         // 서비스 시작 구현 부분 여기서 부터 진행하자
         setPhoneNumButton.setOnClickListener(new View.OnClickListener() {
@@ -137,21 +153,34 @@ public class MainActivity extends AppCompatActivity implements AutoPermissionsLi
         });*/
     }
 
+    //연락처 불러오기 버튼 클릭 시 동작
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(resultCode == RESULT_OK)
+        {
+            Cursor cursor = getContentResolver().query(data.getData(),
+                    new String[]{ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME,
+                            ContactsContract.CommonDataKinds.Phone.NUMBER}, null, null, null);
+            cursor.moveToFirst();
+            String  name = cursor.getString(0);        //0은 이름을 얻어옵니다.
+            String num = cursor.getString(1);   //1은 번호를 받아옵니다.
+            inputPhoneNum.setText(num);
+            cursor.close();
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+
+    }
+
     private void permissionCheck() {
         AutoPermissions.Companion.loadAllPermissions(this,101); // 권한 설정 오픈소스
     }
-
-
     @Override
     public void onDenied(int i, String[] strings) {
 
     }
-
     @Override
     public void onGranted(int i, String[] strings) {
 
     }
-
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
