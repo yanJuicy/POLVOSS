@@ -44,9 +44,9 @@ public class DesignActivity extends AppCompatActivity implements AutoPermissions
 
         powerOn = sf.getBoolean("power", false);
         if (powerOn) {
-            powerButton.setImageResource(R.drawable.lock);
+            powerButton.setImageResource(R.mipmap.lock);
         } else {
-            powerButton.setImageResource(R.drawable.unlock);
+            powerButton.setImageResource(R.mipmap.unlock);
         }
 
         powerButton.setOnClickListener(new View.OnClickListener() {
@@ -93,13 +93,13 @@ public class DesignActivity extends AppCompatActivity implements AutoPermissions
 
     private void changeUI() {
         if (powerOn) {
-            powerButton.setImageResource(R.drawable.lock);
+            powerButton.setImageResource(R.mipmap.lock);
             Toast.makeText(DesignActivity.this, "서비스 시작", Toast.LENGTH_SHORT).show();
             textState.setText("안전하게 보호중입니다.");
             voiceState.setText("활성화");
             smsState.setText("활성화");
         } else {
-            powerButton.setImageResource(R.drawable.unlock);
+            powerButton.setImageResource(R.mipmap.unlock);
             textState.setText("보호중이 아닙니다.");
             voiceState.setText("비활성화");
             smsState.setText("비활성화");
