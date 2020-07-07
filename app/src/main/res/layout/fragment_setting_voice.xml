@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white">
+
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="시간 선택"
+        android:textColor="@color/colorMain"/>
+
+    <RadioGroup android:id="@+id/radioGroup"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <RadioButton android:layout_weight="1"
+            android:text="5분"
+            android:id="@+id/rg_btn1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorMain"/>
+        <RadioButton android:layout_weight="1"
+            android:text="10분"
+            android:id="@+id/rg_btn2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorMain"/>
+        <RadioButton android:layout_weight="1"
+            android:text="20분"
+            android:id="@+id/rg_btn3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorMain"/>
+        <RadioButton android:layout_weight="1"
+            android:text="10초"
+            android:id="@+id/rg_btn4"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorMain"/>
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/buttonSetTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorMain"
+        android:text="선택" />
+
+    <EditText
+        android:id="@+id/phoneNum"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="보호자 연락처 입력"
+        android:textColorHint="@color/colorMain"
+        android:inputType="numberDecimal"
+        android:text="" />
+
+    <Button
+        android:id="@+id/buttonSetPhoneNum"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorMain"
+        android:text="저장" />
+
+    <!--<Button
+        android:id="@+id/buttonCancelService"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="서비스 종료" />-->
+
+</LinearLayout>

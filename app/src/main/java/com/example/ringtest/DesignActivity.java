@@ -85,7 +85,7 @@ public class DesignActivity extends AppCompatActivity implements AutoPermissions
             @Override
             public void onClick(View v) {
                 Toast.makeText(DesignActivity.this, "설정창 누름", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(DesignActivity.this, MainActivity.class);
+                Intent intent = new Intent(DesignActivity.this, SettingActivity.class);
                 startActivity(intent);
             }
         });
