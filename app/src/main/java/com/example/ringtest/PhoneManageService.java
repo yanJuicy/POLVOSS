@@ -302,7 +302,7 @@ public class PhoneManageService extends Service {
         builder.setContentTitle("알림 제목");
         builder.setContentText("알림 세부 텍스트");
 
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, DesignActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(this,
                 0,
                 intent,
