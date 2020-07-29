@@ -1,8 +1,12 @@
 package com.example.ringtest;
 
+import android.annotation.TargetApi;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -14,6 +18,8 @@ import com.pedro.library.AutoPermissions;
 import com.pedro.library.AutoPermissionsListener;
 
 public class DesignActivity extends AppCompatActivity implements AutoPermissionsListener {
+
+    private static final int ACTION_MANAGE_OVERLAY_PERMISSION_REQUEST_CODE = 1;
 
     ImageView powerButton;
     ImageView settingButton;
@@ -32,6 +38,7 @@ public class DesignActivity extends AppCompatActivity implements AutoPermissions
         setContentView(R.layout.activity_design);
 
         AutoPermissions.Companion.loadAllPermissions(this,101); // 권한 설정 오픈소스
+        checkPermission();
 
         textState = findViewById(R.id.textState);
         voiceState = findViewById(R.id.textVoiceFishingState);
@@ -115,5 +122,29 @@ public class DesignActivity extends AppCompatActivity implements AutoPermissions
     @Override
     public void onGranted(int i, String[] strings) {
 
+    }
+
+    public void checkPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {   // 마시멜로우 이상일 경우
+            if (!Settings.canDrawOverlays(this)) {              // 체크
+                Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
+                        Uri.parse("package:" + getPackageName()));
+                startActivityForResult(intent, ACTION_MANAGE_OVERLAY_PERMISSION_REQUEST_CODE);
+            }
+        }
+    }
+
+    @TargetApi(Build.VERSION_CODES.M)
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == ACTION_MANAGE_OVERLAY_PERMISSION_REQUEST_CODE) {
+            if (!Settings.canDrawOverlays(this)) {
+                // TODO 동의를 얻지 못했을 경우의 처리
+
+            } else {
+                //startService(new Intent(MainActivity.this, MyService.class));
+            }
+        }
     }
 }

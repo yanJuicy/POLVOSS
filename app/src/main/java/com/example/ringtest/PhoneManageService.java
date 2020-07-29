@@ -11,6 +11,7 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.PixelFormat;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
@@ -24,6 +25,13 @@ import android.telephony.ServiceState;
 import android.telephony.SmsManager;
 import android.telephony.TelephonyManager;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.core.app.NotificationCompat;
@@ -42,6 +50,9 @@ public class PhoneManageService extends Service {
     SharedPreferences sf;               // DB 객체
     boolean isServiceStop;
     boolean isCount;
+
+    WindowManager wm;
+    View mView;
 
 
     public PhoneManageService() {
@@ -240,6 +251,7 @@ public class PhoneManageService extends Service {
                     public void run() {
                         for( int i=0; i<alerttime; i++){
                             customToast.makeText(PhoneManageService.this, alertText, Toast.LENGTH_LONG).show();
+                            showPopup();
                         }
                     }
                 });
@@ -255,9 +267,12 @@ public class PhoneManageService extends Service {
                     sendNotification();     // 사용자에게 상태 표시줄 알림을 보냄
                     sendSMS();  // 보호자에게 문자를 보냄
                 } else {
-                    showPopup();
                     sendNotification();
                     sendSMS();  // 보호자에게 문자를 보냄
+                }
+
+                if (Build.VERSION.SDK_INT < 29) {
+                    showPopup();
                 }
             }
         }
@@ -267,9 +282,41 @@ public class PhoneManageService extends Service {
      * 팝업 보여주기
      */
     private void showPopup() {
-        Intent intent = new Intent(getApplicationContext(), Popup.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
+        // 오버레이 서비스 시작
+        startService(new Intent(getApplicationContext(), OverlayService.class));
+
+        /*LayoutInflater inflate = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        wm = (WindowManager) getSystemService(WINDOW_SERVICE);
+
+        int LAYOUT_FLAG;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            LAYOUT_FLAG = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
+        } else {
+            LAYOUT_FLAG = WindowManager.LayoutParams.TYPE_SYSTEM_ALERT;
+        }
+
+        WindowManager.LayoutParams params = new WindowManager.LayoutParams(
+                *//*ViewGroup.LayoutParams.MATCH_PARENT*//*300,
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                LAYOUT_FLAG,
+                WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
+                        |WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
+                        |WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH,
+                PixelFormat.TRANSLUCENT);
+
+        params.gravity = Gravity.LEFT | Gravity.TOP;
+        mView = inflate.inflate(R.layout.activity_overlay, null);
+        final TextView textView = (TextView) mView.findViewById(R.id.overlay_textview);
+        final ImageButton bt =  (ImageButton) mView.findViewById(R.id.overlay_bt);
+        bt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bt.setImageResource(R.mipmap.ic_launcher_round);
+                textView.setText("on click!!");
+                stopSelf();
+            }
+        });
+        wm.addView(mView, params);*/
     }
 
 

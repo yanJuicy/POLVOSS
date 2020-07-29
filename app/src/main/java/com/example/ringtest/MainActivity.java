@@ -1,6 +1,7 @@
 package com.example.ringtest;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
@@ -20,6 +21,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.provider.Settings;
 import android.provider.Telephony;
 import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.telephony.PhoneStateListener;
@@ -155,6 +157,7 @@ public class MainActivity extends AppCompatActivity implements AutoPermissionsLi
 
     //연락처 불러오기 버튼 클릭 시 동작
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         if(resultCode == RESULT_OK)
         {
             Cursor cursor = getContentResolver().query(data.getData(),
@@ -166,7 +169,8 @@ public class MainActivity extends AppCompatActivity implements AutoPermissionsLi
             inputPhoneNum.setText(num);
             cursor.close();
         }
-        super.onActivityResult(requestCode, resultCode, data);
+
+
 
     }
 
