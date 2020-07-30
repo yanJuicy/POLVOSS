@@ -208,9 +208,9 @@ public class PhoneManageService extends Service {
             if (isServiceStop) return;
 
             sf = getSharedPreferences("settingFile", MODE_PRIVATE);
-            int setId = sf.getInt("timeCheckId", 4);
+            long min = sf.getLong("min", 0);
 
-            switch (setId) {
+            /*switch (setId) {
                 case 1:
                     settingTime = 5 * 60;
                     break;
@@ -223,8 +223,8 @@ public class PhoneManageService extends Service {
                 case 4:
                     settingTime = 10;
                     break;
-            }
-
+            }*/
+            settingTime = (int) min * 60;
             int check = 0;
 
             for (count = 0; count < settingTime; count++) {   // 설정 시간만큼 카운트
@@ -275,9 +275,9 @@ public class PhoneManageService extends Service {
                     sendSMS();  // 보호자에게 문자를 보냄
                 }
 
-                if (Build.VERSION.SDK_INT < 29) {
+                /*if (Build.VERSION.SDK_INT < 29) {
                     showPopup();
-                }
+                }*/
             }
         }
     }

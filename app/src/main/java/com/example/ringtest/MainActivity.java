@@ -17,6 +17,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.BitmapFactory;
+import android.graphics.Point;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -27,11 +28,14 @@ import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.telephony.PhoneStateListener;
 import android.telephony.ServiceState;
 import android.telephony.TelephonyManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.SeekBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.pedro.library.AutoPermissions;
@@ -63,12 +67,15 @@ public class MainActivity extends AppCompatActivity implements AutoPermissionsLi
 
         permissionCheck(); // 권한 체크
 
-        r_btn1 = findViewById(R.id.rg_btn1);
+        SeekBar seekBarTime = findViewById(R.id.main_seekbar);
+        final TextView textViewTime = findViewById(R.id.main_textViewTime);
+
+        /*r_btn1 = findViewById(R.id.rg_btn1);
         r_btn2 = findViewById(R.id.rg_btn2);
         r_btn3 = findViewById(R.id.rg_btn3);
         r_btn4 = findViewById(R.id.rg_btn4);
-        radioGroup = findViewById(R.id.radioGroup);
-        timeButton = findViewById(R.id.buttonSetTime);
+        radioGroup = findViewById(R.id.radioGroup);*/
+        //timeButton = findViewById(R.id.buttonSetTime);
         inputPhoneNum = findViewById(R.id.phoneNum);
         setPhoneNumButton = findViewById(R.id.buttonSetPhoneNum);
         setContactButton = findViewById(R.id.buttonSetContact);
@@ -78,16 +85,46 @@ public class MainActivity extends AppCompatActivity implements AutoPermissionsLi
         editor = sf.edit(); // DB 편집 객체
         timeCheckId = sf.getInt("timeCheckId", 1);      // DB에 설정 시간이 존재하면 불러옴
 
-        timeButton.setOnClickListener(new View.OnClickListener() {
+        long min = sf.getLong("min", 0);
+        seekBarTime.setProgress((int) min);
+        textViewTime.setText("Time : " + min + "분");
+        Point maxSizePoint = new Point();
+        getWindowManager().getDefaultDisplay().getSize(maxSizePoint);
+        final int maxX = maxSizePoint.x;
+
+        seekBarTime.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progressValue, boolean fromUser) {
+                int val = (progressValue * (seekBar.getWidth() - 2 * seekBar.getThumbOffset())) / seekBar.getMax();
+                textViewTime.setText("Time : " + progressValue + "분");
+                int textViewX = val - (textViewTime.getWidth() / 2);
+                int finalX = textViewTime.getWidth() + textViewX > maxX ? (maxX - textViewTime.getWidth() - 16) : textViewX + 16 /*your margin*/;
+                textViewTime.setX(finalX < 0 ? 16/*your margin*/ : finalX);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                Log.d("VoiceSetting", "DB 저장 " + seekBar.getProgress());
+                long min = seekBar.getProgress();
+                editor.putLong("min", min);      // 로컬 DB에 설정 시간 저장
+                editor.commit();
+            }
+        });
+
+        /*timeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 editor.putInt("timeCheckId", timeCheckId);      // 로컬 DB에 설정 시간 번호 저장
                 editor.commit();
                 Toast.makeText(MainActivity.this, "시간 선택 완료", Toast.LENGTH_SHORT).show();
             }
-        });
+        });*/
 
-        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+        /*radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch (checkedId) {
@@ -105,7 +142,7 @@ public class MainActivity extends AppCompatActivity implements AutoPermissionsLi
                         break;
                 }
             }
-        });
+        });*/
         //내 연락처에서 번호 블러오기
         setContactButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -169,9 +206,6 @@ public class MainActivity extends AppCompatActivity implements AutoPermissionsLi
             inputPhoneNum.setText(num);
             cursor.close();
         }
-
-
-
     }
 
     private void permissionCheck() {
