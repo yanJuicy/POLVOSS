@@ -7,12 +7,15 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.telephony.SmsMessage;
 import android.util.Log;
@@ -166,6 +169,16 @@ public class SmsReceiver extends BroadcastReceiver {
                         }
                     }
                 });
+                //진동 출력
+                if (Build.VERSION.SDK_INT >= 29) {
+                    vibrator.vibrate(VibrationEffect.createOneShot(vibratetime, 70));
+                 /*   try {
+                        sleep(vibratetime);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }*/
+                }
+
 
                 break;
             }
@@ -194,4 +207,5 @@ public class SmsReceiver extends BroadcastReceiver {
         }
         return -1;
     }
+
 }

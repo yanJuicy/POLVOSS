@@ -6,7 +6,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Handler;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -16,10 +19,14 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.text.MessageFormat;
 
+import static java.lang.Thread.sleep;
+
 public class MMSReceiver extends BroadcastReceiver
 {
     private Context _context;
     private int alerttime = 4; //toast 알림 출력 시간(n * 3.5 초 )
+    Vibrator vibrator;  // 진동 관리 변수
+    private int vibratetime = 5000;
 
 
     @Override
@@ -49,6 +56,15 @@ public class MMSReceiver extends BroadcastReceiver
                 }
             }
         });
+        //진동
+        if (Build.VERSION.SDK_INT >= 29) {
+            vibrator.vibrate(VibrationEffect.createOneShot(vibratetime, 70));
+          /*  try {
+                sleep(vibratetime);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }*/
+        }
     }
 
     private void parseMMS()

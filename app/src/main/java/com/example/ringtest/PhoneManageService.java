@@ -51,6 +51,8 @@ public class PhoneManageService extends Service {
     boolean isServiceStop;
     boolean isCount;
 
+
+
     WindowManager wm;
     View mView;
 
@@ -347,9 +349,9 @@ public class PhoneManageService extends Service {
     private void sendNotification() {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "default");
 
-        builder.setSmallIcon(R.mipmap.ic_launcher);
-        builder.setContentTitle("알림 제목");
-        builder.setContentText("알림 세부 텍스트");
+        builder.setSmallIcon(R.mipmap.alert);
+        builder.setContentTitle("피싱 위험 감지");
+        builder.setContentText("보이스 피싱이 우려됩니다. 주의해주세요.");
 
         Intent intent = new Intent(this, DesignActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(this,
