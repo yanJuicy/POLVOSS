@@ -245,12 +245,13 @@ public class PhoneManageService extends Service {
 
                 //showPopup();    // 팝업 보여주기
                 // 커스텀 토스트 보냄
-                handler.post(new Runnable() {//toast 보여주기
+                handler.post(new Runnable() {//toast and overlay 보여주기
 
                     @Override
                     public void run() {
                         for( int i=0; i<alerttime; i++){
-                            customToast.makeText(PhoneManageService.this, alertText, Toast.LENGTH_LONG).show();
+                            //요기가 커스텀 토스트
+                            //customToast.makeText(PhoneManageService.this, alertText, Toast.LENGTH_LONG).show();
                             showPopup();
                         }
                     }
