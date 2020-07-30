@@ -15,6 +15,8 @@ import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import static java.lang.Thread.sleep;
+
 /***
  *  통화 화면 위에 알람을 띄움
  *
@@ -43,7 +45,7 @@ public class OverlayService extends Service {
         }
 
         WindowManager.LayoutParams params = new WindowManager.LayoutParams(
-                /*ViewGroup.LayoutParams.MATCH_PARENT*/300,
+                ViewGroup.LayoutParams.WRAP_CONTENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT,
                 LAYOUT_FLAG,
                 WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
@@ -52,17 +54,37 @@ public class OverlayService extends Service {
                 PixelFormat.TRANSLUCENT);
 
         params.gravity = Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL; // 레이아웃 위치 조정
+        //mView = inflate.inflate(R.layout.activity_overlay, null);
         mView = inflate.inflate(R.layout.activity_overlay, null);
-        final TextView textView = (TextView) mView.findViewById(R.id.overlay_textview);
+
+
+        /*final TextView textView = (TextView) mView.findViewById(R.id.overlay_textview);
         final ImageButton bt =  (ImageButton) mView.findViewById(R.id.overlay_bt);
+        */
+        final ImageButton bt =  (ImageButton) mView.findViewById(R.id.imagebutton1);
+        final TextView textView = mView.findViewById(R.id.message);
+
+
         bt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                bt.setImageResource(R.mipmap.ic_launcher_round);
-                textView.setText("on click!!");
+                //bt.setImageResource(R.mipmap.ic_launcher_round);
+                bt.setImageResource(R.mipmap.check_icon);
+                textView.setText("확인 완료");
                 stopSelf();
             }
         });
+        textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //bt.setImageResource(R.mipmap.ic_launcher_round);
+                bt.setImageResource(R.mipmap.check_icon);
+                textView.setText("확인 완료");
+                stopSelf();
+            }
+        });
+
+
         wm.addView(mView, params);
     }
 
@@ -71,6 +93,12 @@ public class OverlayService extends Service {
         super.onDestroy();
         Log.d("OverlayService", "오버레이 종료");
 
+        //확인 출력 시간
+        try {
+            sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         if(wm != null) {
             if(mView != null) {
                 wm.removeView(mView);
