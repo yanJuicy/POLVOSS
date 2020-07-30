@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -133,7 +134,15 @@ public class SmsReceiver extends BroadcastReceiver {
         int result = -1;
         this.context = context;
         vibrator = (Vibrator) context.getSystemService(context.VIBRATOR_SERVICE);   // 진동 객체 초기화, 안드로이드 9까지 통화중 진동 가능 (아마도)
+        Uri uri = Uri.parse(contents);
+        if (uri.getScheme() == null || uri.getScheme().isEmpty()) {
+            // safe text
+            Log.d("URL X", contents);
 
+        } else {
+            // has url
+            Log.d("URL O", contents);
+        }
         while(true)
         {
             checkNum = contents.indexOf(".", idx+1);

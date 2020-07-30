@@ -144,10 +144,11 @@ public class PhoneManageService extends Service {
     private void startForegroundService(){
         //오래오에서는 채널이 필수이다! 채널
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "default");
-        builder.setSmallIcon(R.mipmap.ic_launcher);//아이콘 설정
+
+        builder.setSmallIcon(R.mipmap.lock);//아이콘 설정
         //위 포어그라운들 아이콘으로 뜰 디스크립션
         builder.setContentTitle("police_call_stop");
-        builder.setContentText("포그라운드 서비스 실행 중");
+        builder.setContentTitle("보이스 피싱 및 스미싱 보호중");
 
         Intent notificationIntent = new Intent(this, PhoneManageService.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
