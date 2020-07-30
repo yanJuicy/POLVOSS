@@ -79,6 +79,7 @@
         </activity>
 
         <activity android:name=".SettingActivity"/>
+        <activity android:name=".SetNumberPopupActivity" android:theme="@android:style/Theme.Dialog" />
 
     </application>
 

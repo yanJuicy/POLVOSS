@@ -8,66 +8,127 @@
     android:background="@color/white">
 
 
-
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="시간 선택"
-        android:textColor="@color/colorMain"/>
+        android:orientation="vertical"
+        android:padding="10dp">
 
-    <RadioGroup android:id="@+id/radioGroup"
-        android:orientation="horizontal"
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:fontFamily="@font/app_main_font"
+            android:text="설정"
+            android:textColor="#80000000"
+            android:textSize="15sp"/>
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="10dp"
+            android:text="시간 선택"
+            android:fontFamily="@font/app_main_font"
+            android:textColor="@color/colorMain"
+            android:textSize="20sp" />
+
+        <SeekBar
+            android:id="@+id/seekBarTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:max="300"
+            android:progress="0"
+            android:scrollbarAlwaysDrawHorizontalTrack="false" />
+        <TextView
+            android:id="@+id/textViewTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/seekBarTime"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="20dp"
+            android:textSize="15sp"
+            android:textColor="@color/colorMain"
+            android:fontFamily="@font/app_main_font"/>
+
+        <TextView
+            android:id="@+id/setNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:fontFamily="@font/app_main_font"
+            android:text="보호자 연락처 설정"
+            android:textColor="@color/colorMain"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+    <View
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <RadioButton android:layout_weight="1"
-            android:text="5분"
-            android:id="@+id/rg_btn1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:textColor="@color/colorMain"/>
-        <RadioButton android:layout_weight="1"
-            android:text="10분"
-            android:id="@+id/rg_btn2"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:textColor="@color/colorMain"/>
-        <RadioButton android:layout_weight="1"
-            android:text="20분"
-            android:id="@+id/rg_btn3"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:textColor="@color/colorMain"/>
-        <RadioButton android:layout_weight="1"
-            android:text="10초"
-            android:id="@+id/rg_btn4"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:textColor="@color/colorMain"/>
-    </RadioGroup>
+        android:layout_height="0.5dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="#000000"/>
 
-    <Button
-        android:id="@+id/buttonSetTime"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorMain"
-        android:text="선택" />
+        android:orientation="vertical"
+        android:padding="10dp">
 
-    <EditText
-        android:id="@+id/phoneNum"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="보호자 연락처 입력"
-        android:textColorHint="@color/colorMain"
-        android:inputType="numberDecimal"
-        android:text="" />
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:fontFamily="@font/app_main_font"
+            android:text="이용안내"
+            android:textColor="#80000000"
+            android:textSize="15sp" />
 
-    <Button
-        android:id="@+id/buttonSetPhoneNum"
+        <TextView
+            android:id="@+id/personal_Info_Policy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="20dp"
+            android:fontFamily="@font/app_main_font"
+            android:text="개인 정보 처리 방침"
+            android:textColor="@color/colorMain"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/version_Info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="20dp"
+            android:fontFamily="@font/app_main_font"
+            android:text="버전 정보"
+            android:textColor="@color/colorMain"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/OS_License"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:fontFamily="@font/app_main_font"
+            android:text="오픈소스 라이센스"
+            android:textColor="@color/colorMain"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+    <View
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorMain"
-        android:text="저장" />
+        android:layout_height="0.5dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="#000000"/>
 
     <!--<Button
         android:id="@+id/buttonCancelService"
