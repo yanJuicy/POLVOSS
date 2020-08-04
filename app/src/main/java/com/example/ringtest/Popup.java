@@ -7,7 +7,8 @@ import android.os.Vibrator;
 import android.view.View;
 import android.widget.TextView;
 /**
-    전화 중 팝업 보여주기, 아마 여기서 진동 처리하면 동작할듯?
+    사용 안하는 클래스, 삭제 예정
+    전화 중 팝업 보여주기, OverlayService 이용
  */
 public class Popup extends AppCompatActivity {
 

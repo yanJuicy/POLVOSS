@@ -37,18 +37,18 @@ public class DesignActivity extends AppCompatActivity implements AutoPermissions
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_design);
 
-        AutoPermissions.Companion.loadAllPermissions(this,101); // 권한 설정 오픈소스
-        checkPermission();
+        checkPermission(); // 권한 설정 확인
 
+        // id 매핑
         textState = findViewById(R.id.textState);
         voiceState = findViewById(R.id.textVoiceFishingState);
         smsState = findViewById(R.id.textSmishingState);
-
-        sf = getSharedPreferences("settingFile", MODE_PRIVATE);
-        editor = sf.edit();
         powerButton = findViewById(R.id.powerBtn);
         settingButton = findViewById(R.id.settingButton);
 
+        // DB에서 파워 버튼 설정 값 확인
+        sf = getSharedPreferences("settingFile", MODE_PRIVATE);
+        editor = sf.edit();
         powerOn = sf.getBoolean("power", false);
         if (powerOn) {
             powerButton.setImageResource(R.mipmap.lock);
@@ -56,26 +56,27 @@ public class DesignActivity extends AppCompatActivity implements AutoPermissions
             powerButton.setImageResource(R.mipmap.unlock);
         }
 
+        // 파워 버튼 클릭 이벤트
         powerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // DB에서 보호자 번호가 있는지 확인
                 String phoneNo = sf.getString("phoneNum", "");
-                if (phoneNo.equals("")) {
+                if (phoneNo.equals("")) { // 설정된 휴대폰 번호가 없으면 MainActivity로 이동
                     startActivity(new Intent(DesignActivity.this, MainActivity.class));
                     return;
                 }
+                // 파워 버튼 상태 변경
                 powerOn = !powerOn;
                 editor.putBoolean("power", powerOn);
                 editor.commit();
 
-                if (powerOn) {
-                    // 서비스 시작
+                if (powerOn) { // 서비스 시작
                     changeUI();
                     serviceIntent = new Intent(DesignActivity.this, PhoneManageService.class);
-                    serviceIntent.setAction("startForeground");//포그라운드 액션지정
+                    serviceIntent.setAction("startForeground"); //포그라운드 액션지정
                     startService(serviceIntent);
-                } else {
-                    // 서비스 종료
+                } else { // 서비스 종료
                     changeUI();
                     if (serviceIntent != null) {
                         Toast.makeText(DesignActivity.this, "서비스 종료", Toast.LENGTH_SHORT).show();
@@ -98,7 +99,7 @@ public class DesignActivity extends AppCompatActivity implements AutoPermissions
         });
     }
 
-    private void changeUI() {
+    private void changeUI() { // 파워 버튼 상태값에 따른 UI 변경
         if (powerOn) {
             powerButton.setImageResource(R.mipmap.lock);
             Toast.makeText(DesignActivity.this, "서비스 시작", Toast.LENGTH_SHORT).show();
@@ -125,6 +126,9 @@ public class DesignActivity extends AppCompatActivity implements AutoPermissions
     }
 
     public void checkPermission() {
+        AutoPermissions.Companion.loadAllPermissions(this,101); // 권한 설정 오픈소스
+
+        // 다른 앱 위에 그리기 권한
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {   // 마시멜로우 이상일 경우
             if (!Settings.canDrawOverlays(this)) {              // 체크
                 Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,

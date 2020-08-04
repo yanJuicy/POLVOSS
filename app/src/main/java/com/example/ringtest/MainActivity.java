@@ -1,39 +1,18 @@
 package com.example.ringtest;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.app.NotificationCompat;
-import androidx.core.content.ContextCompat;
 
-import android.Manifest;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.database.Cursor;
-import android.graphics.BitmapFactory;
 import android.graphics.Point;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
-import android.provider.Settings;
-import android.provider.Telephony;
-import android.telephony.PhoneNumberFormattingTextWatcher;
-import android.telephony.PhoneStateListener;
-import android.telephony.ServiceState;
-import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -47,18 +26,17 @@ public class MainActivity extends AppCompatActivity implements AutoPermissionsLi
     SharedPreferences sf;               // 로컬 DB
     SharedPreferences.Editor editor;    // DB 편집 객체
 
-    RadioGroup radioGroup;
+    /*RadioGroup radioGroup;
     RadioButton r_btn1, r_btn2, r_btn3, r_btn4;
     Button timeButton;
-    EditText inputPhoneNum;
-    Button setPhoneNumButton;
-    Button cancelService;
-    Button setContactButton;
+    Button cancelService;*/
 
-    int timeCheckId;    // 설정 시간 번호
+    EditText inputPhoneNum;         // 보호자 번호
+    Button saveButton;              // 저장 버튼
+    Button setContactButton;        // 연락처에서 불러오기 버튼
+
+    //int timeCheckId;    // 설정 시간 번호
     String phoneNum;    // 보호자 연락처 추후 여러개로 추가
-
-    Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,8 +45,12 @@ public class MainActivity extends AppCompatActivity implements AutoPermissionsLi
 
         permissionCheck(); // 권한 체크
 
+        // id 매핑
         SeekBar seekBarTime = findViewById(R.id.main_seekbar);
         final TextView textViewTime = findViewById(R.id.main_textViewTime);
+        inputPhoneNum = findViewById(R.id.phoneNum);
+        saveButton = findViewById(R.id.buttonSetPhoneNum);
+        setContactButton = findViewById(R.id.buttonSetContact);
 
         /*r_btn1 = findViewById(R.id.rg_btn1);
         r_btn2 = findViewById(R.id.rg_btn2);
@@ -76,25 +58,25 @@ public class MainActivity extends AppCompatActivity implements AutoPermissionsLi
         r_btn4 = findViewById(R.id.rg_btn4);
         radioGroup = findViewById(R.id.radioGroup);*/
         //timeButton = findViewById(R.id.buttonSetTime);
-        inputPhoneNum = findViewById(R.id.phoneNum);
-        setPhoneNumButton = findViewById(R.id.buttonSetPhoneNum);
-        setContactButton = findViewById(R.id.buttonSetContact);
         //cancelService = findViewById(R.id.buttonCancelService);
 
+        // DB에서 저장된 설정 시간이 있는 지 확인
         sf = getSharedPreferences("settingFile", MODE_PRIVATE); // 로컬 DB 객체
         editor = sf.edit(); // DB 편집 객체
-        timeCheckId = sf.getInt("timeCheckId", 1);      // DB에 설정 시간이 존재하면 불러옴
-
+        //timeCheckId = sf.getInt("timeCheckId", 1);      // DB에 설정 시간이 존재하면 불러옴
         long min = sf.getLong("min", 0);
+
+        // 시크바에 DB에 저장되 있는 값 설정
         seekBarTime.setProgress((int) min);
         textViewTime.setText("Time : " + min + "분");
         Point maxSizePoint = new Point();
         getWindowManager().getDefaultDisplay().getSize(maxSizePoint);
         final int maxX = maxSizePoint.x;
 
+        // 시크바 이동 이벤트
         seekBarTime.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
-            public void onProgressChanged(SeekBar seekBar, int progressValue, boolean fromUser) {
+            public void onProgressChanged(SeekBar seekBar, int progressValue, boolean fromUser) { // 시크바 이동 중일 때
                 int val = (progressValue * (seekBar.getWidth() - 2 * seekBar.getThumbOffset())) / seekBar.getMax();
                 textViewTime.setText("Time : " + progressValue + "분");
                 int textViewX = val - (textViewTime.getWidth() / 2);
@@ -107,11 +89,45 @@ public class MainActivity extends AppCompatActivity implements AutoPermissionsLi
             }
 
             @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
+            public void onStopTrackingTouch(SeekBar seekBar) { // 시크바 이동이 멈췄을 때 DB에 저장
                 Log.d("VoiceSetting", "DB 저장 " + seekBar.getProgress());
                 long min = seekBar.getProgress();
                 editor.putLong("min", min);      // 로컬 DB에 설정 시간 저장
                 editor.commit();
+            }
+        });
+
+        //내 연락처에서 번호 블러오기
+        setContactButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_PICK);
+                intent.setData(ContactsContract.CommonDataKinds.Phone.CONTENT_URI);
+                startActivityForResult(intent,1);
+            }
+        });
+
+        // 저장 버튼 클릭 이벤트
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                phoneNum = inputPhoneNum.getText().toString();
+                editor.putString("phoneNum", phoneNum);     // DB에 보호자 번호 저장
+                editor.commit();
+                Toast.makeText(MainActivity.this, "설정 완료", Toast.LENGTH_SHORT).show();
+                finish();
+                /*// 서비스 시작
+                intent = new Intent(MainActivity.this, PhoneManageService.class);
+                intent.putExtra("phoneNum", phoneNum);
+                intent.putExtra("timeCheckId", timeCheckId);
+                intent.setAction("startForeground");//포그라운드 액션지정
+                startService(intent);
+*/
+                /*if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.O){
+                    startForegroundService(intent);
+                }
+                else {    startService(intent);
+                }*/
             }
         });
 
@@ -143,40 +159,6 @@ public class MainActivity extends AppCompatActivity implements AutoPermissionsLi
                 }
             }
         });*/
-        //내 연락처에서 번호 블러오기
-        setContactButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_PICK);
-                intent.setData(ContactsContract.CommonDataKinds.Phone.CONTENT_URI);
-                startActivityForResult(intent,1);
-            }
-        });
-
-
-        // 서비스 시작 구현 부분 여기서 부터 진행하자
-        setPhoneNumButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                phoneNum = inputPhoneNum.getText().toString();
-                editor.putString("phoneNum", phoneNum);     // DB에 보호자 번호 저장
-                editor.commit();
-                Toast.makeText(MainActivity.this, "설정 완료", Toast.LENGTH_SHORT).show();
-                finish();
-                /*// 서비스 시작
-                intent = new Intent(MainActivity.this, PhoneManageService.class);
-                intent.putExtra("phoneNum", phoneNum);
-                intent.putExtra("timeCheckId", timeCheckId);
-                intent.setAction("startForeground");//포그라운드 액션지정
-                startService(intent);
-*/
-                /*if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.O){
-                    startForegroundService(intent);
-                }
-                else {    startService(intent);
-                }*/
-            }
-        });
 
         /*// 서비스 종료
         cancelService.setOnClickListener(new View.OnClickListener() {

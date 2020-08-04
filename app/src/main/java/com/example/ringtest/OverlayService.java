@@ -37,6 +37,7 @@ public class OverlayService extends Service {
         LayoutInflater inflate = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         wm = (WindowManager) getSystemService(WINDOW_SERVICE);
 
+        // 오레오 이상부터는 Type_Application_Overlay를 써야함
         int LAYOUT_FLAG;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             LAYOUT_FLAG = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
@@ -61,7 +62,7 @@ public class OverlayService extends Service {
         /*final TextView textView = (TextView) mView.findViewById(R.id.overlay_textview);
         final ImageButton bt =  (ImageButton) mView.findViewById(R.id.overlay_bt);
         */
-        final ImageButton bt =  (ImageButton) mView.findViewById(R.id.imagebutton1);
+        final ImageButton bt =  mView.findViewById(R.id.imagebutton1);
         final TextView textView = mView.findViewById(R.id.message);
 
 
@@ -83,7 +84,6 @@ public class OverlayService extends Service {
                 stopSelf();
             }
         });
-
 
         wm.addView(mView, params);
     }
