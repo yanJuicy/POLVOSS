@@ -43,17 +43,15 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="12dp"
-        android:layout_marginBottom="40dp"
+        android:layout_marginBottom="50dp"
         android:layout_weight="1"
 
-        android:background="@drawable/background_toast2"
+        android:background="@drawable/accept_button"
         android:gravity="center"
         android:padding="16dp"
         android:textColor="#EFF5FB"
         android:textStyle="bold"
         android:textSize="20dp"
-        android:clickable="true"
-
         android:text="확   인"
         />
 
