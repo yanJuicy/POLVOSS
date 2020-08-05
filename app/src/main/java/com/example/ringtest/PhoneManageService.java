@@ -243,9 +243,8 @@ public class PhoneManageService extends Service {
                         }
                     }
                 });
-
                 //진동을 울림 (버전 29 이상부터는 VibrationEffect를 사용해야함)
-                Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+                /*Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
                 if (Build.VERSION.SDK_INT >= 29) {
                     vibrator.vibrate(VibrationEffect.createOneShot(vibratetime, 70));
                     try {
@@ -256,7 +255,7 @@ public class PhoneManageService extends Service {
                 } else {
                     // 버전 28 이하, 7초간 진동
                     vibrator.vibrate(7000);
-                }
+                }*/
                 // 노티피케이션 알람을 보낸다.
                 sendNotification();
                 // 보호자에게 문자를 보낸다

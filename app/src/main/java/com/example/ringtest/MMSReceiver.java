@@ -56,15 +56,7 @@ public class MMSReceiver extends BroadcastReceiver
                 }
             }
         });
-        //진동
-        if (Build.VERSION.SDK_INT >= 29) {
-            vibrator.vibrate(VibrationEffect.createOneShot(vibratetime, 70));
-          /*  try {
-                sleep(vibratetime);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }*/
-        }
+
     }
 
     private void parseMMS()

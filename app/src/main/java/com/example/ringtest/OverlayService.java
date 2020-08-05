@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.graphics.PixelFormat;
 import android.os.Build;
 import android.os.IBinder;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -25,7 +27,6 @@ import static java.lang.Thread.sleep;
 public class OverlayService extends Service {
     WindowManager wm;
     View mView;
-
     @Override
     public IBinder onBind(Intent intent) { return null; }
 
@@ -65,20 +66,27 @@ public class OverlayService extends Service {
         final ImageButton bt =  mView.findViewById(R.id.imagebutton1);
         final TextView textView = mView.findViewById(R.id.accepttext);
         final TextView textView2 = mView.findViewById(R.id.message);
+        final Vibrator vibrator = (Vibrator)getSystemService(Context.VIBRATOR_SERVICE);
+
+        //확인 누르기 전까지 무한진동
+        if (Build.VERSION.SDK_INT >= 29) {
+            vibrator.vibrate(new long[]{100,1000,100,500,100,500,100,1000},0);
+        }
 
 
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //bt.setImageResource(R.mipmap.ic_launcher_round);
+                vibrator.cancel();
                 bt.setImageResource(R.mipmap.check_icon);
                 textView2.setText("확인 완료");
                 textView.setVisibility(View.GONE);
                 stopSelf();
             }
         });
-
         wm.addView(mView, params);
+
     }
 
     @Override
