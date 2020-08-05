@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.pedro.library.AutoPermissions;
 
@@ -26,7 +27,7 @@ public class UserGuide extends FragmentActivity {
     private ViewPager2 viewPager;
     private FragmentStateAdapter pagerAdapter;
     private CircleIndicator3 mIndicator;
-    private Button finish_btn;
+    private TextView finish_btn;
 
     private boolean is_first;
     private Context mContext;
@@ -51,6 +52,7 @@ public class UserGuide extends FragmentActivity {
                 Intent intent = new Intent(getApplicationContext(), DesignActivity.class);
                 startActivity(intent);
                 finish();
+
             }
         });
 
