@@ -1,9 +1,17 @@
 package com.example.ringtest;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.PixelFormat;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.IBinder;
 import android.os.VibrationEffect;
@@ -16,6 +24,8 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.TextView;
+
+import androidx.core.app.NotificationCompat;
 
 import static java.lang.Thread.sleep;
 
@@ -33,6 +43,8 @@ public class OverlayService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
+
+        sendNotification();
 
         Log.d("OverlayService", "오버레이 시작");
         LayoutInflater inflate = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -77,12 +89,16 @@ public class OverlayService extends Service {
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                changeNotification();
+
                 //bt.setImageResource(R.mipmap.ic_launcher_round);
                 vibrator.cancel();
                 bt.setImageResource(R.mipmap.check_icon);
                 textView2.setText("확인 완료");
                 textView.setVisibility(View.GONE);
+
                 stopSelf();
+
             }
         });
         wm.addView(mView, params);
@@ -107,5 +123,65 @@ public class OverlayService extends Service {
             }
             wm = null;
         }
+    }
+
+    /***
+     * 상태 표시줄 알림 보내기
+     * */
+    private void sendNotification() {
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "default");
+
+        builder.setSmallIcon(R.mipmap.alert);
+        builder.setContentTitle("피싱 위험 감지");
+        builder.setContentText("보이스 피싱이 우려됩니다. 주의해주세요.");
+
+        Intent intent = new Intent(this, DesignActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this,
+                0,
+                intent,
+                PendingIntent.FLAG_UPDATE_CURRENT);
+
+        builder.setContentIntent(pendingIntent);
+
+        Bitmap largeIcon = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
+        builder.setLargeIcon(largeIcon);
+
+        builder.setColor(Color.RED);
+
+        Uri ringtoneUri = RingtoneManager.getActualDefaultRingtoneUri(this, RingtoneManager.TYPE_NOTIFICATION);
+        builder.setSound(ringtoneUri);
+
+        long[] vibrate = {0, 7000};
+        builder.setVibrate(vibrate);
+        builder.setAutoCancel(true);
+
+        NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        manager.notify(1, builder.build());
+    }
+
+    private void changeNotification(){
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "default");
+
+        builder.setSmallIcon(R.mipmap.lock);//아이콘 설정
+        //위 포어그라운들 아이콘으로 뜰 디스크립션
+        builder.setContentTitle("police_call_stop");
+        builder.setContentTitle("보이스 피싱 및 스미싱 보호중");
+
+        Intent intent = new Intent(this, DesignActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this,
+                0,
+                intent,
+                PendingIntent.FLAG_UPDATE_CURRENT);
+
+        builder.setContentIntent(pendingIntent);
+
+        Bitmap largeIcon = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
+        builder.setLargeIcon(largeIcon);
+
+        Uri ringtoneUri = RingtoneManager.getActualDefaultRingtoneUri(this, RingtoneManager.TYPE_NOTIFICATION);
+        builder.setSound(ringtoneUri);
+
+        NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        manager.notify(1, builder.build());
     }
 }

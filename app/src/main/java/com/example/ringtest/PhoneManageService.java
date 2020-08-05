@@ -236,6 +236,9 @@ public class PhoneManageService extends Service {
             if (check >= settingTime) {
                 //showPopup();    // 팝업 보여주기
 
+                // 노티피케이션 알람을 보낸다.
+                //sendNotification();
+
                 // 커스텀 토스트 보냄
                 handler.post(new Runnable() {//toast and overlay 보여주기
 
@@ -261,8 +264,7 @@ public class PhoneManageService extends Service {
                     // 버전 28 이하, 7초간 진동
                     vibrator.vibrate(7000);
                 }*/
-                // 노티피케이션 알람을 보낸다.
-                sendNotification();
+
                 // 보호자에게 문자를 보낸다
                 sendSMS();
 
