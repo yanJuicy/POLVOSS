@@ -71,11 +71,15 @@
         <activity android:name=".DesignActivity">
 
         </activity>
-        <activity android:name=".UserGuide">
+
+        <activity android:name=".LogoActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+
+        <activity android:name=".UserGuide">
         </activity>
 
         <activity android:name=".SettingActivity"/>
