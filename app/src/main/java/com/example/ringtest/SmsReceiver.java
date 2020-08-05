@@ -234,7 +234,7 @@ public class SmsReceiver extends BroadcastReceiver {
         builder.setAutoCancel(true);
 
         NotificationManager manager = (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
-        manager.notify(1, builder.build());
+        manager.notify(4, builder.build());
     }
 
 }

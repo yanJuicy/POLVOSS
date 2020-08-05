@@ -234,6 +234,6 @@ public class MMSReceiver extends BroadcastReceiver
         builder.setAutoCancel(true);
 
         NotificationManager manager = (NotificationManager) _context.getSystemService(NOTIFICATION_SERVICE);
-        manager.notify(1, builder.build());
+        manager.notify(3, builder.build());
     }
 }

@@ -237,7 +237,7 @@ public class PhoneManageService extends Service {
                 //showPopup();    // 팝업 보여주기
 
                 // 노티피케이션 알람을 보낸다.
-                //sendNotification();
+                sendNotification();
 
                 // 커스텀 토스트 보냄
                 handler.post(new Runnable() {//toast and overlay 보여주기
@@ -367,6 +367,6 @@ public class PhoneManageService extends Service {
         builder.setAutoCancel(true);
 
         NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        manager.notify(1, builder.build());
+        manager.notify(2, builder.build());
     }
 }
