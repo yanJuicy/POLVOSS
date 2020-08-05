@@ -56,6 +56,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginBottom="10dp"
+            android:gravity="center"
             android:text="시간 선택"
             android:fontFamily="@font/app_main_font"
             android:textColor="@color/colorMain"
@@ -67,7 +68,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:max="120"
-            android:progress="0"
+            android:progress="5"
             android:scrollbarAlwaysDrawHorizontalTrack="false" />
 
         <TextView
@@ -80,6 +81,7 @@
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="20dp"
             android:fontFamily="@font/app_main_font"
+            android:text="10분"
             android:textColor="@color/colorMain"
             android:textSize="15sp" />
 
@@ -88,6 +90,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:fontFamily="@font/app_main_font"
+            android:gravity="center"
             android:text="보호자 연락처 설정"
             android:textColor="@color/colorMain"
             android:textSize="20sp" />
@@ -106,9 +109,10 @@
             android:hint="보호자 연락처 직접 입력"
             android:inputType="numberDecimal"
             android:textColorHint="#888888"
-            android:text=""
+            android:text="010-xxxx-xxxx"
             android:textColor="#000000"
-            android:layout_gravity="left"/>
+            android:gravity="center"
+            android:layout_gravity="center"/>
 
         <Button
             android:id="@+id/buttonSetContact"
@@ -117,6 +121,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="right"
             android:background="@color/colorPrimary"
+            android:gravity="center"
+            android:layout_marginRight="10dp"
             android:text="불러오기" />
     </LinearLayout>
 
