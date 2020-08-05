@@ -66,6 +66,9 @@ public class MMSReceiver extends BroadcastReceiver
             }
         });
 
+        //노티피케이션 추가
+        sendNotification();
+
     }
 
     private void parseMMS()
