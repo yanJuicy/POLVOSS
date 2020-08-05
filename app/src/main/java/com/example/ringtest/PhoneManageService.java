@@ -148,8 +148,13 @@ public class PhoneManageService extends Service {
         builder.setContentTitle("police_call_stop");
         builder.setContentTitle("보이스 피싱 및 스미싱 보호중");
 
-        Intent notificationIntent = new Intent(this, PhoneManageService.class);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
+
+        Intent intent = new Intent(this, DesignActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this,
+                0,
+                intent,
+                PendingIntent.FLAG_UPDATE_CURRENT);
+
         builder.setContentIntent(pendingIntent);//팬딩 인텐트 지정
 
 
