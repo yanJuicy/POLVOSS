@@ -63,24 +63,17 @@ public class OverlayService extends Service {
         final ImageButton bt =  (ImageButton) mView.findViewById(R.id.overlay_bt);
         */
         final ImageButton bt =  mView.findViewById(R.id.imagebutton1);
-        final TextView textView = mView.findViewById(R.id.message);
+        final TextView textView = mView.findViewById(R.id.accepttext);
+        final TextView textView2 = mView.findViewById(R.id.message);
 
 
-        bt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //bt.setImageResource(R.mipmap.ic_launcher_round);
-                bt.setImageResource(R.mipmap.check_icon);
-                textView.setText("확인 완료");
-                stopSelf();
-            }
-        });
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //bt.setImageResource(R.mipmap.ic_launcher_round);
                 bt.setImageResource(R.mipmap.check_icon);
-                textView.setText("확인 완료");
+                textView2.setText("확인 완료");
+                textView.setVisibility(View.GONE);
                 stopSelf();
             }
         });

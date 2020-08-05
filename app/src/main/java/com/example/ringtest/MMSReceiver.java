@@ -192,6 +192,7 @@ public class MMSReceiver extends BroadcastReceiver
                 }
                 catch (IOException e)
                 {
+
                 }
             }
         }
