@@ -44,7 +44,7 @@ public class OverlayService extends Service {
     public void onCreate() {
         super.onCreate();
 
-        sendNotification();
+        //sendNotification();
 
         Log.d("OverlayService", "오버레이 시작");
         LayoutInflater inflate = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -128,6 +128,7 @@ public class OverlayService extends Service {
     /***
      * 상태 표시줄 알림 보내기
      * */
+/*
     private void sendNotification() {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "default");
 
@@ -158,6 +159,7 @@ public class OverlayService extends Service {
         NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         manager.notify(1, builder.build());
     }
+*/
 
     private void changeNotification(){
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "default");

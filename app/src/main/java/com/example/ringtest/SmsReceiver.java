@@ -7,6 +7,7 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -160,6 +161,7 @@ public class SmsReceiver extends BroadcastReceiver {
                 Log.d(TAG, "메세지수신");
                 handler.post(new Runnable() {//toast and overlay 보여주기
 
+                    //오버레이 팝업 출력
                     @Override
                     public void run() {
                         for( int i=0; i<alerttime; i++){
@@ -170,7 +172,9 @@ public class SmsReceiver extends BroadcastReceiver {
                     }
                 });
 
+                //노티피케이션 보내기
 
+                sendNotification();
                 break;
             }
 
@@ -197,6 +201,40 @@ public class SmsReceiver extends BroadcastReceiver {
                 return 1;
         }
         return -1;
+    }
+
+    /***
+     * 상태 표시줄 알림 보내기
+     * */
+    private void sendNotification() {
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "default");
+
+        builder.setSmallIcon(R.mipmap.alert);
+        builder.setContentTitle("스미싱 위험 감지");
+        builder.setContentText("SMS(메세지) 스미싱이 우려됩니다. 주의해주세요.");
+
+        Intent intent = new Intent(context, DesignActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context,
+                0,
+                intent,
+                PendingIntent.FLAG_UPDATE_CURRENT);
+
+        builder.setContentIntent(pendingIntent);
+
+        Bitmap largeIcon = BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_launcher);
+        builder.setLargeIcon(largeIcon);
+
+        builder.setColor(Color.RED);
+
+        Uri ringtoneUri = RingtoneManager.getActualDefaultRingtoneUri(context, RingtoneManager.TYPE_NOTIFICATION);
+        builder.setSound(ringtoneUri);
+
+        long[] vibrate = {0, 7000};
+        builder.setVibrate(vibrate);
+        builder.setAutoCancel(true);
+
+        NotificationManager manager = (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
+        manager.notify(1, builder.build());
     }
 
 }

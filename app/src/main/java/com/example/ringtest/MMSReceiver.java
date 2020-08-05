@@ -1,10 +1,16 @@
 package com.example.ringtest;
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Handler;
@@ -13,12 +19,15 @@ import android.os.Vibrator;
 import android.text.TextUtils;
 import android.util.Log;
 
+import androidx.core.app.NotificationCompat;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.text.MessageFormat;
 
+import static android.content.Context.NOTIFICATION_SERVICE;
 import static java.lang.Thread.sleep;
 
 public class MMSReceiver extends BroadcastReceiver
@@ -189,5 +198,39 @@ public class MMSReceiver extends BroadcastReceiver
             }
         }
         return sb.toString();
+    }
+
+    /***
+     * 상태 표시줄 알림 보내기
+     * */
+    private void sendNotification() {
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(_context, "default");
+
+        builder.setSmallIcon(R.mipmap.alert);
+        builder.setContentTitle("스미싱 위험 감지");
+        builder.setContentText("MMS(멀티미디어 메세지) 스미싱이 우려됩니다. 주의해주세요.");
+
+        Intent intent = new Intent(_context, DesignActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(_context,
+                0,
+                intent,
+                PendingIntent.FLAG_UPDATE_CURRENT);
+
+        builder.setContentIntent(pendingIntent);
+
+        Bitmap largeIcon = BitmapFactory.decodeResource(_context.getResources(), R.mipmap.ic_launcher);
+        builder.setLargeIcon(largeIcon);
+
+        builder.setColor(Color.RED);
+
+        Uri ringtoneUri = RingtoneManager.getActualDefaultRingtoneUri(_context, RingtoneManager.TYPE_NOTIFICATION);
+        builder.setSound(ringtoneUri);
+
+        long[] vibrate = {0, 7000};
+        builder.setVibrate(vibrate);
+        builder.setAutoCancel(true);
+
+        NotificationManager manager = (NotificationManager) _context.getSystemService(NOTIFICATION_SERVICE);
+        manager.notify(1, builder.build());
     }
 }
