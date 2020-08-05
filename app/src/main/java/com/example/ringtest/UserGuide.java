@@ -22,7 +22,7 @@ import com.pedro.library.AutoPermissions;
 import me.relex.circleindicator.CircleIndicator3;
 
 public class UserGuide extends FragmentActivity {
-    private static final int NUM_PAGES = 3;
+    private static final int NUM_PAGES = 6;
     private ViewPager2 viewPager;
     private FragmentStateAdapter pagerAdapter;
     private CircleIndicator3 mIndicator;
@@ -142,8 +142,17 @@ public class UserGuide extends FragmentActivity {
 
                 return new FragementSecond();
             }
-            else{
+            else if(position == 2){
                 return new FragmentThird();
+            }
+            else if(position == 3){
+                return new FragmentFourth();
+            }
+            else if(position == 4){
+                return new FragmentFifth();
+            }
+            else{
+                return new FragmentSix();
             }
         }
 
