@@ -323,17 +323,52 @@ public class PhoneManageService extends Service {
     private void sendSMS() {
         sf = getSharedPreferences("settingFile", MODE_PRIVATE);
 
-        String phoneNo = sf.getString("phoneNum", "");
+        String phoneNum1 = sf.getString("phoneNum1", "");
+        String phoneNum2 = sf.getString("phoneNum2", "");
+        String phoneNum3 = sf.getString("phoneNum3", "");
         String sms = "위험위험";
 
-        try{
-            SmsManager smsManager = SmsManager.getDefault();
-            smsManager.sendTextMessage(phoneNo, null, sms, null, null);
-            // Toast.makeText(getApplicationContext(), "전송 완료", Toast.LENGTH_SHORT).show();
-        }catch(Exception e){
-            // Toast.makeText(getApplicationContext(), "전송 실패", Toast.LENGTH_SHORT).show();
-            e.printStackTrace();
+        if (!phoneNum1.equals("")) { // 번호가 존재하면 문자 전송
+            try{
+                SmsManager smsManager = SmsManager.getDefault();
+                smsManager.sendTextMessage(phoneNum1, null, sms, null, null);
+                // Toast.makeText(getApplicationContext(), "전송 완료", Toast.LENGTH_SHORT).show();
+            }catch(Exception e){
+                // Toast.makeText(getApplicationContext(), "전송 실패", Toast.LENGTH_SHORT).show();
+                e.printStackTrace();
+            }
         }
+
+        if (!phoneNum2.equals("")) {
+            try{
+                SmsManager smsManager = SmsManager.getDefault();
+                smsManager.sendTextMessage(phoneNum2, null, sms, null, null);
+                // Toast.makeText(getApplicationContext(), "전송 완료", Toast.LENGTH_SHORT).show();
+            }catch(Exception e){
+                // Toast.makeText(getApplicationContext(), "전송 실패", Toast.LENGTH_SHORT).show();
+                e.printStackTrace();
+            }
+        }
+
+        if (!phoneNum3.equals("")) {
+            try{
+                SmsManager smsManager = SmsManager.getDefault();
+                smsManager.sendTextMessage(phoneNum3, null, sms, null, null);
+                // Toast.makeText(getApplicationContext(), "전송 완료", Toast.LENGTH_SHORT).show();
+            }catch(Exception e){
+                // Toast.makeText(getApplicationContext(), "전송 실패", Toast.LENGTH_SHORT).show();
+                e.printStackTrace();
+            }
+        }
+
+//        try{
+//            SmsManager smsManager = SmsManager.getDefault();
+//            smsManager.sendTextMessage(phoneNum1, null, sms, null, null);
+//            // Toast.makeText(getApplicationContext(), "전송 완료", Toast.LENGTH_SHORT).show();
+//        }catch(Exception e){
+//            // Toast.makeText(getApplicationContext(), "전송 실패", Toast.LENGTH_SHORT).show();
+//            e.printStackTrace();
+//        }
     }
 
     /***

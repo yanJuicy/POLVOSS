@@ -61,8 +61,11 @@ public class DesignActivity extends AppCompatActivity implements AutoPermissions
             @Override
             public void onClick(View v) {
                 // DB에서 보호자 번호가 있는지 확인
-                String phoneNo = sf.getString("phoneNum", "");
-                if (phoneNo.equals("")) { // 설정된 휴대폰 번호가 없으면 MainActivity로 이동
+                String phoneNo1 = sf.getString("phoneNum1", "");
+                String phoneNo2 = sf.getString("phoneNum2", "");
+                String phoneNo3 = sf.getString("phoneNum3", "");
+
+                if (phoneNo1.equals("") && phoneNo2.equals("") && phoneNo3.equals("")) { // 설정된 휴대폰 번호가 없으면 MainActivity로 이동
                     startActivity(new Intent(DesignActivity.this, MainActivity.class));
                     return;
                 }
@@ -112,7 +115,6 @@ public class DesignActivity extends AppCompatActivity implements AutoPermissions
             voiceState.setText("비활성화");
             smsState.setText("비활성화");
         }
-
     }
 
     @Override

@@ -31,12 +31,12 @@ public class MainActivity extends AppCompatActivity implements AutoPermissionsLi
     Button timeButton;
     Button cancelService;*/
 
-    EditText inputPhoneNum;         // 보호자 번호
-    Button saveButton;              // 저장 버튼
-    Button setContactButton;        // 연락처에서 불러오기 버튼
+    TextView inputPhoneNum1;         // 보호자 번호
+    TextView inputPhoneNum2;         // 보호자 번호
+    TextView inputPhoneNum3;         // 보호자 번호
+    Button saveBtn;              // 저장 버튼
 
     //int timeCheckId;    // 설정 시간 번호
-    String phoneNum;    // 보호자 연락처 추후 여러개로 추가
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,11 +46,12 @@ public class MainActivity extends AppCompatActivity implements AutoPermissionsLi
         permissionCheck(); // 권한 체크
 
         // id 매핑
-        SeekBar seekBarTime = findViewById(R.id.main_seekbar);
+        SeekBar seekBarTime = findViewById(R.id.main_seekBar);
         final TextView textViewTime = findViewById(R.id.main_textViewTime);
-        inputPhoneNum = findViewById(R.id.phoneNum);
-        saveButton = findViewById(R.id.buttonSetPhoneNum);
-        setContactButton = findViewById(R.id.buttonSetContact);
+        inputPhoneNum1 = findViewById(R.id.main_phoneNum1);
+        inputPhoneNum2 = findViewById(R.id.main_phoneNum2);
+        inputPhoneNum3 = findViewById(R.id.main_phoneNum3);
+        saveBtn = findViewById(R.id.saveBtn);
 
         /*r_btn1 = findViewById(R.id.rg_btn1);
         r_btn2 = findViewById(R.id.rg_btn2);
@@ -59,6 +60,8 @@ public class MainActivity extends AppCompatActivity implements AutoPermissionsLi
         radioGroup = findViewById(R.id.radioGroup);*/
         //timeButton = findViewById(R.id.buttonSetTime);
         //cancelService = findViewById(R.id.buttonCancelService);
+
+
 
         // DB에서 저장된 설정 시간이 있는 지 확인
         sf = getSharedPreferences("settingFile", MODE_PRIVATE); // 로컬 DB 객체
@@ -98,24 +101,52 @@ public class MainActivity extends AppCompatActivity implements AutoPermissionsLi
         });
 
         //내 연락처에서 번호 블러오기
-        setContactButton.setOnClickListener(new View.OnClickListener() {
+        TextView.OnClickListener onClickListener = new TextView.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 Intent intent = new Intent(Intent.ACTION_PICK);
-                intent.setData(ContactsContract.CommonDataKinds.Phone.CONTENT_URI);
-                startActivityForResult(intent,1);
+
+                switch (view.getId()) {
+                    case R.id.main_phoneNum1 :
+                        editor.putInt("textViewNum", 1);
+                        editor.commit();
+                        intent.setData(ContactsContract.CommonDataKinds.Phone.CONTENT_URI);
+                        startActivityForResult(intent,1);
+                        break ;
+
+                    case R.id.main_phoneNum2 :
+                        editor.putInt("textViewNum", 2);
+                        editor.commit();
+                        intent.setData(ContactsContract.CommonDataKinds.Phone.CONTENT_URI);
+                        startActivityForResult(intent,1);
+                        break ;
+
+                    case R.id.main_phoneNum3 :
+                        editor.putInt("textViewNum", 3);
+                        editor.commit();
+                        intent.setData(ContactsContract.CommonDataKinds.Phone.CONTENT_URI);
+                        startActivityForResult(intent,1);
+                        break ;
+                }
             }
-        });
+        };
+
+        inputPhoneNum1.setOnClickListener(onClickListener);
+        inputPhoneNum2.setOnClickListener(onClickListener);
+        inputPhoneNum3.setOnClickListener(onClickListener);
+
 
         // 저장 버튼 클릭 이벤트
-        saveButton.setOnClickListener(new View.OnClickListener() {
+        saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                phoneNum = inputPhoneNum.getText().toString();
-                editor.putString("phoneNum", phoneNum);     // DB에 보호자 번호 저장
+                editor.putString("phoneNum1", inputPhoneNum1.getText().toString());     // DB에 보호자 번호 저장
+                editor.putString("phoneNum2", inputPhoneNum2.getText().toString());     // DB에 보호자 번호 저장
+                editor.putString("phoneNum3", inputPhoneNum3.getText().toString());     // DB에 보호자 번호 저장
                 editor.commit();
                 Toast.makeText(MainActivity.this, "설정 완료", Toast.LENGTH_SHORT).show();
                 finish();
+
                 /*// 서비스 시작
                 intent = new Intent(MainActivity.this, PhoneManageService.class);
                 intent.putExtra("phoneNum", phoneNum);
@@ -177,15 +208,29 @@ public class MainActivity extends AppCompatActivity implements AutoPermissionsLi
     //연락처 불러오기 버튼 클릭 시 동작
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
+        int textViewNum = sf.getInt("textViewNum", 0);
+
         if(resultCode == RESULT_OK)
         {
             Cursor cursor = getContentResolver().query(data.getData(),
                     new String[]{ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME,
                             ContactsContract.CommonDataKinds.Phone.NUMBER}, null, null, null);
             cursor.moveToFirst();
-            String  name = cursor.getString(0);        //0은 이름을 얻어옵니다.
+            String name = cursor.getString(0);  //0은 이름을 얻어옵니다.
             String num = cursor.getString(1);   //1은 번호를 받아옵니다.
-            inputPhoneNum.setText(num);
+
+            switch(textViewNum) {
+                case 1:
+                    inputPhoneNum1.setText(num);
+                    break;
+                case 2:
+                    inputPhoneNum2.setText(num);
+                    break;
+                case 3:
+                    inputPhoneNum3.setText(num);
+                    break;
+            }
             cursor.close();
         }
     }
