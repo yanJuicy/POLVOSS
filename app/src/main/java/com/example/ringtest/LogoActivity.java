@@ -43,8 +43,10 @@ public class LogoActivity extends AppCompatActivity implements View.OnClickListe
 
                 Intent intent1 = new Intent(LogoActivity.this,UserGuide.class);
                 startActivity(intent1);
-
+                finish();
             }
+
+
         }, 3000);
 
 
