@@ -59,11 +59,11 @@ public class DesignActivity extends AppCompatActivity implements AutoPermissions
         editor = sf.edit();
         powerOn = sf.getBoolean("power", false);
         if (powerOn) {
-            powerButton.setImageResource(R.mipmap.lock);
+            powerButton.setImageResource(R.mipmap.lock2);
             voiceState.setText("활성화");
             smsState.setText("활성화");
         } else {
-            powerButton.setImageResource(R.mipmap.unlock);
+            powerButton.setImageResource(R.mipmap.unlock2);
             voiceState.setText("비활성화");
             smsState.setText("비활성화");
         }
@@ -118,13 +118,13 @@ public class DesignActivity extends AppCompatActivity implements AutoPermissions
 
     private void changeUI() { // 파워 버튼 상태값에 따른 UI 변경
         if (powerOn) {
-            powerButton.setImageResource(R.mipmap.lock);
+            powerButton.setImageResource(R.mipmap.lock2);
             Toast.makeText(DesignActivity.this, "서비스 시작", Toast.LENGTH_SHORT).show();
             textState.setText("안전하게 보호중입니다.");
             voiceState.setText("활성화");
             smsState.setText("활성화");
         } else {
-            powerButton.setImageResource(R.mipmap.unlock);
+            powerButton.setImageResource(R.mipmap.unlock2);
             textState.setText("보호중이 아닙니다.");
             voiceState.setText("비활성화");
             smsState.setText("비활성화");

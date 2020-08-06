@@ -13,7 +13,7 @@
         android:layout_height="251dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="200dp"
-        android:src="@mipmap/lock"
+        android:src="@mipmap/logo"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="79dp"
         tools:layout_editor_absoluteY="4dp" />
