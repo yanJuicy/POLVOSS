@@ -1,8 +1,11 @@
 package com.example.ringtest;
 
 import android.annotation.TargetApi;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -24,9 +27,12 @@ public class DesignActivity extends AppCompatActivity implements AutoPermissions
     ImageView powerButton;
     ImageView settingButton;
     boolean powerOn;
+    boolean smsOn;
+    boolean mmsOn;
     SharedPreferences sf;
     SharedPreferences.Editor editor;
     Intent serviceIntent;
+    private Context mContext;
 
     TextView textState;
     TextView voiceState;
@@ -36,6 +42,8 @@ public class DesignActivity extends AppCompatActivity implements AutoPermissions
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_design);
+
+        mContext = this;
 
         checkPermission(); // 권한 설정 확인
 
@@ -76,11 +84,13 @@ public class DesignActivity extends AppCompatActivity implements AutoPermissions
 
                 if (powerOn) { // 서비스 시작
                     changeUI();
+                    changeReceiver();
                     serviceIntent = new Intent(DesignActivity.this, PhoneManageService.class);
                     serviceIntent.setAction("startForeground"); //포그라운드 액션지정
                     startService(serviceIntent);
                 } else { // 서비스 종료
                     changeUI();
+                    changeReceiver();
                     if (serviceIntent != null) {
                         Toast.makeText(DesignActivity.this, "서비스 종료", Toast.LENGTH_SHORT).show();
                         serviceIntent.putExtra("stop", true);
@@ -114,6 +124,63 @@ public class DesignActivity extends AppCompatActivity implements AutoPermissions
             textState.setText("보호중이 아닙니다.");
             voiceState.setText("비활성화");
             smsState.setText("비활성화");
+        }
+    }
+
+    private void changeReceiver(){
+        smsOn = PreferenceManager.getBoolean(mContext, "sms");
+        mmsOn = PreferenceManager.getBoolean(mContext, "mms");
+
+        ComponentName smsComponent = new ComponentName(mContext, SmsReceiver.class);
+        PackageManager smsPackage = mContext.getPackageManager();
+
+        ComponentName mmsComponent = new ComponentName(mContext, MMSReceiver.class);
+        PackageManager mmsPackage = mContext.getPackageManager();
+
+        if (powerOn){
+            // SMS Broadcast Receiver 켜기
+            if(smsOn){
+                smsPackage.setComponentEnabledSetting(
+                        smsComponent,
+                        PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
+                        PackageManager.DONT_KILL_APP
+                );
+                // SMS Broadcast Receiver 끄기
+            } else{
+                smsPackage.setComponentEnabledSetting(
+                        smsComponent,
+                        PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
+                        PackageManager.DONT_KILL_APP
+                );
+            }
+            // MMS Broadcast Receiver 켜기
+            if(mmsOn){
+                mmsPackage.setComponentEnabledSetting(
+                        mmsComponent,
+                        PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
+                        PackageManager.DONT_KILL_APP
+                );
+                // MMS Broadcast Receiver 끄기
+            } else{
+                mmsPackage.setComponentEnabledSetting(
+                        mmsComponent,
+                        PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
+                        PackageManager.DONT_KILL_APP
+                );
+            }
+            // SMS, MMS Broadcast Receiver 끄기
+        } else{
+            smsPackage.setComponentEnabledSetting(
+                    smsComponent,
+                    PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
+                    PackageManager.DONT_KILL_APP
+            );
+
+            mmsPackage.setComponentEnabledSetting(
+                    mmsComponent,
+                    PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
+                    PackageManager.DONT_KILL_APP
+            );
         }
     }
 
