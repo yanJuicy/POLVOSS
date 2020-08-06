@@ -47,7 +47,7 @@ public class LogoActivity extends AppCompatActivity implements View.OnClickListe
             }
 
 
-        }, 3000);
+        }, 2500);
 
 
     }
