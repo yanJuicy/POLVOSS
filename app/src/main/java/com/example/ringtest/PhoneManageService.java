@@ -201,7 +201,6 @@ public class PhoneManageService extends Service {
         private Handler handler = new Handler();
         private int settingTime = 10;
         //요기가 위험 Toast 출력내용
-        private String alertText = "위험 요소가 감지되었습니다.\n1. 금전 요구\n2. 기관 사칭\n3. 협박\n 요소가 있으실 경우 유의 해주세요";
         private int alerttime = 4; //toast 알림 출력 시간(n * 3.5 초 )
 
         @Override
@@ -326,8 +325,8 @@ public class PhoneManageService extends Service {
         String phoneNum1 = sf.getString("phoneNum1", "");
         String phoneNum2 = sf.getString("phoneNum2", "");
         String phoneNum3 = sf.getString("phoneNum3", "");
-        String sms = "위험위험";
-
+        String sms = "[보안 앱 자동발신]\n피싱 위험이 감지되었습니다\n본 번호로 연락 바랍니다";
+;
         if (!phoneNum1.equals("")) { // 번호가 존재하면 문자 전송
             try{
                 SmsManager smsManager = SmsManager.getDefault();
