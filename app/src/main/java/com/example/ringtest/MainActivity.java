@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,6 +36,9 @@ public class MainActivity extends AppCompatActivity implements AutoPermissionsLi
     TextView inputPhoneNum2;         // 보호자 번호
     TextView inputPhoneNum3;         // 보호자 번호
     Button saveBtn;              // 저장 버튼
+    ImageButton deleteBtn1;
+    ImageButton deleteBtn2;
+    ImageButton deleteBtn3;
 
     //int timeCheckId;    // 설정 시간 번호
 
@@ -52,6 +56,9 @@ public class MainActivity extends AppCompatActivity implements AutoPermissionsLi
         inputPhoneNum2 = findViewById(R.id.main_phoneNum2);
         inputPhoneNum3 = findViewById(R.id.main_phoneNum3);
         saveBtn = findViewById(R.id.saveBtn);
+        deleteBtn1 = findViewById(R.id.main_deleteBtn1);
+        deleteBtn2 = findViewById(R.id.main_deleteBtn2);
+        deleteBtn3 = findViewById(R.id.main_deleteBtn3);
 
         /*r_btn1 = findViewById(R.id.rg_btn1);
         r_btn2 = findViewById(R.id.rg_btn2);
@@ -161,6 +168,38 @@ public class MainActivity extends AppCompatActivity implements AutoPermissionsLi
                 }*/
             }
         });
+
+
+        // 번호 삭제 버튼
+        ImageButton.OnClickListener onClickListener2 = new TextView.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                switch (view.getId()) {
+                    case R.id.main_deleteBtn1 :
+                        inputPhoneNum1.setText("");
+                        editor.putString("phoneNum1", inputPhoneNum1.getText().toString()); // DB에 공백 저장
+                        editor.commit();
+                        break ;
+
+                    case R.id.main_deleteBtn2 :
+                        inputPhoneNum2.setText("");
+                        editor.putString("phoneNum2", inputPhoneNum2.getText().toString());
+                        editor.commit();
+                        break ;
+
+                    case R.id.main_deleteBtn3 :
+                        inputPhoneNum3.setText("");
+                        editor.putString("phoneNum3", inputPhoneNum3.getText().toString());     // DB에 보호자 번호 저장
+                        editor.commit();
+                        break ;
+                }
+            }
+        };
+
+        deleteBtn1.setOnClickListener(onClickListener2);
+        deleteBtn2.setOnClickListener(onClickListener2);
+        deleteBtn3.setOnClickListener(onClickListener2);
 
         /*timeButton.setOnClickListener(new View.OnClickListener() {
             @Override
