@@ -210,47 +210,50 @@ public class PhoneManageService extends Service {
             // DB에서 설정된 시간을 가져옴
             sf = getSharedPreferences("settingFile", MODE_PRIVATE);
             long min = sf.getLong("min", 0);
-            settingTime = (int) min * 60;
+            boolean voice = sf.getBoolean("voice_fishing", false);
 
-            int check = 0; // check와 settingTime을 비교해서 경고 알람을 보냄
+            if(voice){
+                settingTime = (int) min * 60;
 
-            for (count = 0; count < settingTime; count++) {   // 설정 시간만큼 카운트
-                if (isCount) {
-                    handler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            Log.d("Count", count + "");
+                int check = 0; // check와 settingTime을 비교해서 경고 알람을 보냄
+
+                for (count = 0; count < settingTime; count++) {   // 설정 시간만큼 카운트
+                    if (isCount) {
+                        handler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                Log.d("Count", count + "");
+                            }
+                        });
+                        try {
+                            sleep(1000);
+                            check++;
+                        } catch (Exception e) {
+                            e.printStackTrace();
                         }
-                    });
-                    try {
-                        sleep(1000);
-                        check++;
-                    } catch (Exception e) {
-                        e.printStackTrace();
                     }
                 }
-            }
 
-            // 설정 시간 이상 통화가 계속되면
-            if (check >= settingTime) {
-                //showPopup();    // 팝업 보여주기
+                // 설정 시간 이상 통화가 계속되면
+                if (check >= settingTime) {
+                    //showPopup();    // 팝업 보여주기
 
-                // 노티피케이션 알람을 보낸다.
-                sendNotification();
+                    // 노티피케이션 알람을 보낸다.
+                    sendNotification();
 
-                // 커스텀 토스트 보냄
-                handler.post(new Runnable() {//toast and overlay 보여주기
+                    // 커스텀 토스트 보냄
+                    handler.post(new Runnable() {//toast and overlay 보여주기
 
-                    @Override
-                    public void run() {
-                        for( int i=0; i<alerttime; i++){
-                            //요기가 커스텀 토스트
-                            //customToast.makeText(PhoneManageService.this, alertText, Toast.LENGTH_LONG).show();
-                            showPopup(); // 오버레이 팝업을 보여줌
+                        @Override
+                        public void run() {
+                            for( int i=0; i<alerttime; i++){
+                                //요기가 커스텀 토스트
+                                //customToast.makeText(PhoneManageService.this, alertText, Toast.LENGTH_LONG).show();
+                                showPopup(); // 오버레이 팝업을 보여줌
+                            }
                         }
-                    }
-                });
-                //진동을 울림 (버전 29 이상부터는 VibrationEffect를 사용해야함)
+                    });
+                    //진동을 울림 (버전 29 이상부터는 VibrationEffect를 사용해야함)
                 /*Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
                 if (Build.VERSION.SDK_INT >= 29) {
                     vibrator.vibrate(VibrationEffect.createOneShot(vibratetime, 70));
@@ -264,12 +267,13 @@ public class PhoneManageService extends Service {
                     vibrator.vibrate(7000);
                 }*/
 
-                // 보호자에게 문자를 보낸다
-                sendSMS();
+                    // 보호자에게 문자를 보낸다
+                    sendSMS();
 
                 /*if (Build.VERSION.SDK_INT < 29) {
                     showPopup();
                 }*/
+                }
             }
         }
     }
