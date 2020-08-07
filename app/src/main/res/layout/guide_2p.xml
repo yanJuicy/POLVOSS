@@ -29,11 +29,11 @@
             android:gravity="center">
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="268dp"
+                android:layout_height="235dp"
                 android:layout_gravity="center"
                 android:layout_margin="10dp"
-                android:src="@drawable/guide2"/>
+                android:src="@drawable/guide2" />
         </LinearLayout>
 
         <TextView
@@ -69,7 +69,7 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:layout_below="@+id/guide1_middle"
-            android:text="\n모르는 번호와 통화 중 설정시간이 지나면 \n보호자에게 문자메시지가 갑니다."
+            android:text="\n설정한 시간 동안 모르는 번호와 통화를 진행할 경우 \n저장한 보호자 번호로 안내 문자가 전송됩니다."
             android:textColor="#888888"
             android:textSize="15dp"
             android:textStyle="bold" />

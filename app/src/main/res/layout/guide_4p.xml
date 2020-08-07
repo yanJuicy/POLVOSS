@@ -15,7 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="위험한 문자메시지 알림"
+            android:text="스미싱 위험안내"
             android:textColor="@android:color/white"
             android:layout_marginTop="30dp"
             android:textSize="25dp"
@@ -60,7 +60,7 @@
             android:layout_marginTop="5dp"
 
             android:gravity="center"
-            android:text="URL 알림"
+            android:text="URL 링크 탐색"
             android:textColor="@android:color/white"
             android:textSize="25dp"
             android:textStyle="bold" />
@@ -72,7 +72,7 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:layout_below="@+id/guide1_middle"
-            android:text="\n문자메시지에 포함된 URL은 위험할 수 있습니다. \nURL에 접속할때는 신중히 결정하세요."
+            android:text="\n문자메시지에 포함된 URL 링크는 \n스미싱 범죄의 요소가 될 수 있습니다. \nURL에 접속할 때는 신중히 결정하세요."
             android:textColor="#888888"
             android:textSize="15dp"
             android:textStyle="bold" />

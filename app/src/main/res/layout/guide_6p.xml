@@ -14,7 +14,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="핸드폰을 보호하세요"
+            android:text="작지만 강력한 보안 앱"
             android:textColor="@android:color/white"
             android:layout_marginTop="30dp"
             android:textSize="25dp"
@@ -28,19 +28,13 @@
             android:layout_above="@+id/tvName1"
             android:gravity="center">
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="10dp"
-                android:src="@mipmap/unlock" />
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
+                android:layout_width="227dp"
+                android:layout_height="221dp"
                 android:layout_gravity="center"
-                android:src="@mipmap/lock" />
+                android:layout_margin="10dp"
+                android:src="@mipmap/rocket" />
         </LinearLayout>
 
         <TextView
@@ -50,7 +44,7 @@
             android:layout_centerInParent="true"
             android:layout_gravity="center"
             android:gravity="center"
-            android:text="  "
+            android:text="작은 용량으로 빠르고 정확하게"
             android:textColor="@android:color/white"
             android:textSize="25dp"
             android:textStyle="bold" />
@@ -63,7 +57,7 @@
             android:gravity="center"
             android:layout_below="@+id/tvName1"
 
-            android:text="자물쇠를 클릭하세요"
+            android:text=""
             android:textColor="@android:color/white"
             android:textSize="25dp"
             android:textStyle="bold" />
@@ -75,7 +69,7 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:layout_below="@+id/guide1_middle"
-            android:text="\n자물쇠를 클릭하면 보이스피싱 보호가 시작됩니다.\n간단히 버튼만 클릭하면 됩니다."
+            android:text="\n저장 공간에 부담은 덜고 실행속도는 높힌 \n피싱 보안 애플리케이션 입니다.  "
             android:textColor="#888888"
             android:textSize="15dp"
             android:textStyle="bold" />
