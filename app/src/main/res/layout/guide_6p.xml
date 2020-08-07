@@ -44,7 +44,7 @@
             android:layout_centerInParent="true"
             android:layout_gravity="center"
             android:gravity="center"
-            android:text="작은 용량으로 빠르고 정확하게"
+            android:text="\n작은 용량으로 빠르고 정확하게"
             android:textColor="@android:color/white"
             android:textSize="25dp"
             android:textStyle="bold" />
@@ -69,7 +69,7 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:layout_below="@+id/guide1_middle"
-            android:text="\n저장 공간에 부담은 덜고 실행속도는 높힌 \n피싱 보안 애플리케이션 입니다.  "
+            android:text="저장 공간에 부담은 덜고 실행속도는 높힌 \n피싱 보안 애플리케이션 입니다.  "
             android:textColor="#888888"
             android:textSize="15dp"
             android:textStyle="bold" />
