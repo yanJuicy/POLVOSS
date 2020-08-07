@@ -133,8 +133,8 @@ public class DesignActivity extends AppCompatActivity implements AutoPermissions
     }
 
     private void changeReceiver(){
-        smsOn = PreferenceManager.getBoolean(mContext, "sms");
-        mmsOn = PreferenceManager.getBoolean(mContext, "mms");
+        smsOn = sf.getBoolean("sms", false);
+        mmsOn = sf.getBoolean("mms", false);
 
         ComponentName smsComponent = new ComponentName(mContext, SmsReceiver.class);
         PackageManager smsPackage = mContext.getPackageManager();
