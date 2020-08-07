@@ -1,10 +1,14 @@
 package com.example.ringtest;
 
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Point;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.View;
@@ -23,6 +27,8 @@ import com.google.android.material.tabs.TabLayout;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
+
+import java.lang.annotation.Retention;
 
 public class SettingActivity extends AppCompatActivity {
 //    private TabLayout tabLayout;
@@ -51,11 +57,17 @@ public class SettingActivity extends AppCompatActivity {
     Switch mmsPower;
 
     ImageView closeBtn;
+    private boolean mIsBound;
+
+
+
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
+
 
         closeBtn= findViewById(R.id.closeBtn);
 
@@ -98,6 +110,8 @@ public class SettingActivity extends AppCompatActivity {
         inputPhoneNum3.setText(phoneNum3);
 
         numberSettingLayout1.setVisibility(View.VISIBLE);
+
+
         if(!inputPhoneNum1.getText().equals(""))  // 1번이 들어있으면
         {
             if(!inputPhoneNum2.getText().equals("")) // 2번이 들어있으면
@@ -405,7 +419,9 @@ public class SettingActivity extends AppCompatActivity {
                             editor.putBoolean("voice_fishing", true);
                             editor.commit();
 
+
                             voiceSettingLayout.setVisibility(View.VISIBLE);
+
 
                             Toast.makeText(SettingActivity.this, "VoiceFishing On", Toast.LENGTH_SHORT).show();
                         }
@@ -415,6 +431,8 @@ public class SettingActivity extends AppCompatActivity {
                             editor.commit();
 
                             voiceSettingLayout.setVisibility(View.GONE);
+
+
                             Toast.makeText(SettingActivity.this, "VoiceFishing Off", Toast.LENGTH_SHORT).show();
 
                         }
@@ -525,4 +543,5 @@ public class SettingActivity extends AppCompatActivity {
         }
 
     }
+
 }

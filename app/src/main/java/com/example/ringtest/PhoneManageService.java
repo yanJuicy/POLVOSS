@@ -14,6 +14,7 @@ import android.graphics.Color;
 import android.graphics.PixelFormat;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.os.Binder;
 import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
@@ -54,7 +55,6 @@ public class PhoneManageService extends Service {
     WindowManager wm;
     View mView;
 
-
     public PhoneManageService() {
     }
 
@@ -63,6 +63,7 @@ public class PhoneManageService extends Service {
         // TODO: Return the communication channel to the service.
         throw new UnsupportedOperationException("Not yet implemented");
     }
+
 
     @Override
     public void onCreate() {
@@ -403,4 +404,6 @@ public class PhoneManageService extends Service {
         NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         manager.notify(2, builder.build());
     }
+
+
 }
