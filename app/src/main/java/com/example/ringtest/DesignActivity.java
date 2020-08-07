@@ -78,7 +78,8 @@ public class DesignActivity extends AppCompatActivity implements AutoPermissions
                 String phoneNo3 = sf.getString("phoneNum3", "");
 
                 if (phoneNo1.equals("") && phoneNo2.equals("") && phoneNo3.equals("")) { // 설정된 휴대폰 번호가 없으면 MainActivity로 이동
-                    startActivity(new Intent(DesignActivity.this, MainActivity.class));
+                    Toast.makeText(DesignActivity.this, "보호자 연락처를 설정해 주세요.", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(DesignActivity.this, SettingActivity.class));
                     return;
                 }
                 // 파워 버튼 상태 변경
@@ -132,8 +133,8 @@ public class DesignActivity extends AppCompatActivity implements AutoPermissions
     }
 
     private void changeReceiver(){
-        smsOn = PreferenceManager.getBoolean(mContext, "sms");
-        mmsOn = PreferenceManager.getBoolean(mContext, "mms");
+        smsOn = sf.getBoolean("sms", false);
+        mmsOn = sf.getBoolean("mms", false);
 
         ComponentName smsComponent = new ComponentName(mContext, SmsReceiver.class);
         PackageManager smsPackage = mContext.getPackageManager();
