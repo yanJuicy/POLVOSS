@@ -107,6 +107,32 @@ public class SettingActivity extends AppCompatActivity {
         }
 
         /*******************************************
+         * 스미싱 버튼 확인부분
+         ******************************************/
+        boolean smishing = sf.getBoolean("smishing", false);
+        if(smishing){
+            smishingLayout.setVisibility(View.VISIBLE);
+            smishingPower.setChecked(true);
+        } else{
+            smishingLayout.setVisibility(View.GONE);
+            smishingPower.setChecked(false);
+        }
+
+        boolean sms = sf.getBoolean("sms", false);
+        if(sms){
+            smsPower.setChecked(true);
+        } else{
+            smsPower.setChecked(false);
+        }
+
+        boolean mms = sf.getBoolean("mms", false);
+        if(mms){
+            mmsPower.setChecked(true);
+        } else{
+            mmsPower.setChecked(false);
+        }
+
+        /*******************************************
          * 시간 설정, text가 범위 초과하는 현상 발생
          *******************************************/
 
@@ -360,6 +386,7 @@ public class SettingActivity extends AppCompatActivity {
                 if(isChecked){
                     editor.putBoolean("sms", false);
                     editor.putBoolean("mms", false);
+                    editor.putBoolean("smishing", true);
                     editor.commit();
 
                     smsPower.setChecked(false);
@@ -371,6 +398,7 @@ public class SettingActivity extends AppCompatActivity {
                 } else{
                     editor.putBoolean("sms", false);
                     editor.putBoolean("mms", false);
+                    editor.putBoolean("smishing", false);
                     editor.commit();
 
                     smsPower.setChecked(false);
