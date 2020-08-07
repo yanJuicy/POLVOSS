@@ -110,9 +110,16 @@ public class DesignActivity extends AppCompatActivity implements AutoPermissions
         settingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(DesignActivity.this, "설정창 누름", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(DesignActivity.this, SettingActivity.class);
-                startActivity(intent);
+                boolean is_running = sf.getBoolean("power", false);
+                if(is_running){
+                    Toast.makeText(DesignActivity.this, "서비스 실행중", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    Toast.makeText(DesignActivity.this, "설정창 누름", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(DesignActivity.this, SettingActivity.class);
+                    startActivity(intent);
+                }
+
             }
         });
     }
