@@ -27,9 +27,6 @@ import androidx.viewpager.widget.ViewPager;
 public class SettingActivity extends AppCompatActivity {
 //    private TabLayout tabLayout;
 //    private ViewPager viewPager;
-
-
-
     int maxX;
     SharedPreferences sf;               // 로컬 DB
     SharedPreferences.Editor editor;    // DB 편집 객체
@@ -40,6 +37,9 @@ public class SettingActivity extends AppCompatActivity {
     TextView inputPhoneNum2;
     TextView inputPhoneNum3;
     LinearLayout voiceSettingLayout;
+    LinearLayout numberSettingLayout1;
+    LinearLayout numberSettingLayout2;
+    LinearLayout numberSettingLayout3;
     LinearLayout smishingLayout;
     ImageButton deleteBtn1;
     ImageButton deleteBtn2;
@@ -67,7 +67,12 @@ public class SettingActivity extends AppCompatActivity {
         osLicense = findViewById(R.id.OS_License);
 
         voiceSettingLayout = findViewById(R.id.voice_Setting_Layout);
+        numberSettingLayout1 = findViewById(R.id.set_Num_Layout1);
+        numberSettingLayout2 = findViewById(R.id.set_Num_Layout2);
+        numberSettingLayout3 = findViewById(R.id.set_Num_Layout3);
+
         smishingLayout = findViewById(R.id.smishing_layout);
+
         inputPhoneNum1 = findViewById(R.id.setting_phoneNum1);
         inputPhoneNum2 = findViewById(R.id.setting_phoneNum2);
         inputPhoneNum3 = findViewById(R.id.setting_phoneNum3);
@@ -78,8 +83,8 @@ public class SettingActivity extends AppCompatActivity {
 
         voicePower = findViewById(R.id.voice_Power);
         smishingPower = findViewById(R.id.smishing_Power);
-        smsPower = findViewById(R.id.smsPower);
-        mmsPower = findViewById(R.id.mmsPower);
+        smsPower = findViewById(R.id.sms_Power);
+        mmsPower = findViewById(R.id.mms_Power);
 
         sf = getSharedPreferences("settingFile", MODE_PRIVATE); // 로컬 DB 객체
         editor = sf.edit(); // DB 편집 객체
@@ -92,19 +97,29 @@ public class SettingActivity extends AppCompatActivity {
         inputPhoneNum2.setText(phoneNum2);
         inputPhoneNum3.setText(phoneNum3);
 
-        if(inputPhoneNum1.equals(""))
+        numberSettingLayout1.setVisibility(View.VISIBLE);
+        if(!inputPhoneNum1.getText().equals(""))  // 1번이 들어있으면
         {
-            inputPhoneNum2.setVisibility(View.GONE);
-            inputPhoneNum3.setVisibility(View.GONE);
+            if(!inputPhoneNum2.getText().equals("")) // 2번이 들어있으면
+            {
+                numberSettingLayout3.setVisibility(View.VISIBLE);
+            }
+            numberSettingLayout2.setVisibility(View.VISIBLE);
         }
 
-        else
-        {
-            if(inputPhoneNum2.equals(""))
-            {
-                inputPhoneNum3.setVisibility(View.GONE);
-            }
+        /*******************************************
+         * 보이스 피싱 파워
+         ******************************************/
+        boolean voiceFishing = sf.getBoolean("voice_fishing", false);
+        if(voiceFishing){
+            voiceSettingLayout.setVisibility(View.VISIBLE);
+            voicePower.setChecked(true);
+        } else{
+            voiceSettingLayout.setVisibility(View.GONE);
+            voicePower.setChecked(false);
         }
+
+
 
         /*******************************************
          * 스미싱 버튼 확인부분
@@ -246,7 +261,7 @@ public class SettingActivity extends AppCompatActivity {
 
                     // 버전 정보
                     case R.id.version_Info:
-                        Toast.makeText(SettingActivity.this, "버전 정보 클릭", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SettingActivity.this, "Version 1.0.0", Toast.LENGTH_SHORT).show();
                         break;
 
                     // OS 라이센스 정보
@@ -329,21 +344,36 @@ public class SettingActivity extends AppCompatActivity {
                     // 번호 삭제
                     case R.id.deleteBtn1 :
                         inputPhoneNum1.setText("");
-
-                        if(inputPhoneNum1.equals(""))
+                        if(!inputPhoneNum3.getText().equals("")) // 1, 2, 3 모두 있는 상태
                         {
-                            inputPhoneNum2.setVisibility(View.GONE);
+                            inputPhoneNum1.setText(inputPhoneNum2.getText());
+                            inputPhoneNum2.setText(inputPhoneNum3.getText());
+                            inputPhoneNum3.setText("");
                         }
+                        else if(!inputPhoneNum2.getText().equals("")) // 1, 2가 있는 상태
+                        {
+                            inputPhoneNum1.setText(inputPhoneNum2.getText());
+                            inputPhoneNum2.setText("");
+                            numberSettingLayout3.setVisibility(View.GONE);
+                        }
+                        else { // 1만 있는 상태
+                            numberSettingLayout2.setVisibility(View.GONE);
+                        }
+
                         Toast.makeText(SettingActivity.this, "삭제되었습니다.", Toast.LENGTH_SHORT).show();
                         break ;
 
                     case R.id.deleteBtn2 :
                         inputPhoneNum2.setText("");
-
-                        if(inputPhoneNum2.equals(""))
+                        if(!inputPhoneNum3.getText().equals("")) // 1, 2, 3 모두 있는 상태
                         {
-                            inputPhoneNum3.setVisibility(View.GONE);
+                            inputPhoneNum2.setText(inputPhoneNum3.getText());
+                            inputPhoneNum3.setText("");
                         }
+                        else {
+                            numberSettingLayout3.setVisibility(View.GONE);
+                        }
+
                         Toast.makeText(SettingActivity.this, "삭제되었습니다.", Toast.LENGTH_SHORT).show();
                         break ;
 
@@ -363,85 +393,95 @@ public class SettingActivity extends AppCompatActivity {
     public void SwitchCheckedListener()
     {
         // 보이스피싱 파워 체크
-        voicePower.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        CompoundButton.OnCheckedChangeListener onCheckedChangeListener = new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked)
-                {
-                    voiceSettingLayout.setVisibility(View.VISIBLE);
-                }
-                else
-                {
-                    voiceSettingLayout.setVisibility(View.GONE);
-                }
+                switch (buttonView.getId()) {
 
+                    // 보이스피싱 파워 체크
+                    case R.id.voice_Power :
+                        if(isChecked)
+                        {
+                            editor.putBoolean("voice_fishing", true);
+                            editor.commit();
+
+                            voiceSettingLayout.setVisibility(View.VISIBLE);
+
+                            Toast.makeText(SettingActivity.this, "VoiceFishing On", Toast.LENGTH_SHORT).show();
+                        }
+                        else
+                        {
+                            editor.putBoolean("voice_fishing", false);
+                            editor.commit();
+
+                            voiceSettingLayout.setVisibility(View.GONE);
+                            Toast.makeText(SettingActivity.this, "VoiceFishing Off", Toast.LENGTH_SHORT).show();
+
+                        }
+                        break;
+
+                    // 스미싱 파워 체크
+                    case R.id.smishing_Power:
+                        // default 값으로 우선 전부 기능 꺼져있게 만듬
+                        if(isChecked){
+                            editor.putBoolean("sms", false);
+                            editor.putBoolean("mms", false);
+                            editor.putBoolean("smishing", true);
+                            editor.commit();
+
+                            smsPower.setChecked(false);
+                            mmsPower.setChecked(false);
+
+                            smishingLayout.setVisibility(View.VISIBLE);
+
+                            Toast.makeText(SettingActivity.this, "smishing On", Toast.LENGTH_SHORT).show();
+                        } else{
+                            editor.putBoolean("sms", false);
+                            editor.putBoolean("mms", false);
+                            editor.putBoolean("smishing", false);
+                            editor.commit();
+
+                            smsPower.setChecked(false);
+                            mmsPower.setChecked(false);
+
+                            smishingLayout.setVisibility(View.GONE);
+
+                            Toast.makeText(SettingActivity.this, "smishing Off", Toast.LENGTH_SHORT).show();
+                        }
+                        break;
+
+                    // sms 파워 체크
+                    case R.id.sms_Power:
+                        if(isChecked){
+                            editor.putBoolean("sms", true);
+                            editor.commit();
+                            Toast.makeText(SettingActivity.this, "sms On", Toast.LENGTH_SHORT).show();
+                        } else{
+                            editor.putBoolean("sms", false);
+                            editor.commit();
+                            Toast.makeText(SettingActivity.this, "sms Off", Toast.LENGTH_SHORT).show();
+                        }
+                        break;
+
+                    // mms 파워 체크
+                    case R.id.mms_Power:
+                        if(isChecked){
+                            editor.putBoolean("mms", true);
+                            editor.commit();
+                            Toast.makeText(SettingActivity.this, "mms On", Toast.LENGTH_SHORT).show();
+                        } else{
+                            editor.putBoolean("mms", false);
+                            editor.commit();
+                            Toast.makeText(SettingActivity.this, "mms Off", Toast.LENGTH_SHORT).show();
+                        }
+                        break;
+                }
             }
-        });
-
-        // 스미싱 파워 체크
-        smishingPower.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                // default 값으로 우선 전부 기능 꺼져있게 만듬
-                if(isChecked){
-                    editor.putBoolean("sms", false);
-                    editor.putBoolean("mms", false);
-                    editor.putBoolean("smishing", true);
-                    editor.commit();
-
-                    smsPower.setChecked(false);
-                    mmsPower.setChecked(false);
-
-                    smishingLayout.setVisibility(View.VISIBLE);
-
-                    Toast.makeText(SettingActivity.this, "smishing On", Toast.LENGTH_SHORT).show();
-                } else{
-                    editor.putBoolean("sms", false);
-                    editor.putBoolean("mms", false);
-                    editor.putBoolean("smishing", false);
-                    editor.commit();
-
-                    smsPower.setChecked(false);
-                    mmsPower.setChecked(false);
-
-                    smishingLayout.setVisibility(View.GONE);
-
-                    Toast.makeText(SettingActivity.this, "smishing Off", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-
-        // sms 파워 체크
-        smsPower.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked){
-                    editor.putBoolean("sms", true);
-                    editor.commit();
-                    Toast.makeText(SettingActivity.this, "sms On", Toast.LENGTH_SHORT).show();
-                } else{
-                    editor.putBoolean("sms", false);
-                    editor.commit();
-                    Toast.makeText(SettingActivity.this, "sms Off", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-
-        // mms 파워 체크
-        mmsPower.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked){
-                    editor.putBoolean("mms", true);
-                    editor.commit();
-                    Toast.makeText(SettingActivity.this, "mms On", Toast.LENGTH_SHORT).show();
-                } else{
-                    editor.putBoolean("mms", false);
-                    editor.commit();
-                    Toast.makeText(SettingActivity.this, "mms Off", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
+        };
+        voicePower.setOnCheckedChangeListener(onCheckedChangeListener);
+        smishingPower.setOnCheckedChangeListener(onCheckedChangeListener);
+        smsPower.setOnCheckedChangeListener(onCheckedChangeListener);
+        mmsPower.setOnCheckedChangeListener(onCheckedChangeListener);
     }
 
     //연락처 불러오기 버튼 클릭 시 동작
@@ -462,18 +502,17 @@ public class SettingActivity extends AppCompatActivity {
             switch(textViewNum) {
                 case 1:
                     inputPhoneNum1.setText(num);
-
-                    if(!inputPhoneNum1.equals(""))
+                    if(!inputPhoneNum1.getText().equals(""))
                     {
-                        inputPhoneNum2.setVisibility(View.VISIBLE);
+                        numberSettingLayout2.setVisibility(View.VISIBLE);
                     }
                     break;
 
                 case 2:
                     inputPhoneNum2.setText(num);
-                    if(!inputPhoneNum2.equals(""))
+                    if(!inputPhoneNum2.getText().equals(""))
                     {
-                        inputPhoneNum3.setVisibility(View.VISIBLE);
+                        numberSettingLayout3.setVisibility(View.VISIBLE);
                     }
                     break;
 

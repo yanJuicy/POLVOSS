@@ -20,6 +20,7 @@
             android:padding="10dp"
             android:orientation="vertical">
 
+
             <Switch
                 android:id="@+id/voice_Power"
                 android:layout_width="match_parent"
@@ -33,7 +34,6 @@
                 android:textSize="22sp"
                 android:thumb="@drawable/switch_thumb"
                 android:track="@drawable/switch_track_selector" />
-
 
             <LinearLayout
                 android:id="@+id/voice_Setting_Layout"
@@ -102,7 +102,6 @@
 
 
                 <LinearLayout
-                    android:id="@+id/set_Num_Layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
@@ -113,12 +112,13 @@
                     android:paddingRight="10dp">
 
                     <LinearLayout
-                        android:id="@+id/set_Num"
+                        android:id="@+id/set_Num_Layout1"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:layout_marginBottom="10dp"
                         android:gravity="center_vertical"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:visibility="gone">
 
                         <TextView
                             android:id="@+id/setting_phoneNum1"
@@ -126,11 +126,12 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="12"
                             android:fontFamily="@font/app_main_font"
-                            android:hint="번호 가져오기"
+                            android:hint="번호 가져오기1"
                             android:text=""
                             android:textColor="#000000"
                             android:textColorHint="#888888"
-                            android:textSize="15sp" />
+                            android:textSize="15sp"
+                            android:visibility="visible" />
 
                         <ImageButton
                             android:id="@+id/deleteBtn1"
@@ -140,14 +141,17 @@
                             android:background="@android:color/transparent"
                             app:srcCompat="@drawable/ic_baseline_remove_circle_outline_35" />
 
+
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/set_Num_Layout2"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:layout_marginBottom="10dp"
                         android:gravity="center_vertical"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:visibility="gone">
 
                         <TextView
                             android:id="@+id/setting_phoneNum2"
@@ -155,7 +159,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="12"
                             android:fontFamily="@font/app_main_font"
-                            android:hint="번호 가져오기"
+                            android:hint="번호 가져오기2"
                             android:text=""
                             android:textColor="#000000"
                             android:textColorHint="#888888"
@@ -170,14 +174,17 @@
                             app:srcCompat="@drawable/ic_baseline_remove_circle_outline_35" />
 
 
+
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/set_Num_Layout3"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:layout_marginBottom="10dp"
                         android:gravity="center_vertical"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:visibility="gone">
 
                         <TextView
                             android:id="@+id/setting_phoneNum3"
@@ -185,7 +192,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="12"
                             android:fontFamily="@font/app_main_font"
-                            android:hint="번호 가져오기"
+                            android:hint="번호 가져오기3"
                             android:text=""
                             android:textColor="#000000"
                             android:textColorHint="#888888"
@@ -255,7 +262,7 @@
 
 
                 <Switch
-                    android:id="@+id/smsPower"
+                    android:id="@+id/sms_Power"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
@@ -269,7 +276,7 @@
                     android:track="@drawable/switch_track_selector"/>
 
                 <Switch
-                    android:id="@+id/mmsPower"
+                    android:id="@+id/mms_Power"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"

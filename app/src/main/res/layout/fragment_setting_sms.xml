@@ -12,7 +12,7 @@
         android:orientation="horizontal">
 
         <Switch
-            android:id="@+id/sms_Power"
+            android:id="@+id/smsoower"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -27,7 +27,7 @@
         android:orientation="horizontal">
 
         <Switch
-            android:id="@+id/mms_Power"
+            android:id="@+id/mmsoower"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
