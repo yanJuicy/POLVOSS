@@ -29,8 +29,8 @@
                 android:checked="true"
                 android:fontFamily="@font/app_main_font"
                 android:padding="5dp"
-                android:text="보이스 피싱"
-                android:textColor="@color/colorMain"
+                android:text="보이스 피싱 차단 설정"
+                android:textColor="#80000000"
                 android:textSize="22sp"
                 android:thumb="@drawable/switch_thumb"
                 android:track="@drawable/switch_track_selector" />
@@ -42,28 +42,36 @@
                 android:orientation="vertical"
                 android:padding="10dp">
 
-
-                <!--                <TextView-->
-                <!--                    android:id="@+id/textView"-->
-                <!--                    android:layout_width="match_parent"-->
-                <!--                    android:layout_height="wrap_content"-->
-                <!--                    android:layout_marginBottom="20dp"-->
-                <!--                    android:fontFamily="@font/app_main_font"-->
-                <!--                    android:text="보이스 피싱"-->
-                <!--                    android:textColor="#80000000"-->
-                <!--                    android:textSize="15sp"/>-->
-
-                <TextView
-                    android:id="@+id/textView2"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     android:layout_marginBottom="10dp"
-                    android:text="시간 선택"
-                    android:fontFamily="@font/app_main_font"
-                    android:textColor="@color/colorMain"
-                    android:textSize="20sp" />
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/textView2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="시간 선택"
+                        android:fontFamily="@font/app_main_font"
+                        android:textColor="@color/colorMain"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:id="@+id/textView11"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:fontFamily="@font/app_main_font"
+                        android:showText="true"
+                        android:text="착신 불명 상대방과의 통화 허용 시간을 설정합니다."
+                        android:textColor="#80000000"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+
 
                 <SeekBar
                     android:id="@+id/seekBarTime"
@@ -89,25 +97,42 @@
                     android:textColor="@color/colorMain"
                     android:textSize="15sp" />
 
-                <TextView
-                    android:id="@+id/setNumber"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:fontFamily="@font/app_main_font"
-                    android:text="보호자 연락처 설정"
-                    android:textColor="@color/colorMain"
-                    android:textSize="20sp" />
+                    android:orientation="vertical">
 
+                    <TextView
+                        android:id="@+id/setNumber"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/app_main_font"
+                        android:text="보호자 연락처 설정"
+                        android:textColor="@color/colorMain"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:id="@+id/textView10"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:fontFamily="@font/app_main_font"
+                        android:showText="true"
+                        android:text="SMS메세지 내용 중에 있는 URL 탐색을 수행합니다."
+                        android:textColor="#80000000"
+                        android:textSize="12sp" />
+
+                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
                     android:orientation="vertical"
                     android:paddingLeft="10dp"
-
                     android:paddingTop="10dp"
                     android:paddingRight="10dp">
 
@@ -118,7 +143,7 @@
                         android:layout_marginBottom="10dp"
                         android:gravity="center_vertical"
                         android:orientation="horizontal"
-                        android:visibility="gone">
+                        android:visibility="visible">
 
                         <TextView
                             android:id="@+id/setting_phoneNum1"
@@ -130,8 +155,7 @@
                             android:text=""
                             android:textColor="#000000"
                             android:textColorHint="#888888"
-                            android:textSize="15sp"
-                            android:visibility="visible" />
+                            android:textSize="15sp" />
 
                         <ImageButton
                             android:id="@+id/deleteBtn1"
@@ -246,7 +270,7 @@
                 android:layout_marginBottom="10dp"
                 android:layout_gravity="center"
                 android:fontFamily="@font/app_main_font"
-                android:text="스미싱"
+                android:text="스미싱 차단 설정"
                 android:checked="true"
                 android:textColor="#80000000"
                 android:textSize="22sp"
@@ -261,32 +285,99 @@
                 android:padding="10dp">
 
 
-                <Switch
-                    android:id="@+id/sms_Power"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginBottom="15dp"
-                    android:fontFamily="@font/app_main_font"
-                    android:text="SMS"
-                    android:textColor="@color/colorMain"
-                    android:textSize="20sp"
-                    android:thumb="@drawable/switch_thumb"
-                    android:track="@drawable/switch_track_selector"/>
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:layout_marginBottom="15dp">
 
-                <Switch
-                    android:id="@+id/mms_Power"
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/textView3"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/app_main_font"
+                            android:showText="true"
+                            android:text="SMS"
+                            android:textColor="@color/colorMain"
+                            android:textSize="20sp" />
+
+                        <TextView
+                            android:id="@+id/textView5"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:fontFamily="@font/app_main_font"
+                            android:showText="true"
+                            android:text="SMS메세지 내용 중에 있는 URL 탐색을 수행합니다."
+                            android:textColor="#80000000"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+
+                    <Switch
+                        android:id="@+id/sms_Power"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_weight="4"
+                        android:thumb="@drawable/switch_thumb"
+                        android:track="@drawable/switch_track_selector" />
+                </LinearLayout>
+
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:fontFamily="@font/app_main_font"
-                    android:text="MMS"
-                    android:textColor="@color/colorMain"
-                    android:textSize="20sp"
-                    android:thumb="@drawable/switch_thumb"
-                    android:track="@drawable/switch_track_selector"/>
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:layout_marginBottom="10dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/textView9"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/app_main_font"
+                            android:showText="true"
+                            android:text="MMS"
+                            android:textColor="@color/colorMain"
+                            android:textSize="20sp" />
+
+                        <TextView
+                            android:id="@+id/textView8"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:fontFamily="@font/app_main_font"
+                            android:showText="true"
+                            android:text="멀티미디어 메세지 내용 중에 있는 URL 탐색을 수행합니다."
+                            android:textColor="#80000000"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+
+                    <Switch
+                        android:id="@+id/mms_Power"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_weight="4"
+                        android:thumb="@drawable/switch_thumb"
+                        android:track="@drawable/switch_track_selector" />
+                </LinearLayout>
 
             </LinearLayout>
 
