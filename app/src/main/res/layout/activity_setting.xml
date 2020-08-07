@@ -240,12 +240,14 @@
                 android:layout_gravity="center"
                 android:fontFamily="@font/app_main_font"
                 android:text="스미싱"
+                android:checked="true"
                 android:textColor="#80000000"
                 android:textSize="22sp"
                 android:thumb="@drawable/switch_thumb"
                 android:track="@drawable/switch_track_selector" />
 
             <LinearLayout
+                android:id="@+id/smishing_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
