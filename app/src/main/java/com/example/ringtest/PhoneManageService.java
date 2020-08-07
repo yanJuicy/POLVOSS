@@ -143,9 +143,9 @@ public class PhoneManageService extends Service {
         //오래오에서는 채널이 필수이다! 채널
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "default");
 
-        builder.setSmallIcon(R.mipmap.lock);//아이콘 설정
+        builder.setSmallIcon(R.mipmap.lock2);//아이콘 설정
         //위 포어그라운들 아이콘으로 뜰 디스크립션
-        builder.setContentTitle("police_call_stop");
+        builder.setContentTitle("Call Stop");
         builder.setContentTitle("보이스 피싱 및 스미싱 보호중");
 
 
@@ -325,7 +325,7 @@ public class PhoneManageService extends Service {
         String phoneNum1 = sf.getString("phoneNum1", "");
         String phoneNum2 = sf.getString("phoneNum2", "");
         String phoneNum3 = sf.getString("phoneNum3", "");
-        String sms = "[보안 앱 자동발신]\n피싱 위험이 감지되었습니다\n본 번호로 연락 바랍니다";
+        String sms = "[Call Stop 보안 앱 자동발신]\n피싱 위험이 감지되었습니다\n본 번호로 연락 바랍니다";
 ;
         if (!phoneNum1.equals("")) { // 번호가 존재하면 문자 전송
             try{
