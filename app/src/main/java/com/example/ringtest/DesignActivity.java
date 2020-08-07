@@ -64,8 +64,8 @@ public class DesignActivity extends AppCompatActivity implements AutoPermissions
             smsState.setText("활성화");
         } else {
             powerButton.setImageResource(R.mipmap.unlock2);
-            voiceState.setText("비활성화");
-            smsState.setText("비활성화");
+            voiceState.setText("비 활성화");
+            smsState.setText("비 활성화");
         }
 
         // 파워 버튼 클릭 이벤트
@@ -120,14 +120,14 @@ public class DesignActivity extends AppCompatActivity implements AutoPermissions
         if (powerOn) {
             powerButton.setImageResource(R.mipmap.lock2);
             Toast.makeText(DesignActivity.this, "서비스 시작", Toast.LENGTH_SHORT).show();
-            textState.setText("안전하게 보호중입니다.");
+            textState.setText("안전하게 보호 중입니다.");
             voiceState.setText("활성화");
             smsState.setText("활성화");
         } else {
             powerButton.setImageResource(R.mipmap.unlock2);
-            textState.setText("보호중이 아닙니다.");
-            voiceState.setText("비활성화");
-            smsState.setText("비활성화");
+            textState.setText("보호 중이 아닙니다.");
+            voiceState.setText("비 활성화");
+            smsState.setText("비 활성화");
         }
     }
 
