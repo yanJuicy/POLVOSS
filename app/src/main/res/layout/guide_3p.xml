@@ -61,7 +61,7 @@
             android:layout_marginTop="5dp"
 
             android:gravity="center"
-            android:text="통화 중 위험 안내"
+            android:text="통화 중 위험 안내를 받아보세요"
             android:textColor="@android:color/white"
             android:textSize="25dp"
             android:textStyle="bold" />

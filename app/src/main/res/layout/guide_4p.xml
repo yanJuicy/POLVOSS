@@ -60,7 +60,7 @@
             android:layout_marginTop="5dp"
 
             android:gravity="center"
-            android:text="URL 링크 탐색"
+            android:text="URL 링크 탐색을 수행합니다"
             android:textColor="@android:color/white"
             android:textSize="25dp"
             android:textStyle="bold" />
