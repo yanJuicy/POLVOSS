@@ -62,6 +62,14 @@
 
 
         <service
+            android:name=".AcceptOverlay"
+            android:permission="android.permission.SYSTEM_ALERT_WINDOW"
+            android:enabled="true"
+            android:exported="true"></service>
+
+
+
+        <service
             android:name=".PhoneManageService"
             android:enabled="true"
             android:exported="true" />

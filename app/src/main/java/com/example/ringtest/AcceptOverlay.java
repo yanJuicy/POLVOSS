@@ -59,7 +59,8 @@ public class AcceptOverlay extends Service {
 
         params.gravity = Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL; // 레이아웃 위치 조정
         //mView = inflate.inflate(R.layout.activity_overlay, null);
-        mView = inflate.inflate(R.layout.activity_overlay, null);
+
+        mView = inflate.inflate(R.layout.accept_overlay, null);
 
 
         final TextView textView = mView.findViewById(R.id.accepttext2);
