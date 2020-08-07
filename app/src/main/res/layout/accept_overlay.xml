@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ImageButton
+        android:id="@+id/imagebutton2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:background="@android:color/transparent"
+        android:src="@mipmap/notification" />
+
+    <TextView
+        android:id="@+id/message2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_toast"
+        android:gravity="center"
+        android:padding="16dp"
+        android:textColor="#F9D300"
+        android:textStyle="bold"
+        android:text="설정하기 전에 먼저 자물쇠를 터치하여 \n피싱 감지 동작을 해제해주세요"
+        />
+
+    <TextView
+        android:id="@+id/accepttext2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_toast2"
+        android:gravity="center"
+        android:padding="16dp"
+        android:textColor="#EFF5FB"
+        android:textStyle="bold"
+        android:textSize="20dp"
+        android:text="확   인"
+        />
+
+
+
+</LinearLayout>
