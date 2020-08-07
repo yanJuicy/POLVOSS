@@ -50,7 +50,7 @@ public class SettingActivity extends AppCompatActivity {
     ImageButton deleteBtn1;
     ImageButton deleteBtn2;
     ImageButton deleteBtn3;
-    Button saveBtn;
+    //Button saveBtn;
     Switch voicePower;
     Switch smishingPower;
     Switch smsPower;
@@ -91,7 +91,7 @@ public class SettingActivity extends AppCompatActivity {
         deleteBtn1 = findViewById(R.id.deleteBtn1);
         deleteBtn2 = findViewById(R.id.deleteBtn2);
         deleteBtn3 = findViewById(R.id.deleteBtn3);
-        saveBtn = findViewById(R.id.saveBtn);
+        //saveBtn = findViewById(R.id.saveBtn);
 
         voicePower = findViewById(R.id.voice_Power);
         smishingPower = findViewById(R.id.smishing_Power);
@@ -374,6 +374,10 @@ public class SettingActivity extends AppCompatActivity {
                             numberSettingLayout2.setVisibility(View.GONE);
                         }
 
+                        editor.putString("phoneNum1", inputPhoneNum1.getText().toString());     // DB에 보호자 번호 저장
+                        editor.putString("phoneNum2", inputPhoneNum2.getText().toString());
+                        editor.putString("phoneNum3", inputPhoneNum3.getText().toString());
+                        editor.commit();
                         Toast.makeText(SettingActivity.this, "삭제되었습니다.", Toast.LENGTH_SHORT).show();
                         break ;
 
@@ -388,17 +392,22 @@ public class SettingActivity extends AppCompatActivity {
                             numberSettingLayout3.setVisibility(View.GONE);
                         }
 
+                        editor.putString("phoneNum2", inputPhoneNum2.getText().toString());
+                        editor.putString("phoneNum3", inputPhoneNum3.getText().toString());
+                        editor.commit();
                         Toast.makeText(SettingActivity.this, "삭제되었습니다.", Toast.LENGTH_SHORT).show();
                         break ;
 
                     case R.id.deleteBtn3 :
                         inputPhoneNum3.setText("");
+                        editor.putString("phoneNum3", inputPhoneNum3.getText().toString());
+                        editor.commit();
                         Toast.makeText(SettingActivity.this, "삭제되었습니다.", Toast.LENGTH_SHORT).show();
                         break ;
                 }
             }
         };
-        saveBtn.setOnClickListener(Listener);
+        //saveBtn.setOnClickListener(Listener);
         deleteBtn1.setOnClickListener(Listener);
         deleteBtn2.setOnClickListener(Listener);
         deleteBtn3.setOnClickListener(Listener);
@@ -419,9 +428,7 @@ public class SettingActivity extends AppCompatActivity {
                             editor.putBoolean("voice_fishing", true);
                             editor.commit();
 
-
                             voiceSettingLayout.setVisibility(View.VISIBLE);
-
 
                             Toast.makeText(SettingActivity.this, "VoiceFishing On", Toast.LENGTH_SHORT).show();
                         }
@@ -520,6 +527,8 @@ public class SettingActivity extends AppCompatActivity {
             switch(textViewNum) {
                 case 1:
                     inputPhoneNum1.setText(num);
+                    editor.putString("phoneNum1", inputPhoneNum1.getText().toString());     // DB에 보호자 번호 저장
+                    editor.commit();
                     if(!inputPhoneNum1.getText().equals(""))
                     {
                         numberSettingLayout2.setVisibility(View.VISIBLE);
@@ -528,6 +537,8 @@ public class SettingActivity extends AppCompatActivity {
 
                 case 2:
                     inputPhoneNum2.setText(num);
+                    editor.putString("phoneNum2", inputPhoneNum2.getText().toString());
+                    editor.commit();
                     if(!inputPhoneNum2.getText().equals(""))
                     {
                         numberSettingLayout3.setVisibility(View.VISIBLE);
@@ -536,6 +547,8 @@ public class SettingActivity extends AppCompatActivity {
 
                 case 3:
                     inputPhoneNum3.setText(num);
+                    editor.putString("phoneNum3", inputPhoneNum3.getText().toString());
+                    editor.commit();
                     break;
             }
 
@@ -543,5 +556,4 @@ public class SettingActivity extends AppCompatActivity {
         }
 
     }
-
 }
