@@ -33,14 +33,14 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_margin="10dp"
-                android:src="@mipmap/lock2" />
+                android:src="@mipmap/lock3" />
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_margin="10dp"
-                android:src="@mipmap/unlock2" />
+                android:src="@mipmap/unlock3" />
         </LinearLayout>
 
         <TextView
