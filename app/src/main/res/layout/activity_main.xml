@@ -225,6 +225,8 @@
                     android:fontFamily="@font/app_main_font"
                     android:text="저장"
                     android:textSize="15sp" />
+
+
             </LinearLayout>
 
         </LinearLayout>

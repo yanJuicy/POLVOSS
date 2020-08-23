@@ -1,5 +1,7 @@
 package com.example.ringtest;
 
+import android.app.AlertDialog;
+import android.app.TimePickerDialog;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -17,9 +19,11 @@ import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.NumberPicker;
 import android.widget.SeekBar;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.google.android.material.tabs.TabLayout;
@@ -30,7 +34,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import java.lang.annotation.Retention;
 
-public class SettingActivity extends AppCompatActivity {
+public class SettingActivity extends AppCompatActivity implements NumberPicker.OnValueChangeListener {
 //    private TabLayout tabLayout;
 //    private ViewPager viewPager;
     int maxX;
@@ -59,6 +63,7 @@ public class SettingActivity extends AppCompatActivity {
     ImageView closeBtn;
     private boolean mIsBound;
 
+    Button timePickButton;
 
 
 
@@ -97,6 +102,8 @@ public class SettingActivity extends AppCompatActivity {
         smishingPower = findViewById(R.id.smishing_Power);
         smsPower = findViewById(R.id.sms_Power);
         mmsPower = findViewById(R.id.mms_Power);
+        timePickButton = findViewById(R.id.loadTime);
+
 
         sf = getSharedPreferences("settingFile", MODE_PRIVATE); // 로컬 DB 객체
         editor = sf.edit(); // DB 편집 객체
@@ -204,6 +211,13 @@ public class SettingActivity extends AppCompatActivity {
         this.ButtonClickListener();
         this.SwitchCheckedListener();
 
+        timePickButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getNumberPicker();
+            }
+        });
+
         /***********
          * Fragment 연결
          *
@@ -240,6 +254,15 @@ public class SettingActivity extends AppCompatActivity {
             }
         });
         ************/
+    }
+
+    /*******************************************
+     * NumberPicker 불러오기
+     **********************************************/
+    private void getNumberPicker() {
+        NumberPickerDialog newFragment = new NumberPickerDialog();
+        newFragment.setValueChangeListener(this);
+        newFragment.show(getSupportFragmentManager(), "time picker");
     }
 
     /*******************************************
@@ -555,5 +578,11 @@ public class SettingActivity extends AppCompatActivity {
             cursor.close();
         }
 
+    }
+
+    @Override
+    public void onValueChange(NumberPicker numberPicker, int i, int i1) {
+        Toast.makeText(this,
+                "selected number " + numberPicker.getValue(), Toast.LENGTH_SHORT).show();
     }
 }
