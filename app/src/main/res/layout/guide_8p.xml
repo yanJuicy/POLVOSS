@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#0F0525">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="서비스 이용 동의"
+            android:textColor="@android:color/white"
+            android:layout_marginTop="30dp"
+            android:textSize="25dp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/guide_linear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_above="@+id/tvName1"
+            android:gravity="center">
+
+
+            <ImageView
+                android:layout_width="353dp"
+                android:layout_height="295dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="30dp"
+                android:src="@mipmap/podole" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvName1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="\n'안심전화 서비스' 이용을 위한 동의"
+            android:textColor="@android:color/white"
+            android:textSize="25dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/guide1_middle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_below="@+id/tvName1"
+
+            android:text=""
+            android:textColor="@android:color/white"
+            android:textSize="25dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/guide1_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="left"
+            android:layout_below="@+id/guide1_middle"
+            android:layout_marginLeft="30dp"
+            android:text="서비스 이용을 위해 아래 내용에 동의해 주세요."
+            android:textColor="#888888"
+            android:textSize="15dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/guide2_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="left"
+            android:layout_marginTop="30dp"
+            android:layout_below="@+id/guide1_middle"
+            android:layout_marginLeft="30dp"
+            android:text="- 보이스피싱 위험 여부는 실제와 다를 수 있으므로 본인의\n   판단에 참고만 하시기 바랍니다."
+            android:textColor="#888888"
+            android:textSize="15dp"
+            android:textStyle="bold" />
+        <TextView
+            android:id="@+id/guide3_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="left"
+            android:layout_marginTop="80dp"
+            android:layout_below="@+id/guide1_middle"
+            android:layout_marginLeft="30dp"
+            android:text="- 이용시 발생한 일체의 상황에 대해 책임을 지지 않습니다."
+            android:textColor="#888888"
+            android:textSize="15dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/guide4_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="left"
+            android:layout_marginTop="109dp"
+            android:layout_below="@+id/guide1_middle"
+            android:layout_marginLeft="30dp"
+            android:text="- 앱은 본인의 휴대폰에 설치되며 개발자에게 어떠한 내용도 \n   전달되지 않습니다."
+            android:textColor="#888888"
+            android:textSize="15dp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+</FrameLayout>
