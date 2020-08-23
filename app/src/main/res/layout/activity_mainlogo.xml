@@ -9,8 +9,8 @@
 
     <ImageView
         android:id="@+id/Mainlogo"
-        android:layout_width="214dp"
-        android:layout_height="251dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="200dp"
         android:src="@mipmap/logo"
@@ -18,13 +18,14 @@
         tools:layout_editor_absoluteX="79dp"
         tools:layout_editor_absoluteY="4dp" />
 
-    <ImageView
+    <TextView
         android:id="@+id/Mainlfont"
-        android:layout_width="214dp"
-        android:layout_height="251dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="340dp"
-        android:src="@mipmap/mainfont"
+        android:layout_marginTop="400dp"
+        android:text="충북지방 경찰청 통합보안 어플리케이션"
+        android:textColor="@color/white"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="79dp"
         tools:layout_editor_absoluteY="4dp" />
