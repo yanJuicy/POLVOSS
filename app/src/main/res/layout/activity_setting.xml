@@ -27,7 +27,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:checked="true"
-                android:fontFamily="@font/app_main_font"
                 android:padding="5dp"
                 android:text="보이스 피싱 차단 설정"
                 android:textColor="#80000000"
@@ -58,7 +57,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="시간 선택"
-                        android:fontFamily="@font/app_main_font"
                         android:textColor="@color/colorMain"
                         android:textSize="20sp" />
 
@@ -67,7 +65,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
-                        android:fontFamily="@font/app_main_font"
                         android:showText="true"
                         android:text="착신 불명 상대방과의 통화 허용 시간을 설정합니다."
                         android:textColor="#80000000"
@@ -96,7 +93,6 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp"
                     android:layout_marginBottom="20dp"
-                    android:fontFamily="@font/app_main_font"
                     android:textColor="@color/colorMain"
                     android:textSize="15sp" />
 
@@ -111,7 +107,6 @@
                         android:id="@+id/setNumber"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/app_main_font"
                         android:text="보호자 연락처 설정"
                         android:textColor="@color/colorMain"
                         android:textSize="20sp" />
@@ -121,7 +116,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
-                        android:fontFamily="@font/app_main_font"
                         android:showText="true"
                         android:text="SMS메세지 내용 중에 있는 URL 탐색을 수행합니다."
                         android:textColor="#80000000"
@@ -153,7 +147,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="12"
-                            android:fontFamily="@font/app_main_font"
                             android:hint="번호 가져오기1"
                             android:text=""
                             android:textColor="#000000"
@@ -185,7 +178,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="12"
-                            android:fontFamily="@font/app_main_font"
                             android:hint="번호 가져오기2"
                             android:text=""
                             android:textColor="#000000"
@@ -218,7 +210,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="12"
-                            android:fontFamily="@font/app_main_font"
                             android:hint="번호 가져오기3"
                             android:text=""
                             android:textColor="#000000"
@@ -248,7 +239,6 @@
 <!--                            android:layout_height="40dp"-->
 <!--                            android:layout_gravity="center"-->
 <!--                            android:background="@drawable/accept_button2"-->
-<!--                            android:fontFamily="@font/app_main_font"-->
 <!--                            android:text="저장"-->
 <!--                            android:textSize="15sp" />-->
 <!--                    </LinearLayout>-->
@@ -272,7 +262,6 @@
                 android:padding="5dp"
                 android:layout_marginBottom="10dp"
                 android:layout_gravity="center"
-                android:fontFamily="@font/app_main_font"
                 android:text="스미싱 차단 설정"
                 android:checked="true"
                 android:textColor="#80000000"
@@ -306,7 +295,6 @@
                             android:id="@+id/textView3"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/app_main_font"
                             android:showText="true"
                             android:text="SMS"
                             android:textColor="@color/colorMain"
@@ -317,7 +305,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="5dp"
-                            android:fontFamily="@font/app_main_font"
                             android:showText="true"
                             android:text="SMS메세지 내용 중에 있는 URL 탐색을 수행합니다."
                             android:textColor="#80000000"
@@ -353,7 +340,6 @@
                             android:id="@+id/textView9"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/app_main_font"
                             android:showText="true"
                             android:text="MMS"
                             android:textColor="@color/colorMain"
@@ -364,7 +350,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="5dp"
-                            android:fontFamily="@font/app_main_font"
                             android:showText="true"
                             android:text="멀티미디어 메세지 내용 중에 있는 URL 탐색을 수행합니다."
                             android:textColor="#80000000"
@@ -402,7 +387,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="15dp"
-                    android:fontFamily="@font/app_main_font"
                     android:text="이용안내"
                     android:textColor="#80000000"
                     android:textSize="22sp" />
@@ -413,7 +397,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_marginBottom="15dp"
-                    android:fontFamily="@font/app_main_font"
                     android:text="버전 정보"
                     android:textColor="@color/colorMain"
                     android:textSize="20sp" />
@@ -423,7 +406,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:fontFamily="@font/app_main_font"
                     android:text="오픈소스 라이센스"
                     android:textColor="@color/colorMain"
                     android:textSize="20sp" />

@@ -22,7 +22,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:fontFamily="@font/app_main_font"
             android:text="자물쇠를 터치해주세요"
             android:textColor="@color/white"
             android:textSize="25sp" />
@@ -53,7 +52,6 @@
             android:id="@+id/textVoiceFishing"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/app_main_font"
             android:gravity="right|center_vertical"
             android:text="보이스피싱 보호 : "
             android:textColor="@color/white"
@@ -64,7 +62,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="start|center_vertical"
-            android:fontFamily="@font/app_main_font"
             android:text="비활성화"
             android:textColor="@color/white"
             android:textSize="20sp" />
@@ -81,7 +78,6 @@
             android:id="@+id/textSmishing"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/app_main_font"
             android:text="스미싱 보호 : "
             android:textColor="@color/white"
             android:textSize="20sp" />
@@ -90,7 +86,6 @@
             android:id="@+id/textSmishingState"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/app_main_font"
             android:text="비활성화"
             android:textColor="@color/white"
             android:textSize="20sp" />
