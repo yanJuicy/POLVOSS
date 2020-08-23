@@ -13,7 +13,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0.8"
+        android:layout_weight="0.4"
         android:gravity="center"
         android:orientation="horizontal">
 
@@ -22,14 +22,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginBottom="30dp"
             android:text="자물쇠를 터치해주세요"
             android:textColor="@color/white"
-            android:textSize="20dp" />
+            android:textSize="24dp" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="18dp"
         android:layout_weight="1"
         android:gravity="center"
         android:orientation="horizontal">
@@ -37,10 +38,32 @@
         <ImageView
             android:id="@+id/powerBtn"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="155dp"
             android:layout_gravity="center"
+            android:layout_marginBottom="12dp"
             app:srcCompat="@mipmap/lock3" />
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/textState2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="보이스 피싱 3단계 대응법"
+        android:textColor="#888888"
+        android:textSize="14dp" />
+
+    <TextView
+    android:id="@+id/textState3"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:layout_marginBottom="120dp"
+    android:text="의심하고 전화끊고 확인하고"
+    android:textColor="@color/white"
+    android:textSize="18dp" />
 
     <Space
         android:layout_width="match_parent"
