@@ -28,7 +28,6 @@ public class DesignActivity extends AppCompatActivity implements AutoPermissions
     ImageView settingButton;
     boolean powerOn;
     boolean smsOn;
-    boolean mmsOn;
     SharedPreferences sf;
     SharedPreferences.Editor editor;
     Intent serviceIntent;
@@ -143,8 +142,7 @@ public class DesignActivity extends AppCompatActivity implements AutoPermissions
     }
 
     private void changeReceiver(){
-        smsOn = sf.getBoolean("sms", false);
-        mmsOn = sf.getBoolean("mms", false);
+        smsOn = sf.getBoolean("smishing", false);
 
         ComponentName smsComponent = new ComponentName(mContext, SmsReceiver.class);
         PackageManager smsPackage = mContext.getPackageManager();
@@ -160,6 +158,11 @@ public class DesignActivity extends AppCompatActivity implements AutoPermissions
                         PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
                         PackageManager.DONT_KILL_APP
                 );
+                mmsPackage.setComponentEnabledSetting(
+                        mmsComponent,
+                        PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
+                        PackageManager.DONT_KILL_APP
+                );
                 // SMS Broadcast Receiver 끄기
             } else{
                 smsPackage.setComponentEnabledSetting(
@@ -167,16 +170,6 @@ public class DesignActivity extends AppCompatActivity implements AutoPermissions
                         PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
                         PackageManager.DONT_KILL_APP
                 );
-            }
-            // MMS Broadcast Receiver 켜기
-            if(mmsOn){
-                mmsPackage.setComponentEnabledSetting(
-                        mmsComponent,
-                        PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
-                        PackageManager.DONT_KILL_APP
-                );
-                // MMS Broadcast Receiver 끄기
-            } else{
                 mmsPackage.setComponentEnabledSetting(
                         mmsComponent,
                         PackageManager.COMPONENT_ENABLED_STATE_DISABLED,

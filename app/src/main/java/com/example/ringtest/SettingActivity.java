@@ -50,15 +50,12 @@ public class SettingActivity extends AppCompatActivity implements NumberPicker.O
     LinearLayout numberSettingLayout1;
     LinearLayout numberSettingLayout2;
     LinearLayout numberSettingLayout3;
-    LinearLayout smishingLayout;
     ImageButton deleteBtn1;
     ImageButton deleteBtn2;
     ImageButton deleteBtn3;
     //Button saveBtn;
     Switch voicePower;
     Switch smishingPower;
-    Switch smsPower;
-    Switch mmsPower;
 
     ImageView closeBtn;
     private boolean mIsBound;
@@ -88,8 +85,6 @@ public class SettingActivity extends AppCompatActivity implements NumberPicker.O
         numberSettingLayout2 = findViewById(R.id.set_Num_Layout2);
         numberSettingLayout3 = findViewById(R.id.set_Num_Layout3);
 
-        smishingLayout = findViewById(R.id.smishing_layout);
-
         inputPhoneNum1 = findViewById(R.id.setting_phoneNum1);
         inputPhoneNum2 = findViewById(R.id.setting_phoneNum2);
         inputPhoneNum3 = findViewById(R.id.setting_phoneNum3);
@@ -100,10 +95,7 @@ public class SettingActivity extends AppCompatActivity implements NumberPicker.O
 
         voicePower = findViewById(R.id.voice_Power);
         smishingPower = findViewById(R.id.smishing_Power);
-        smsPower = findViewById(R.id.sms_Power);
-        mmsPower = findViewById(R.id.mms_Power);
         timePickButton = findViewById(R.id.loadTime);
-
 
         sf = getSharedPreferences("settingFile", MODE_PRIVATE); // 로컬 DB 객체
         editor = sf.edit(); // DB 편집 객체
@@ -147,25 +139,9 @@ public class SettingActivity extends AppCompatActivity implements NumberPicker.O
          ******************************************/
         boolean smishing = sf.getBoolean("smishing", false);
         if(smishing){
-            smishingLayout.setVisibility(View.VISIBLE);
             smishingPower.setChecked(true);
         } else{
-            smishingLayout.setVisibility(View.GONE);
             smishingPower.setChecked(false);
-        }
-
-        boolean sms = sf.getBoolean("sms", false);
-        if(sms){
-            smsPower.setChecked(true);
-        } else{
-            smsPower.setChecked(false);
-        }
-
-        boolean mms = sf.getBoolean("mms", false);
-        if(mms){
-            mmsPower.setChecked(true);
-        } else{
-            mmsPower.setChecked(false);
         }
 
         /*******************************************
@@ -176,7 +152,7 @@ public class SettingActivity extends AppCompatActivity implements NumberPicker.O
         NumberPicker numberPicker = findViewById(R.id.numberPicker);
         numberPicker.setMaxValue(24);
         numberPicker.setMinValue(0);
-        numberPicker.setValue((int) min);
+        numberPicker.setValue((int) min/5);
 
         String[] values = new String[25];
         for (int i=0; i<25; i++) {
@@ -492,55 +468,14 @@ public class SettingActivity extends AppCompatActivity implements NumberPicker.O
                     case R.id.smishing_Power:
                         // default 값으로 우선 전부 기능 꺼져있게 만듬
                         if(isChecked){
-                            editor.putBoolean("sms", false);
-                            editor.putBoolean("mms", false);
                             editor.putBoolean("smishing", true);
                             editor.commit();
-
-                            smsPower.setChecked(false);
-                            mmsPower.setChecked(false);
-
-                            smishingLayout.setVisibility(View.VISIBLE);
-
                             Toast.makeText(SettingActivity.this, "smishing On", Toast.LENGTH_SHORT).show();
                         } else{
-                            editor.putBoolean("sms", false);
-                            editor.putBoolean("mms", false);
                             editor.putBoolean("smishing", false);
                             editor.commit();
 
-                            smsPower.setChecked(false);
-                            mmsPower.setChecked(false);
-
-                            smishingLayout.setVisibility(View.GONE);
-
                             Toast.makeText(SettingActivity.this, "smishing Off", Toast.LENGTH_SHORT).show();
-                        }
-                        break;
-
-                    // sms 파워 체크
-                    case R.id.sms_Power:
-                        if(isChecked){
-                            editor.putBoolean("sms", true);
-                            editor.commit();
-                            Toast.makeText(SettingActivity.this, "sms On", Toast.LENGTH_SHORT).show();
-                        } else{
-                            editor.putBoolean("sms", false);
-                            editor.commit();
-                            Toast.makeText(SettingActivity.this, "sms Off", Toast.LENGTH_SHORT).show();
-                        }
-                        break;
-
-                    // mms 파워 체크
-                    case R.id.mms_Power:
-                        if(isChecked){
-                            editor.putBoolean("mms", true);
-                            editor.commit();
-                            Toast.makeText(SettingActivity.this, "mms On", Toast.LENGTH_SHORT).show();
-                        } else{
-                            editor.putBoolean("mms", false);
-                            editor.commit();
-                            Toast.makeText(SettingActivity.this, "mms Off", Toast.LENGTH_SHORT).show();
                         }
                         break;
                 }
@@ -548,8 +483,6 @@ public class SettingActivity extends AppCompatActivity implements NumberPicker.O
         };
         voicePower.setOnCheckedChangeListener(onCheckedChangeListener);
         smishingPower.setOnCheckedChangeListener(onCheckedChangeListener);
-        smsPower.setOnCheckedChangeListener(onCheckedChangeListener);
-        mmsPower.setOnCheckedChangeListener(onCheckedChangeListener);
     }
 
     //연락처 불러오기 버튼 클릭 시 동작

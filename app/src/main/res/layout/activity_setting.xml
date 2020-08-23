@@ -297,105 +297,15 @@
                 android:thumb="@drawable/switch_thumb"
                 android:track="@drawable/switch_track_selector" />
 
-            <LinearLayout
-                android:id="@+id/smishing_layout"
+            <TextView
+                android:id="@+id/textView8"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="10dp">
-
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    android:gravity="center"
-                    android:layout_marginBottom="15dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:id="@+id/textView3"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:showText="true"
-                            android:text="SMS"
-                            android:textColor="@color/colorMain"
-                            android:textSize="20sp" />
-
-                        <TextView
-                            android:id="@+id/textView5"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:showText="true"
-                            android:text="SMS메세지 내용 중에 있는 URL 탐색을 수행합니다."
-                            android:textColor="#80000000"
-                            android:textSize="12sp" />
-                    </LinearLayout>
-
-                    <Switch
-                        android:id="@+id/sms_Power"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
-                        android:layout_weight="4"
-                        android:thumb="@drawable/switch_thumb"
-                        android:track="@drawable/switch_track_selector" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    android:gravity="center"
-                    android:layout_marginBottom="10dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:id="@+id/textView9"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:showText="true"
-                            android:text="MMS"
-                            android:textColor="@color/colorMain"
-                            android:textSize="20sp" />
-
-                        <TextView
-                            android:id="@+id/textView8"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:showText="true"
-                            android:text="멀티미디어 메세지 내용 중에 있는 URL 탐색을 수행합니다."
-                            android:textColor="#80000000"
-                            android:textSize="12sp" />
-                    </LinearLayout>
-
-                    <Switch
-                        android:id="@+id/mms_Power"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
-                        android:layout_weight="4"
-                        android:thumb="@drawable/switch_thumb"
-                        android:track="@drawable/switch_track_selector" />
-                </LinearLayout>
-
-            </LinearLayout>
+                android:layout_marginLeft="5dp"
+                android:showText="true"
+                android:text="메세지, 멀티미디어 메세지 내용 중에 있는 URL 탐색을 수행합니다."
+                android:textColor="#80000000"
+                android:textSize="12sp" />
 
             <View
                 android:layout_width="match_parent"
