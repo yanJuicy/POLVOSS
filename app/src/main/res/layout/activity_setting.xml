@@ -195,6 +195,14 @@
                             android:textSize="15sp" />
 
                         <ImageButton
+                            android:id="@+id/addBtn1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="@android:color/transparent"
+                            app:srcCompat="@drawable/ic_baseline_add_circle_outline_35" />
+
+                        <ImageButton
                             android:id="@+id/deleteBtn1"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
