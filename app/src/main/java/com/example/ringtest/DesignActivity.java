@@ -61,10 +61,13 @@ public class DesignActivity extends AppCompatActivity implements AutoPermissions
         powerButton = findViewById(R.id.powerBtn);
 
         int images[] = {
-                R.mipmap.slogan1,
-                R.mipmap.slogan2,
-                R.mipmap.slogan3,
-                R.mipmap.slogan4
+                R.mipmap.slogan1_1,
+                R.mipmap.slogan1_2,
+                R.mipmap.slogan2_1,
+                R.mipmap.slogan2_2,
+                R.mipmap.slogan3_1,
+                R.mipmap.slogan3_2
+
         };
 
         v_fllipper = findViewById(R.id.image_slide);
