@@ -172,10 +172,22 @@
                         android:visibility="visible">
 
                         <TextView
+                            android:id="@+id/setting_phoneName1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="5dp"
+                            android:layout_weight="7"
+                            android:hint="이름1"
+                            android:text=""
+                            android:textColor="#000000"
+                            android:textColorHint="#888888"
+                            android:textSize="15sp" />
+
+                        <TextView
                             android:id="@+id/setting_phoneNum1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="12"
+                            android:layout_weight="5"
                             android:hint="번호 가져오기1"
                             android:text=""
                             android:textColor="#000000"
@@ -203,10 +215,22 @@
                         android:visibility="gone">
 
                         <TextView
+                            android:id="@+id/setting_phoneName2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="7"
+                            android:layout_marginRight="5dp"
+                            android:hint="이름2"
+                            android:text=""
+                            android:textColor="#000000"
+                            android:textColorHint="#888888"
+                            android:textSize="15sp" />
+
+                        <TextView
                             android:id="@+id/setting_phoneNum2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="12"
+                            android:layout_weight="5"
                             android:hint="번호 가져오기2"
                             android:text=""
                             android:textColor="#000000"
@@ -235,10 +259,22 @@
                         android:visibility="gone">
 
                         <TextView
+                            android:id="@+id/setting_phoneName3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="5dp"
+                            android:layout_weight="7"
+                            android:hint="이름3"
+                            android:text=""
+                            android:textColor="#000000"
+                            android:textColorHint="#888888"
+                            android:textSize="15sp" />
+
+                        <TextView
                             android:id="@+id/setting_phoneNum3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="12"
+                            android:layout_weight="5"
                             android:hint="번호 가져오기3"
                             android:text=""
                             android:textColor="#000000"
@@ -340,25 +376,7 @@
                     android:textColor="@color/colorMain"
                     android:textSize="20sp" />
 
-                <TextView
-                    android:id="@+id/OS_License"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:text="오픈소스 라이센스"
-                    android:textColor="@color/colorMain"
-                    android:textSize="20sp" />
             </LinearLayout>
-
-            <Button
-                android:id="@+id/loadTime"
-                android:layout_width="250dp"
-                android:layout_height="40dp"
-                android:layout_gravity="center"
-                android:background="@drawable/round_layout_maincolor"
-                android:text="시간 선택"
-                android:textSize="15sp" />
-
         </LinearLayout>
 
 
