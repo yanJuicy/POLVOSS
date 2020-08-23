@@ -169,7 +169,7 @@ public class SettingActivity extends AppCompatActivity implements NumberPicker.O
             }
         });
 
-        textViewTime.setText("Time : " + seekBarTime.getProgress());
+       /* textViewTime.setText("Time : " + seekBarTime.getProgress());
         Point maxSizePoint = new Point();
         getWindowManager().getDefaultDisplay().getSize(maxSizePoint);
         maxX = maxSizePoint.x;
@@ -183,8 +183,8 @@ public class SettingActivity extends AppCompatActivity implements NumberPicker.O
                 int val = (progressValue * (seekBar.getWidth() - 2 * seekBar.getThumbOffset())) / seekBar.getMax();
                 textViewTime.setText("Time : " + progressValue + "분");
                 int textViewX = val - (textViewTime.getWidth() / 2);
-                int finalX = textViewTime.getWidth() + textViewX > maxX ? (maxX - textViewTime.getWidth() - 16) : textViewX + 16 /*your margin*/;
-                textViewTime.setX(finalX < 0 ? 16/*your margin*/ : finalX);
+                int finalX = textViewTime.getWidth() + textViewX > maxX ? (maxX - textViewTime.getWidth() - 16) : textViewX + 16 *//*your margin*//*;
+                textViewTime.setX(finalX < 0 ? 16*//*your margin*//* : finalX);
             }
 
             @Override
@@ -199,7 +199,7 @@ public class SettingActivity extends AppCompatActivity implements NumberPicker.O
                 editor.commit();
             }
         });
-
+*/
 
 
         this.TextClickListener();
