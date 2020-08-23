@@ -14,7 +14,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="핸드폰을 보호하세요"
+            android:text=" 보이스피싱 차단"
             android:textColor="@android:color/white"
             android:layout_marginTop="30dp"
             android:textSize="25dp"

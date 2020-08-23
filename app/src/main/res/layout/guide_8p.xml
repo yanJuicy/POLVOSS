@@ -46,7 +46,7 @@
             android:gravity="center"
             android:text="\n'안심전화 서비스' 이용을 위한 동의"
             android:textColor="@android:color/white"
-            android:textSize="25dp"
+            android:textSize="20dp"
             android:textStyle="bold" />
 
         <TextView
@@ -70,48 +70,8 @@
             android:gravity="left"
             android:layout_below="@+id/guide1_middle"
             android:layout_marginLeft="30dp"
-            android:text="서비스 이용을 위해 아래 내용에 동의해 주세요."
-            android:textColor="#888888"
-            android:textSize="15dp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/guide2_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="left"
-            android:layout_marginTop="30dp"
-            android:layout_below="@+id/guide1_middle"
-            android:layout_marginLeft="30dp"
-            android:text="- 보이스피싱 위험 여부는 실제와 다를 수 있으므로 본인의\n   판단에 참고만 하시기 바랍니다."
-            android:textColor="#888888"
-            android:textSize="15dp"
-            android:textStyle="bold" />
-        <TextView
-            android:id="@+id/guide3_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="left"
-            android:layout_marginTop="80dp"
-            android:layout_below="@+id/guide1_middle"
-            android:layout_marginLeft="30dp"
-            android:text="- 이용시 발생한 일체의 상황에 대해 책임을 지지 않습니다."
-            android:textColor="#888888"
-            android:textSize="15dp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/guide4_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="left"
-            android:layout_marginTop="109dp"
-            android:layout_below="@+id/guide1_middle"
-            android:layout_marginLeft="30dp"
-            android:text="- 앱은 본인의 휴대폰에 설치되며 개발자에게 어떠한 내용도 \n   전달되지 않습니다."
+            android:layout_marginRight="30dp"
+            android:text="서비스 이용을 위해 아래 내용에 동의해 주세요.\n\n보이스피싱 위험 여부는 실제와 다를 수 있으므로 본인의 판단에 참고만 하시기 바랍니다.\n\n이용 시 발생한 일체의 상황에 대해 책임을 지지 않습니다.\n\n앱은 본인의 휴대폰에 설치되며 개발자에게 어떠한 내용도 전달되지 않습니다."
             android:textColor="#888888"
             android:textSize="15dp"
             android:textStyle="bold" />

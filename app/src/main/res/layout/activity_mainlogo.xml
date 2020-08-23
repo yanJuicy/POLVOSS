@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="200dp"
+        android:layout_marginTop="250dp"
         android:src="@mipmap/logo"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="79dp"
@@ -24,11 +24,22 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="400dp"
-        android:text="충북지방 경찰청 통합보안 어플리케이션"
+        android:text=""
         android:textColor="@color/white"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="79dp"
         tools:layout_editor_absoluteY="4dp" />
+
+    <ViewFlipper
+        android:id="@+id/loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="450dp"
+        tools:layout_editor_absoluteX="79dp"
+        tools:layout_editor_absoluteY="4dp">
+    </ViewFlipper>
+
 
 
 
