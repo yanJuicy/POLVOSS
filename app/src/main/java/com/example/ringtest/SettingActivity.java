@@ -9,9 +9,12 @@ import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Point;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.provider.ContactsContract;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -27,6 +30,8 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.google.android.material.tabs.TabLayout;
+import com.pedro.library.AutoPermissions;
+import com.pedro.library.AutoPermissionsListener;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -34,7 +39,9 @@ import androidx.viewpager.widget.ViewPager;
 
 import java.lang.annotation.Retention;
 
-public class SettingActivity extends AppCompatActivity implements NumberPicker.OnValueChangeListener {
+public class SettingActivity extends AppCompatActivity implements NumberPicker.OnValueChangeListener, AutoPermissionsListener {
+    private static final int ACTION_MANAGE_OVERLAY_PERMISSION_REQUEST_CODE = 1;
+
 //    private TabLayout tabLayout;
 //    private ViewPager viewPager;
     int maxX;
@@ -437,6 +444,7 @@ public class SettingActivity extends AppCompatActivity implements NumberPicker.O
         CompoundButton.OnCheckedChangeListener onCheckedChangeListener = new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                checkPermission();
                 switch (buttonView.getId()) {
 
                     // 보이스피싱 파워 체크
@@ -536,5 +544,29 @@ public class SettingActivity extends AppCompatActivity implements NumberPicker.O
     public void onValueChange(NumberPicker numberPicker, int i, int i1) {
         Toast.makeText(this,
                 "selected number " + numberPicker.getValue(), Toast.LENGTH_SHORT).show();
+    }
+
+    //AutoPermissionsListener, private static final int ACTION_MANAGE_OVERLAY_PERMISSION_REQUEST_CODE = 1;
+    @Override
+    public void onDenied(int i, String[] strings) {
+
+    }
+
+    @Override
+    public void onGranted(int i, String[] strings) {
+
+    }
+
+    public void checkPermission() {
+        AutoPermissions.Companion.loadAllPermissions(this,101); // 권한 설정 오픈소스
+
+        // 다른 앱 위에 그리기 권한
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {   // 마시멜로우 이상일 경우
+            if (!Settings.canDrawOverlays(this)) {              // 체크
+                Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
+                        Uri.parse("package:" + getPackageName()));
+                startActivityForResult(intent, ACTION_MANAGE_OVERLAY_PERMISSION_REQUEST_CODE);
+            }
+        }
     }
 }

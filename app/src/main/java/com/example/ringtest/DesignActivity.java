@@ -92,6 +92,7 @@ public class DesignActivity extends AppCompatActivity implements AutoPermissions
         powerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                checkPermission();
                 // DB에서 보호자 번호가 있는지 확인
                 String phoneNo1 = sf.getString("phoneNum1", "");
                 String phoneNo2 = sf.getString("phoneNum2", "");
