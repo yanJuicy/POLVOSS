@@ -162,6 +162,37 @@ public class SettingActivity extends AppCompatActivity {
             numberSettingLayout2.setVisibility(View.VISIBLE);
         }
 
+        String name = sf.getString("contactName", "");
+        String phone = sf.getString("contactPhone", "");
+        String name2 = sf.getString("contactName2", "");
+        String phone2 = sf.getString("contactPhone2", "");
+        String name3 = sf.getString("contactName3", "");
+        String phone3 = sf.getString("contactPhone3", "");
+
+        if (!name.equals("")) {
+            contactName.setText(name);
+            contactPhone.setText(phone);
+            contactButton.setImageResource(R.drawable.ic_baseline_remove_circle_outline_35);
+            editor.putBoolean("contact", true);
+            contactLayout2.setVisibility(View.VISIBLE);
+        }
+        if (!name2.equals("")) {
+            contactName2.setText(name2);
+            contactPhone2.setText(phone2);
+            contactButton2.setImageResource(R.drawable.ic_baseline_remove_circle_outline_35);
+
+            contactLayout2.setVisibility(View.VISIBLE);
+            contactLayout3.setVisibility(View.VISIBLE);
+            editor.putBoolean("contact2", true);
+        }
+        if (!name3.equals("")) {
+            contactName3.setText(name3);
+            contactPhone3.setText(phone3);
+            contactButton3.setImageResource(R.drawable.ic_baseline_remove_circle_outline_35);
+            contactLayout3.setVisibility(View.VISIBLE);
+            editor.putBoolean("contact3", true);
+        }
+
         contactButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -180,7 +211,6 @@ public class SettingActivity extends AppCompatActivity {
                         editor.putString("contactName3", "");
                         editor.putString("contactPhone3", "");
                         contactButton3.setImageResource(R.drawable.ic_baseline_add_circle_outline_35);
-                        Log.d("Setting ", "aaaa");
                         editor.putBoolean("contact3", false);
                     } else if (!contactName2.getText().equals("")) {
                         contactName.setText(contactName2.getText());
@@ -191,7 +221,6 @@ public class SettingActivity extends AppCompatActivity {
                         editor.putString("contactPhone", contactPhone2.getText().toString());
                         editor.putString("contactName2", contactName2.getText().toString());
                         editor.putString("contactPhone2", contactPhone2.getText().toString());
-                        Log.d("Setting ", "cccc");
                         editor.putBoolean("contact2", false);
                         contactButton2.setImageResource(R.drawable.ic_baseline_add_circle_outline_35);
 
@@ -200,10 +229,7 @@ public class SettingActivity extends AppCompatActivity {
                         contactPhone.setText("");
                         editor.putString("contactName", "");
                         editor.putString("contactPhone", "");
-                        if (contactLayout2.getVisibility() == View.VISIBLE) {
-                            contactLayout2.setVisibility(View.GONE);
-                        }
-                        Log.d("Setting ", "dsdfd");
+                        contactLayout2.setVisibility(View.GONE);
                         contactButton.setImageResource(R.drawable.ic_baseline_add_circle_outline_35);
                         editor.putBoolean("contact", false);
                     }
