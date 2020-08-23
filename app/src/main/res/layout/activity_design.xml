@@ -24,7 +24,7 @@
             android:layout_gravity="center"
             android:text="자물쇠를 터치해주세요"
             android:textColor="@color/white"
-            android:textSize="25dp" />
+            android:textSize="20dp" />
     </LinearLayout>
 
     <LinearLayout
