@@ -135,7 +135,8 @@ public class DesignActivity extends AppCompatActivity implements AutoPermissions
             @Override
             public void onClick(View v) {
                 boolean is_running = sf.getBoolean("power", false);
-                if(is_running){/*
+                if(is_running){
+                    /*
                     Toast.makeText(DesignActivity.this, "서비스 실행중", Toast.LENGTH_SHORT).show();
                     */
                     showPopup();
