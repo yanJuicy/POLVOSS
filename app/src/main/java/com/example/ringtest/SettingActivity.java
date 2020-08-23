@@ -35,7 +35,7 @@ import androidx.viewpager.widget.ViewPager;
 import java.lang.annotation.Retention;
 
 public class SettingActivity extends AppCompatActivity{
-//    private TabLayout tabLayout;
+    //    private TabLayout tabLayout;
 //    private ViewPager viewPager;
     int maxX;
     SharedPreferences sf;               // 로컬 DB
@@ -219,42 +219,42 @@ public class SettingActivity extends AppCompatActivity{
         /***********
          * Fragment 연결
          *
-        // Initializing the TabLayout
-        tabLayout = (TabLayout) findViewById(R.id.tabLayout);
-        tabLayout.addTab(tabLayout.newTab().setText("Voice"));
-        tabLayout.addTab(tabLayout.newTab().setText("SMS"));
-        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+         // Initializing the TabLayout
+         tabLayout = (TabLayout) findViewById(R.id.tabLayout);
+         tabLayout.addTab(tabLayout.newTab().setText("Voice"));
+         tabLayout.addTab(tabLayout.newTab().setText("SMS"));
+         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
-        // Initializing ViewPager
-        viewPager = (ViewPager)findViewById(R.id.pager);
+         // Initializing ViewPager
+         viewPager = (ViewPager)findViewById(R.id.pager);
 
 
-        // Creating TabPagerAdapter adapter
-        TabPagerAdapter pagerAdapter = new TabPagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
-        viewPager.setAdapter(pagerAdapter);
-        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+         // Creating TabPagerAdapter adapter
+         TabPagerAdapter pagerAdapter = new TabPagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
+         viewPager.setAdapter(pagerAdapter);
+         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
-        // Set TabSelectedListener
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                viewPager.setCurrentItem(tab.getPosition());
-            }
+         // Set TabSelectedListener
+         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+        @Override
+        public void onTabSelected(TabLayout.Tab tab) {
+        viewPager.setCurrentItem(tab.getPosition());
+        }
 
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
+        @Override
+        public void onTabUnselected(TabLayout.Tab tab) {
 
-            }
+        }
 
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
+        @Override
+        public void onTabReselected(TabLayout.Tab tab) {
 
-            }
+        }
         });
-        ************/
+         ************/
     }
 
-   /*******************************************
+    /*******************************************
      * NumberPicker 불러오기
      **********************************************//*
     private void getNumberPicker() {
@@ -327,8 +327,8 @@ public class SettingActivity extends AppCompatActivity{
                 switch (view.getId()) {
 
                     // 번호 설정
+                    case R.id.setting_phoneName1:
                     case R.id.setting_phoneNum1 :
-                    case R.id.setting_phoneName1 :
                         editor.putInt("textViewNum", 1);
                         editor.commit();
                         intent.setData(ContactsContract.CommonDataKinds.Phone.CONTENT_URI);
@@ -353,6 +353,9 @@ public class SettingActivity extends AppCompatActivity{
                 }
             }
         };
+        inputPhoneName1.setOnClickListener(Listener);
+        inputPhoneName2.setOnClickListener(Listener);
+        inputPhoneName3.setOnClickListener(Listener);
         inputPhoneNum1.setOnClickListener(Listener);
         inputPhoneNum2.setOnClickListener(Listener);
         inputPhoneNum3.setOnClickListener(Listener);
@@ -385,13 +388,16 @@ public class SettingActivity extends AppCompatActivity{
                         inputPhoneNum1.setText("");
                         if(!inputPhoneNum3.getText().equals("")) // 1, 2, 3 모두 있는 상태
                         {
+                            inputPhoneName1.setText(inputPhoneName2.getText());
                             inputPhoneNum1.setText(inputPhoneNum2.getText());
+                            inputPhoneName2.setText(inputPhoneName3.getText());
                             inputPhoneNum2.setText(inputPhoneNum3.getText());
                             inputPhoneName3.setText("");
                             inputPhoneNum3.setText("");
                         }
                         else if(!inputPhoneNum2.getText().equals("")) // 1, 2가 있는 상태
                         {
+                            inputPhoneName1.setText(inputPhoneName2.getText());
                             inputPhoneNum1.setText(inputPhoneNum2.getText());
                             inputPhoneName2.setText("");
                             inputPhoneNum2.setText("");
@@ -416,6 +422,7 @@ public class SettingActivity extends AppCompatActivity{
                         inputPhoneNum2.setText("");
                         if(!inputPhoneNum3.getText().equals("")) // 1, 2, 3 모두 있는 상태
                         {
+                            inputPhoneName2.setText(inputPhoneName3.getText());
                             inputPhoneNum2.setText(inputPhoneNum3.getText());
                             inputPhoneName3.setText("");
                             inputPhoneNum3.setText("");
