@@ -30,11 +30,14 @@ import com.google.android.material.tabs.TabLayout;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.transition.Visibility;
 import androidx.viewpager.widget.ViewPager;
 
 import java.lang.annotation.Retention;
 
-public class SettingActivity extends AppCompatActivity{
+
+public class SettingActivity extends AppCompatActivity {
+
     //    private TabLayout tabLayout;
 //    private ViewPager viewPager;
     int maxX;
@@ -64,13 +67,28 @@ public class SettingActivity extends AppCompatActivity{
     ImageView closeBtn;
     private boolean mIsBound;
 
+    LinearLayout contactLayout;
+    ImageButton contactButton;
+    TextView contactName;
+    TextView contactPhone;
+
+    LinearLayout contactLayout2;
+    ImageButton contactButton2;
+    TextView contactName2;
+    TextView contactPhone2;
+
+    LinearLayout contactLayout3;
+    ImageButton contactButton3;
+    TextView contactName3;
+    TextView contactPhone3;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
 
 
-        closeBtn= findViewById(R.id.closeBtn);
+        closeBtn = findViewById(R.id.closeBtn);
 
         SeekBar seekBarTime = findViewById(R.id.seekBarTime);
         final TextView textViewTime = findViewById(R.id.textViewTime);
@@ -99,6 +117,22 @@ public class SettingActivity extends AppCompatActivity{
         smishingPower = findViewById(R.id.smishing_Power);
         //timePickButton = findViewById(R.id.loadTime);
 
+        contactLayout = findViewById(R.id.setContactLayout);
+        contactButton = findViewById(R.id.contactButton);
+        contactName = findViewById(R.id.contactName);
+        contactPhone = findViewById(R.id.contatctPhone);
+
+        contactLayout2 = findViewById(R.id.setContactLayout2);
+        contactButton2 = findViewById(R.id.contactButton2);
+        contactName2 = findViewById(R.id.contactName2);
+        contactPhone2 = findViewById(R.id.contatctPhone2);
+
+        contactLayout3 = findViewById(R.id.setContactLayout3);
+        contactButton3 = findViewById(R.id.contactButton3);
+        contactName3 = findViewById(R.id.contactName3);
+        contactPhone3 = findViewById(R.id.contatctPhone3);
+
+
         sf = getSharedPreferences("settingFile", MODE_PRIVATE); // 로컬 DB 객체
         editor = sf.edit(); // DB 편집 객체
 
@@ -119,36 +153,155 @@ public class SettingActivity extends AppCompatActivity{
         numberSettingLayout1.setVisibility(View.VISIBLE);
 
 
-        if(!inputPhoneNum1.getText().equals(""))  // 1번이 들어있으면
+        if (!inputPhoneNum1.getText().equals(""))  // 1번이 들어있으면
         {
-            if(!inputPhoneNum2.getText().equals("")) // 2번이 들어있으면
+            if (!inputPhoneNum2.getText().equals("")) // 2번이 들어있으면
             {
                 numberSettingLayout3.setVisibility(View.VISIBLE);
             }
             numberSettingLayout2.setVisibility(View.VISIBLE);
         }
 
+        contactButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (sf.getBoolean("contact", false)) {
+                    if (!contactName3.getText().equals("") && !contactName2.getText().equals("")) {
+                        contactName.setText(contactName2.getText());
+                        contactPhone.setText(contactPhone2.getText());
+                        contactName2.setText(contactName3.getText());
+                        contactPhone2.setText(contactPhone3.getText());
+                        contactName3.setText("");
+                        contactPhone3.setText("");
+                        editor.putString("contactName", contactName2.getText().toString());
+                        editor.putString("contactPhone", contactPhone2.getText().toString());
+                        editor.putString("contactName2", contactName3.getText().toString());
+                        editor.putString("contactPhone2", contactPhone3.getText().toString());
+                        editor.putString("contactName3", "");
+                        editor.putString("contactPhone3", "");
+                        contactButton3.setImageResource(R.drawable.ic_baseline_add_circle_outline_35);
+                        Log.d("Setting ", "aaaa");
+                        editor.putBoolean("contact3", false);
+                    } else if (!contactName2.getText().equals("")) {
+                        contactName.setText(contactName2.getText());
+                        contactPhone.setText(contactPhone2.getText());
+                        contactName2.setText("");
+                        contactPhone2.setText("");
+                        editor.putString("contactName", contactName2.getText().toString());
+                        editor.putString("contactPhone", contactPhone2.getText().toString());
+                        editor.putString("contactName2", contactName2.getText().toString());
+                        editor.putString("contactPhone2", contactPhone2.getText().toString());
+                        Log.d("Setting ", "cccc");
+                        editor.putBoolean("contact2", false);
+                        contactButton2.setImageResource(R.drawable.ic_baseline_add_circle_outline_35);
+
+                    } else {
+                        contactName.setText("");
+                        contactPhone.setText("");
+                        editor.putString("contactName", "");
+                        editor.putString("contactPhone", "");
+                        if (contactLayout2.getVisibility() == View.VISIBLE) {
+                            contactLayout2.setVisibility(View.GONE);
+                        }
+                        Log.d("Setting ", "dsdfd");
+                        contactButton.setImageResource(R.drawable.ic_baseline_add_circle_outline_35);
+                        editor.putBoolean("contact", false);
+                    }
+
+                    if (contactName2.getText().equals(""))
+                        contactLayout3.setVisibility(View.GONE);
+
+                    editor.commit();
+                } else {
+                    Intent intent = new Intent(Intent.ACTION_PICK);
+                    intent.setData(ContactsContract.CommonDataKinds.Phone.CONTENT_URI);
+                    startActivityForResult(intent, 2);
+                    editor.putInt("textViewNum", 1);
+                    editor.commit();
+                }
+            }
+        });
+
+        contactButton2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (sf.getBoolean("contact2", false)) {
+                    if (!contactName3.getText().equals("")) {
+                        contactName2.setText(contactName3.getText());
+                        contactPhone2.setText(contactPhone3.getText());
+                        contactName3.setText("");
+                        contactPhone3.setText("");
+                        editor.putString("contactName3", "");
+                        editor.putString("contactPhone3", "");
+                        editor.putString("contactName2", contactName2.getText().toString());
+                        editor.putString("contactPhone2", contactName2.getText().toString());
+                        contactButton3.setImageResource(R.drawable.ic_baseline_add_circle_outline_35);
+                        editor.putBoolean("contact3", false);
+
+                    } else {
+                        contactName2.setText("");
+                        contactPhone2.setText("");
+                        editor.putString("contactName2", "");
+                        editor.putString("contactPhone2", "");
+                        contactButton2.setImageResource(R.drawable.ic_baseline_add_circle_outline_35);
+                        editor.putBoolean("contact2", false);
+                        contactLayout3.setVisibility(View.GONE);
+
+                    }
+
+                    editor.commit();
+                } else {
+                    Intent intent = new Intent(Intent.ACTION_PICK);
+                    intent.setData(ContactsContract.CommonDataKinds.Phone.CONTENT_URI);
+                    startActivityForResult(intent, 2);
+                    editor.putInt("textViewNum", 2);
+                    editor.commit();
+                }
+            }
+        });
+
+        contactButton3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (sf.getBoolean("contact3", false)) {
+                    contactName3.setText("");
+                    contactPhone3.setText("");
+                    editor.putString("contactName3", "");
+                    editor.putString("contactPhone3", "");
+                    editor.putBoolean("contact3", false);
+
+                    editor.commit();
+                    contactButton3.setImageResource(R.drawable.ic_baseline_add_circle_outline_35);
+                } else {
+                    Intent intent = new Intent(Intent.ACTION_PICK);
+                    intent.setData(ContactsContract.CommonDataKinds.Phone.CONTENT_URI);
+                    startActivityForResult(intent, 2);
+                    editor.putInt("textViewNum", 3);
+                    editor.commit();
+                }
+            }
+        });
+
         /*******************************************
          * 보이스 피싱 파워
          ******************************************/
         boolean voiceFishing = sf.getBoolean("voice_fishing", false);
-        if(voiceFishing){
+        if (voiceFishing) {
             voiceSettingLayout.setVisibility(View.VISIBLE);
             voicePower.setChecked(true);
-        } else{
+        } else {
             voiceSettingLayout.setVisibility(View.GONE);
             voicePower.setChecked(false);
         }
-
 
 
         /*******************************************
          * 스미싱 버튼 확인부분
          ******************************************/
         boolean smishing = sf.getBoolean("smishing", false);
-        if(smishing){
+        if (smishing) {
             smishingPower.setChecked(true);
-        } else{
+        } else {
             smishingPower.setChecked(false);
         }
 
@@ -160,10 +313,10 @@ public class SettingActivity extends AppCompatActivity{
         NumberPicker numberPicker = findViewById(R.id.numberPicker);
         numberPicker.setMaxValue(24);
         numberPicker.setMinValue(0);
-        numberPicker.setValue((int) min/5);
+        numberPicker.setValue((int) min / 5);
 
         String[] values = new String[25];
-        for (int i=0; i<25; i++) {
+        for (int i = 0; i < 25; i++) {
             values[i] = String.valueOf(i * 5);
         }
         numberPicker.setDisplayedValues(values);
@@ -236,6 +389,7 @@ public class SettingActivity extends AppCompatActivity{
 
          // Set TabSelectedListener
          tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+<<<<<<< Updated upstream
         @Override
         public void onTabSelected(TabLayout.Tab tab) {
         viewPager.setCurrentItem(tab.getPosition());
@@ -248,6 +402,17 @@ public class SettingActivity extends AppCompatActivity{
 
         @Override
         public void onTabReselected(TabLayout.Tab tab) {
+=======
+        @Override public void onTabSelected(TabLayout.Tab tab) {
+        viewPager.setCurrentItem(tab.getPosition());
+        }
+
+        @Override public void onTabUnselected(TabLayout.Tab tab) {
+
+        }
+
+        @Override public void onTabReselected(TabLayout.Tab tab) {
+>>>>>>> Stashed changes
 
         }
         });
@@ -266,8 +431,7 @@ public class SettingActivity extends AppCompatActivity{
     /*******************************************
      * 설정창 종료, 텍스트 클릭 이벤트
      *******************************************/
-    public void TextClickListener()
-    {
+    public void TextClickListener() {
         View.OnClickListener Listener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -316,8 +480,7 @@ public class SettingActivity extends AppCompatActivity{
     /*******************************************
      * 보호자 전화번호 설정 클릭 이벤트
      *******************************************/
-    public void SetNumberClickListener()
-    {
+    public void SetNumberClickListener() {
         View.OnClickListener Listener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -327,29 +490,31 @@ public class SettingActivity extends AppCompatActivity{
                 switch (view.getId()) {
 
                     // 번호 설정
+
+                    case R.id.setting_phoneNum1:
                     case R.id.setting_phoneName1:
-                    case R.id.setting_phoneNum1 :
+
                         editor.putInt("textViewNum", 1);
                         editor.commit();
                         intent.setData(ContactsContract.CommonDataKinds.Phone.CONTENT_URI);
-                        startActivityForResult(intent,1);
-                        break ;
+                        startActivityForResult(intent, 1);
+                        break;
 
-                    case R.id.setting_phoneName2 :
-                    case R.id.setting_phoneNum2 :
+                    case R.id.setting_phoneName2:
+                    case R.id.setting_phoneNum2:
                         editor.putInt("textViewNum", 2);
                         editor.commit();
                         intent.setData(ContactsContract.CommonDataKinds.Phone.CONTENT_URI);
-                        startActivityForResult(intent,1);
-                        break ;
+                        startActivityForResult(intent, 1);
+                        break;
 
-                    case R.id.setting_phoneName3 :
-                    case R.id.setting_phoneNum3 :
+                    case R.id.setting_phoneName3:
+                    case R.id.setting_phoneNum3:
                         editor.putInt("textViewNum", 3);
                         editor.commit();
                         intent.setData(ContactsContract.CommonDataKinds.Phone.CONTENT_URI);
-                        startActivityForResult(intent,1);
-                        break ;
+                        startActivityForResult(intent, 1);
+                        break;
                 }
             }
         };
@@ -364,8 +529,7 @@ public class SettingActivity extends AppCompatActivity{
     /*******************************************
      * 전화번호 저장 및 삭제 클릭 이벤트
      *******************************************/
-    public void ButtonClickListener()
-    {
+    public void ButtonClickListener() {
         View.OnClickListener Listener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -383,10 +547,10 @@ public class SettingActivity extends AppCompatActivity{
 //                        break;
 
                     // 번호 삭제
-                    case R.id.deleteBtn1 :
+                    case R.id.deleteBtn1:
                         inputPhoneName1.setText("");
                         inputPhoneNum1.setText("");
-                        if(!inputPhoneNum3.getText().equals("")) // 1, 2, 3 모두 있는 상태
+                        if (!inputPhoneNum3.getText().equals("")) // 1, 2, 3 모두 있는 상태
                         {
                             inputPhoneName1.setText(inputPhoneName2.getText());
                             inputPhoneNum1.setText(inputPhoneNum2.getText());
@@ -394,16 +558,14 @@ public class SettingActivity extends AppCompatActivity{
                             inputPhoneNum2.setText(inputPhoneNum3.getText());
                             inputPhoneName3.setText("");
                             inputPhoneNum3.setText("");
-                        }
-                        else if(!inputPhoneNum2.getText().equals("")) // 1, 2가 있는 상태
+                        } else if (!inputPhoneNum2.getText().equals("")) // 1, 2가 있는 상태
                         {
                             inputPhoneName1.setText(inputPhoneName2.getText());
                             inputPhoneNum1.setText(inputPhoneNum2.getText());
                             inputPhoneName2.setText("");
                             inputPhoneNum2.setText("");
                             numberSettingLayout3.setVisibility(View.GONE);
-                        }
-                        else { // 1만 있는 상태
+                        } else { // 1만 있는 상태
                             numberSettingLayout2.setVisibility(View.GONE);
                         }
 
@@ -415,19 +577,18 @@ public class SettingActivity extends AppCompatActivity{
                         editor.putString("phoneNum3", inputPhoneNum3.getText().toString());
                         editor.commit();
                         Toast.makeText(SettingActivity.this, "삭제되었습니다.", Toast.LENGTH_SHORT).show();
-                        break ;
+                        break;
 
-                    case R.id.deleteBtn2 :
+                    case R.id.deleteBtn2:
                         inputPhoneName2.setText("");
                         inputPhoneNum2.setText("");
-                        if(!inputPhoneNum3.getText().equals("")) // 1, 2, 3 모두 있는 상태
+                        if (!inputPhoneNum3.getText().equals("")) // 1, 2, 3 모두 있는 상태
                         {
                             inputPhoneName2.setText(inputPhoneName3.getText());
                             inputPhoneNum2.setText(inputPhoneNum3.getText());
                             inputPhoneName3.setText("");
                             inputPhoneNum3.setText("");
-                        }
-                        else {
+                        } else {
                             numberSettingLayout3.setVisibility(View.GONE);
                         }
 
@@ -437,16 +598,16 @@ public class SettingActivity extends AppCompatActivity{
                         editor.putString("phoneNum3", inputPhoneNum3.getText().toString());
                         editor.commit();
                         Toast.makeText(SettingActivity.this, "삭제되었습니다.", Toast.LENGTH_SHORT).show();
-                        break ;
+                        break;
 
-                    case R.id.deleteBtn3 :
+                    case R.id.deleteBtn3:
                         inputPhoneName3.setText("");
                         inputPhoneNum3.setText("");
                         editor.putString("phoneName3", inputPhoneName3.getText().toString());
                         editor.putString("phoneNum3", inputPhoneNum3.getText().toString());
                         editor.commit();
                         Toast.makeText(SettingActivity.this, "삭제되었습니다.", Toast.LENGTH_SHORT).show();
-                        break ;
+                        break;
                 }
             }
         };
@@ -454,10 +615,11 @@ public class SettingActivity extends AppCompatActivity{
         deleteBtn1.setOnClickListener(Listener);
         deleteBtn2.setOnClickListener(Listener);
         deleteBtn3.setOnClickListener(Listener);
+
+
     }
 
-    public void SwitchCheckedListener()
-    {
+    public void SwitchCheckedListener() {
         // 보이스피싱 파워 체크
         CompoundButton.OnCheckedChangeListener onCheckedChangeListener = new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -465,18 +627,15 @@ public class SettingActivity extends AppCompatActivity{
                 switch (buttonView.getId()) {
 
                     // 보이스피싱 파워 체크
-                    case R.id.voice_Power :
-                        if(isChecked)
-                        {
+                    case R.id.voice_Power:
+                        if (isChecked) {
                             editor.putBoolean("voice_fishing", true);
                             editor.commit();
 
                             voiceSettingLayout.setVisibility(View.VISIBLE);
 
                             //Toast.makeText(SettingActivity.this, "VoiceFishing On", Toast.LENGTH_SHORT).show();
-                        }
-                        else
-                        {
+                        } else {
                             editor.putBoolean("voice_fishing", false);
                             editor.commit();
 
@@ -491,11 +650,11 @@ public class SettingActivity extends AppCompatActivity{
                     // 스미싱 파워 체크
                     case R.id.smishing_Power:
                         // default 값으로 우선 전부 기능 꺼져있게 만듬
-                        if(isChecked){
+                        if (isChecked) {
                             editor.putBoolean("smishing", true);
                             editor.commit();
                             //Toast.makeText(SettingActivity.this, "smishing On", Toast.LENGTH_SHORT).show();
-                        } else{
+                        } else {
                             editor.putBoolean("smishing", false);
                             editor.commit();
 
@@ -515,8 +674,7 @@ public class SettingActivity extends AppCompatActivity{
 
         int textViewNum = sf.getInt("textViewNum", 0);
 
-        if(resultCode == RESULT_OK)
-        {
+        if (requestCode == 2 && resultCode == RESULT_OK) {
             Cursor cursor = getContentResolver().query(data.getData(),
                     new String[]{ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME,
                             ContactsContract.CommonDataKinds.Phone.NUMBER}, null, null, null);
@@ -524,15 +682,60 @@ public class SettingActivity extends AppCompatActivity{
             String name = cursor.getString(0);        //0은 이름을 얻어옵니다.
             String num = cursor.getString(1);   //1은 번호를 받아옵니다.
 
-            switch(textViewNum) {
+            if (textViewNum == 1) {
+                contactName.setText(name);
+                contactPhone.setText(num);
+                contactButton.setImageResource(R.drawable.ic_baseline_remove_circle_outline_35);
+
+                editor.putString("contactName", name);
+                editor.putString("contactPhone", num);     // DB에 보호자 번호 저장
+                editor.putBoolean("contact", true);
+                editor.commit();
+
+                if (contactLayout2.getVisibility() == View.GONE)
+                    contactLayout2.setVisibility(View.VISIBLE);
+            } else if (textViewNum == 2) {
+                contactName2.setText(name);
+                contactPhone2.setText(num);
+                contactButton2.setImageResource(R.drawable.ic_baseline_remove_circle_outline_35);
+
+                editor.putString("contactName2", name);
+                editor.putString("contactPhone2", num);     // DB에 보호자 번호 저장
+                editor.putBoolean("contact2", true);
+                editor.commit();
+
+                if (contactLayout3.getVisibility() == View.GONE)
+                    contactLayout3.setVisibility(View.VISIBLE);
+            } else {
+                contactName3.setText(name);
+                contactPhone3.setText(num);
+                contactButton3.setImageResource(R.drawable.ic_baseline_remove_circle_outline_35);
+
+                editor.putString("contactName3", name);
+                editor.putString("contactPhone3", num);     // DB에 보호자 번호 저장
+                editor.putBoolean("contact3", true);
+                editor.commit();
+            }
+
+
+        }
+
+        if (requestCode == 1 && resultCode == RESULT_OK) {
+            Cursor cursor = getContentResolver().query(data.getData(),
+                    new String[]{ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME,
+                            ContactsContract.CommonDataKinds.Phone.NUMBER}, null, null, null);
+            cursor.moveToFirst();
+            String name = cursor.getString(0);        //0은 이름을 얻어옵니다.
+            String num = cursor.getString(1);   //1은 번호를 받아옵니다.
+
+            switch (textViewNum) {
                 case 1:
                     inputPhoneName1.setText(name);
                     inputPhoneNum1.setText(num);
                     editor.putString("phoneName1", inputPhoneName1.getText().toString());
                     editor.putString("phoneNum1", inputPhoneNum1.getText().toString());     // DB에 보호자 번호 저장
                     editor.commit();
-                    if(!inputPhoneNum1.getText().equals(""))
-                    {
+                    if (!inputPhoneNum1.getText().equals("")) {
                         numberSettingLayout2.setVisibility(View.VISIBLE);
                     }
                     break;
@@ -543,8 +746,7 @@ public class SettingActivity extends AppCompatActivity{
                     editor.putString("phoneName2", inputPhoneName2.getText().toString());
                     editor.putString("phoneNum2", inputPhoneNum2.getText().toString());
                     editor.commit();
-                    if(!inputPhoneNum2.getText().equals(""))
-                    {
+                    if (!inputPhoneNum2.getText().equals("")) {
                         numberSettingLayout3.setVisibility(View.VISIBLE);
                     }
                     break;
@@ -560,6 +762,7 @@ public class SettingActivity extends AppCompatActivity{
 
             cursor.close();
         }
+
 
     }
 }
