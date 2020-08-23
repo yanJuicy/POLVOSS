@@ -16,7 +16,7 @@
         android:id="@+id/accepttext"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/background_toast2"
+        android:background="@drawable/background_toast"
         android:gravity="center"
         android:padding="16dp"
         android:textColor="#EFF5FB"
