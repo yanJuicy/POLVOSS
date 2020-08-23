@@ -17,7 +17,7 @@
             android:layout_gravity="center|left"
             android:layout_marginLeft="20dp"
             android:fontFamily="@font/app_main_font"
-            android:text="설정 화면"
+            android:text="설  정"
             android:textColor="@color/white"
             android:textSize="20sp" />
 
