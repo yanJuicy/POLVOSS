@@ -46,6 +46,10 @@ public class SettingActivity extends AppCompatActivity{
     TextView inputPhoneNum1;
     TextView inputPhoneNum2;
     TextView inputPhoneNum3;
+    TextView inputPhoneName1;
+    TextView inputPhoneName2;
+    TextView inputPhoneName3;
+
     LinearLayout voiceSettingLayout;
     LinearLayout numberSettingLayout1;
     LinearLayout numberSettingLayout2;
@@ -59,7 +63,6 @@ public class SettingActivity extends AppCompatActivity{
 
     ImageView closeBtn;
     private boolean mIsBound;
-;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -81,6 +84,9 @@ public class SettingActivity extends AppCompatActivity{
         numberSettingLayout2 = findViewById(R.id.set_Num_Layout2);
         numberSettingLayout3 = findViewById(R.id.set_Num_Layout3);
 
+        inputPhoneName1 = findViewById(R.id.setting_phoneName1);
+        inputPhoneName2 = findViewById(R.id.setting_phoneName2);
+        inputPhoneName3 = findViewById(R.id.setting_phoneName3);
         inputPhoneNum1 = findViewById(R.id.setting_phoneNum1);
         inputPhoneNum2 = findViewById(R.id.setting_phoneNum2);
         inputPhoneNum3 = findViewById(R.id.setting_phoneNum3);
@@ -96,10 +102,16 @@ public class SettingActivity extends AppCompatActivity{
         sf = getSharedPreferences("settingFile", MODE_PRIVATE); // 로컬 DB 객체
         editor = sf.edit(); // DB 편집 객체
 
+        String phoneName1 = sf.getString("phoneName1", "");
+        String phoneName2 = sf.getString("phoneName2", "");
+        String phoneName3 = sf.getString("phoneName3", "");
         String phoneNum1 = sf.getString("phoneNum1", "");
         String phoneNum2 = sf.getString("phoneNum2", "");
         String phoneNum3 = sf.getString("phoneNum3", "");
 
+        inputPhoneName1.setText(phoneName1);
+        inputPhoneName2.setText(phoneName2);
+        inputPhoneName3.setText(phoneName3);
         inputPhoneNum1.setText(phoneNum1);
         inputPhoneNum2.setText(phoneNum2);
         inputPhoneNum3.setText(phoneNum3);
@@ -242,7 +254,7 @@ public class SettingActivity extends AppCompatActivity{
         ************/
     }
 
-/*    *//*******************************************
+   /*******************************************
      * NumberPicker 불러오기
      **********************************************//*
     private void getNumberPicker() {
@@ -316,12 +328,14 @@ public class SettingActivity extends AppCompatActivity{
 
                     // 번호 설정
                     case R.id.setting_phoneNum1 :
+                    case R.id.setting_phoneName1 :
                         editor.putInt("textViewNum", 1);
                         editor.commit();
                         intent.setData(ContactsContract.CommonDataKinds.Phone.CONTENT_URI);
                         startActivityForResult(intent,1);
                         break ;
 
+                    case R.id.setting_phoneName2 :
                     case R.id.setting_phoneNum2 :
                         editor.putInt("textViewNum", 2);
                         editor.commit();
@@ -329,6 +343,7 @@ public class SettingActivity extends AppCompatActivity{
                         startActivityForResult(intent,1);
                         break ;
 
+                    case R.id.setting_phoneName3 :
                     case R.id.setting_phoneNum3 :
                         editor.putInt("textViewNum", 3);
                         editor.commit();
@@ -355,27 +370,30 @@ public class SettingActivity extends AppCompatActivity{
                 switch (view.getId()) {
 
                     // 저장 버튼
-                    case R.id.saveBtn:
-                        editor.putString("phoneNum1", inputPhoneNum1.getText().toString());     // DB에 보호자 번호 저장
-                        editor.putString("phoneNum2", inputPhoneNum2.getText().toString());
-                        editor.putString("phoneNum3", inputPhoneNum3.getText().toString());
-                        editor.commit();
-                        // Toast.makeText(SettingActivity.this, "저장되었습니다.", Toast.LENGTH_SHORT).show();
-
-                        break;
+//                    case R.id.saveBtn:
+//                        editor.putString("phoneNum1", inputPhoneNum1.getText().toString());     // DB에 보호자 번호 저장
+//                        editor.putString("phoneNum2", inputPhoneNum2.getText().toString());
+//                        editor.putString("phoneNum3", inputPhoneNum3.getText().toString());
+//                        editor.commit();
+//                        Toast.makeText(SettingActivity.this, "저장되었습니다.", Toast.LENGTH_SHORT).show();
+//
+//                        break;
 
                     // 번호 삭제
                     case R.id.deleteBtn1 :
+                        inputPhoneName1.setText("");
                         inputPhoneNum1.setText("");
                         if(!inputPhoneNum3.getText().equals("")) // 1, 2, 3 모두 있는 상태
                         {
                             inputPhoneNum1.setText(inputPhoneNum2.getText());
                             inputPhoneNum2.setText(inputPhoneNum3.getText());
+                            inputPhoneName3.setText("");
                             inputPhoneNum3.setText("");
                         }
                         else if(!inputPhoneNum2.getText().equals("")) // 1, 2가 있는 상태
                         {
                             inputPhoneNum1.setText(inputPhoneNum2.getText());
+                            inputPhoneName2.setText("");
                             inputPhoneNum2.setText("");
                             numberSettingLayout3.setVisibility(View.GONE);
                         }
@@ -383,6 +401,9 @@ public class SettingActivity extends AppCompatActivity{
                             numberSettingLayout2.setVisibility(View.GONE);
                         }
 
+                        editor.putString("phoneName1", inputPhoneName1.getText().toString());
+                        editor.putString("phoneName2", inputPhoneName2.getText().toString());
+                        editor.putString("phoneName3", inputPhoneName3.getText().toString());
                         editor.putString("phoneNum1", inputPhoneNum1.getText().toString());     // DB에 보호자 번호 저장
                         editor.putString("phoneNum2", inputPhoneNum2.getText().toString());
                         editor.putString("phoneNum3", inputPhoneNum3.getText().toString());
@@ -391,16 +412,20 @@ public class SettingActivity extends AppCompatActivity{
                         break ;
 
                     case R.id.deleteBtn2 :
+                        inputPhoneName2.setText("");
                         inputPhoneNum2.setText("");
                         if(!inputPhoneNum3.getText().equals("")) // 1, 2, 3 모두 있는 상태
                         {
                             inputPhoneNum2.setText(inputPhoneNum3.getText());
+                            inputPhoneName3.setText("");
                             inputPhoneNum3.setText("");
                         }
                         else {
                             numberSettingLayout3.setVisibility(View.GONE);
                         }
 
+                        editor.putString("phoneName2", inputPhoneName2.getText().toString());
+                        editor.putString("phoneName3", inputPhoneName3.getText().toString());
                         editor.putString("phoneNum2", inputPhoneNum2.getText().toString());
                         editor.putString("phoneNum3", inputPhoneNum3.getText().toString());
                         editor.commit();
@@ -408,7 +433,9 @@ public class SettingActivity extends AppCompatActivity{
                         break ;
 
                     case R.id.deleteBtn3 :
+                        inputPhoneName3.setText("");
                         inputPhoneNum3.setText("");
+                        editor.putString("phoneName3", inputPhoneName3.getText().toString());
                         editor.putString("phoneNum3", inputPhoneNum3.getText().toString());
                         editor.commit();
                         Toast.makeText(SettingActivity.this, "삭제되었습니다.", Toast.LENGTH_SHORT).show();
@@ -492,7 +519,9 @@ public class SettingActivity extends AppCompatActivity{
 
             switch(textViewNum) {
                 case 1:
+                    inputPhoneName1.setText(name);
                     inputPhoneNum1.setText(num);
+                    editor.putString("phoneName1", inputPhoneName1.getText().toString());
                     editor.putString("phoneNum1", inputPhoneNum1.getText().toString());     // DB에 보호자 번호 저장
                     editor.commit();
                     if(!inputPhoneNum1.getText().equals(""))
@@ -502,7 +531,9 @@ public class SettingActivity extends AppCompatActivity{
                     break;
 
                 case 2:
+                    inputPhoneName2.setText(name);
                     inputPhoneNum2.setText(num);
+                    editor.putString("phoneName2", inputPhoneName2.getText().toString());
                     editor.putString("phoneNum2", inputPhoneNum2.getText().toString());
                     editor.commit();
                     if(!inputPhoneNum2.getText().equals(""))
@@ -512,7 +543,9 @@ public class SettingActivity extends AppCompatActivity{
                     break;
 
                 case 3:
+                    inputPhoneName3.setText(name);
                     inputPhoneNum3.setText(num);
+                    editor.putString("phoneName3", inputPhoneName3.getText().toString());
                     editor.putString("phoneNum3", inputPhoneNum3.getText().toString());
                     editor.commit();
                     break;
