@@ -28,7 +28,7 @@
             android:layout_marginLeft="40dp"
             android:fontFamily="@font/app_main_font"
             android:text="안심 전화"
-            android:textColor="@color/white"
+            android:textColor="#F3BF3E"
             android:textSize="20sp" />
 
         <ImageButton
