@@ -69,7 +69,13 @@
                         android:text="착신 불명 상대방과의 통화 허용 시간을 설정합니다."
                         android:textColor="#80000000"
                         android:textSize="12sp" />
+
                 </LinearLayout>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -132,6 +138,12 @@
                     android:layout_marginRight="10dp"
                     android:orientation="vertical">
 
+                    <View
+                        android:id="@+id/view7"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1" />
+
                     <TextView
                         android:id="@+id/setNumber"
                         android:layout_width="match_parent"
@@ -177,7 +189,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginRight="5dp"
                             android:layout_weight="7"
-                            android:hint="이름1"
+                            android:hint="연락처 불러오기"
                             android:text=""
                             android:textColor="#000000"
                             android:textColorHint="#888888"
@@ -187,8 +199,8 @@
                             android:id="@+id/setting_phoneNum1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="5"
-                            android:hint="번호 가져오기1"
+                            android:layout_weight="1"
+                            android:gravity="right"
                             android:text=""
                             android:textColor="#000000"
                             android:textColorHint="#888888"
@@ -226,9 +238,9 @@
                             android:id="@+id/setting_phoneName2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="7"
                             android:layout_marginRight="5dp"
-                            android:hint="이름2"
+                            android:layout_weight="7"
+                            android:hint="연락처 불러오기"
                             android:text=""
                             android:textColor="#000000"
                             android:textColorHint="#888888"
@@ -238,8 +250,8 @@
                             android:id="@+id/setting_phoneNum2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="5"
-                            android:hint="번호 가져오기2"
+                            android:layout_weight="1"
+                            android:gravity="right"
                             android:text=""
                             android:textColor="#000000"
                             android:textColorHint="#888888"
@@ -272,7 +284,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginRight="5dp"
                             android:layout_weight="7"
-                            android:hint="이름3"
+                            android:hint="연락처 불러오기"
                             android:text=""
                             android:textColor="#000000"
                             android:textColorHint="#888888"
@@ -282,8 +294,8 @@
                             android:id="@+id/setting_phoneNum3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="5"
-                            android:hint="번호 가져오기3"
+                            android:layout_weight="1"
+                            android:gravity="right"
                             android:text=""
                             android:textColor="#000000"
                             android:textColorHint="#888888"
@@ -300,21 +312,21 @@
 
                     </LinearLayout>
 
-<!--                    <LinearLayout-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:gravity="center"-->
-<!--                        android:orientation="horizontal">-->
+                    <!--                    <LinearLayout-->
+                    <!--                        android:layout_width="match_parent"-->
+                    <!--                        android:layout_height="wrap_content"-->
+                    <!--                        android:gravity="center"-->
+                    <!--                        android:orientation="horizontal">-->
 
-<!--                        <Button-->
-<!--                            android:id="@+id/saveBtn"-->
-<!--                            android:layout_width="150dp"-->
-<!--                            android:layout_height="40dp"-->
-<!--                            android:layout_gravity="center"-->
-<!--                            android:background="@drawable/accept_button2"-->
-<!--                            android:text="저장"-->
-<!--                            android:textSize="15sp" />-->
-<!--                    </LinearLayout>-->
+                    <!--                        <Button-->
+                    <!--                            android:id="@+id/saveBtn"-->
+                    <!--                            android:layout_width="150dp"-->
+                    <!--                            android:layout_height="40dp"-->
+                    <!--                            android:layout_gravity="center"-->
+                    <!--                            android:background="@drawable/accept_button2"-->
+                    <!--                            android:text="저장"-->
+                    <!--                            android:textSize="15sp" />-->
+                    <!--                    </LinearLayout>-->
 
                 </LinearLayout>
 
