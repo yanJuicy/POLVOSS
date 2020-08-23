@@ -3,6 +3,7 @@ package com.example.ringtest;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -16,6 +17,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.pedro.library.AutoPermissions;
@@ -39,6 +41,7 @@ public class MainActivity extends AppCompatActivity implements AutoPermissionsLi
     ImageButton deleteBtn1;
     ImageButton deleteBtn2;
     ImageButton deleteBtn3;
+
 
     //int timeCheckId;    // 설정 시간 번호
 
@@ -200,6 +203,8 @@ public class MainActivity extends AppCompatActivity implements AutoPermissionsLi
         deleteBtn1.setOnClickListener(onClickListener2);
         deleteBtn2.setOnClickListener(onClickListener2);
         deleteBtn3.setOnClickListener(onClickListener2);
+
+
 
         /*timeButton.setOnClickListener(new View.OnClickListener() {
             @Override
