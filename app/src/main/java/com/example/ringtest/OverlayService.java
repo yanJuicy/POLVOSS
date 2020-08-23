@@ -92,7 +92,7 @@ public class OverlayService extends Service {
                 //bt.setImageResource(R.mipmap.ic_launcher_round);
                 vibrator.cancel();
                 bt.setImageResource(R.mipmap.check_icon);
-                textView.setVisibility(View.GONE);
+                textView.setText("확인 완료");
 
                 stopSelf();
 

@@ -11,9 +11,13 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
+import android.widget.ViewFlipper;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -37,6 +41,9 @@ public class DesignActivity extends AppCompatActivity implements AutoPermissions
     TextView voiceState;
     TextView smsState;
 
+    ViewFlipper v_fllipper;
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +59,19 @@ public class DesignActivity extends AppCompatActivity implements AutoPermissions
         //smsState = findViewById(R.id.textSmishingState);
         settingButton = findViewById(R.id.settingButton);
         powerButton = findViewById(R.id.powerBtn);
+
+        int images[] = {
+                R.mipmap.slogan1,
+                R.mipmap.slogan2,
+                R.mipmap.slogan3,
+                R.mipmap.slogan4
+        };
+
+        v_fllipper = findViewById(R.id.image_slide);
+
+        for(int image : images) {
+            fllipperImages(image);
+        }
 
 
         // DB에서 파워 버튼 설정 값 확인
@@ -125,6 +145,21 @@ public class DesignActivity extends AppCompatActivity implements AutoPermissions
             }
         });
     }
+
+    // 이미지 슬라이더 구현 메서드
+    public void fllipperImages(int image) {
+        ImageView imageView = new ImageView(this);
+        imageView.setBackgroundResource(image);
+
+        v_fllipper.addView(imageView);      // 이미지 추가
+        v_fllipper.setFlipInterval(4000);       // 자동 이미지 슬라이드 딜레이시간(1000 당 1초)
+        v_fllipper.setAutoStart(true);          // 자동 시작 유무 설정
+
+        // animation
+        v_fllipper.setInAnimation(this,android.R.anim.slide_in_left);
+        v_fllipper.setOutAnimation(this,android.R.anim.slide_out_right);
+    }
+
 
     private void changeUI() { // 파워 버튼 상태값에 따른 UI 변경
         if (powerOn) {

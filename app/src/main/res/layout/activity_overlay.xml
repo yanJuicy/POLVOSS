@@ -12,7 +12,6 @@
         android:background="@android:color/transparent"
         android:src="@mipmap/alert" />
 
-
     <TextView
         android:id="@+id/accepttext"
         android:layout_width="match_parent"
