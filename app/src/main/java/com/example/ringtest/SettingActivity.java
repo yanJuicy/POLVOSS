@@ -699,6 +699,10 @@ public class SettingActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         int textViewNum = sf.getInt("textViewNum", 0);
+        String[] names = new String[3];
+        names[0] = sf.getString("contactName", "");
+        names[1] = sf.getString("contactName1", "");
+        names[2] = sf.getString("contactName2", "");
 
         if (requestCode == 2 && resultCode == RESULT_OK) {
             Cursor cursor = getContentResolver().query(data.getData(),
@@ -707,6 +711,14 @@ public class SettingActivity extends AppCompatActivity {
             cursor.moveToFirst();
             String name = cursor.getString(0);        //0은 이름을 얻어옵니다.
             String num = cursor.getString(1);   //1은 번호를 받아옵니다.
+
+            for (int i=0; i<3; i++)
+            {
+                if (name.equals(names[i])) {
+                    Toast.makeText(this, "중복되지 않는 연락처를 선택하세요.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+            }
 
             if (textViewNum == 1) {
                 contactName.setText(name);
