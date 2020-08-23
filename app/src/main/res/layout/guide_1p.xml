@@ -33,7 +33,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_margin="10dp"
-                android:src="@mipmap/lock3" />
+                android:src="@mipmap/lock4" />
 
             <ImageView
                 android:layout_width="wrap_content"

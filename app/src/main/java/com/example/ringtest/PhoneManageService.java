@@ -381,7 +381,7 @@ public class PhoneManageService extends Service {
     private void sendNotification() {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "default");
 
-        builder.setSmallIcon(R.mipmap.alert);
+        builder.setSmallIcon(R.mipmap.alert2);
         builder.setContentTitle("피싱 위험 감지");
         builder.setContentText("보이스 피싱이 우려됩니다. 주의해주세요.");
 

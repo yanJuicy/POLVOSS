@@ -209,7 +209,7 @@ public class SmsReceiver extends BroadcastReceiver {
     private void sendNotification() {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "default");
 
-        builder.setSmallIcon(R.mipmap.alert);
+        builder.setSmallIcon(R.mipmap.alert2);
         builder.setContentTitle("스미싱 위험 감지");
         builder.setContentText("SMS(메세지) 스미싱이 우려됩니다. 주의해주세요.");
 
