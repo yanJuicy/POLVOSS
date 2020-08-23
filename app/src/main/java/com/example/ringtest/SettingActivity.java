@@ -171,13 +171,33 @@ public class SettingActivity extends AppCompatActivity implements NumberPicker.O
         /*******************************************
          * 시간 설정, text가 범위 초과하는 현상 발생
          *******************************************/
+        long min = sf.getLong("min", 0);
+
+        NumberPicker numberPicker = findViewById(R.id.numberPicker);
+        numberPicker.setMaxValue(24);
+        numberPicker.setMinValue(0);
+        numberPicker.setValue((int) min);
+
+        String[] values = new String[25];
+        for (int i=0; i<25; i++) {
+            values[i] = String.valueOf(i * 5);
+        }
+        numberPicker.setDisplayedValues(values);
+        numberPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+            @Override
+            public void onValueChange(NumberPicker numberPicker, int i, int i1) {
+                Toast.makeText(SettingActivity.this, numberPicker.getValue() + "", Toast.LENGTH_SHORT).show();
+                long min = numberPicker.getValue() * 5;
+                editor.putLong("min", min);
+                editor.commit();
+            }
+        });
 
         textViewTime.setText("Time : " + seekBarTime.getProgress());
         Point maxSizePoint = new Point();
         getWindowManager().getDefaultDisplay().getSize(maxSizePoint);
         maxX = maxSizePoint.x;
 
-        long min = sf.getLong("min", 0);
         textViewTime.setText("Time : " + min + "분");
 
         seekBarTime.setProgress((int) min);
