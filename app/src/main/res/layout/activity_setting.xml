@@ -340,25 +340,7 @@
                     android:textColor="@color/colorMain"
                     android:textSize="20sp" />
 
-                <TextView
-                    android:id="@+id/OS_License"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:text="오픈소스 라이센스"
-                    android:textColor="@color/colorMain"
-                    android:textSize="20sp" />
             </LinearLayout>
-
-            <Button
-                android:id="@+id/loadTime"
-                android:layout_width="250dp"
-                android:layout_height="40dp"
-                android:layout_gravity="center"
-                android:background="@drawable/round_layout_maincolor"
-                android:text="시간 선택"
-                android:textSize="15sp" />
-
         </LinearLayout>
 
 

@@ -91,6 +91,7 @@ public class DesignActivity extends AppCompatActivity implements AutoPermissions
                     Toast.makeText(DesignActivity.this, "서비스 시작", Toast.LENGTH_SHORT).show();
                     changeUI();
                     changeReceiver();
+                    Toast.makeText(DesignActivity.this, "서비스 시작", Toast.LENGTH_SHORT).show();
                     serviceIntent = new Intent(DesignActivity.this, PhoneManageService.class);
                     serviceIntent.setAction("startForeground"); //포그라운드 액션지정
                     startService(serviceIntent);
@@ -119,7 +120,7 @@ public class DesignActivity extends AppCompatActivity implements AutoPermissions
                     showPopup();
                 }
                 else{
-                    Toast.makeText(DesignActivity.this, "설정창 누름", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(DesignActivity.this, "설정창 누름", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(DesignActivity.this, SettingActivity.class);
                     startActivity(intent);
                 }

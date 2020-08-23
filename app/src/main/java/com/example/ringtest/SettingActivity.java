@@ -34,7 +34,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import java.lang.annotation.Retention;
 
-public class SettingActivity extends AppCompatActivity implements NumberPicker.OnValueChangeListener {
+public class SettingActivity extends AppCompatActivity{
 //    private TabLayout tabLayout;
 //    private ViewPager viewPager;
     int maxX;
@@ -59,11 +59,7 @@ public class SettingActivity extends AppCompatActivity implements NumberPicker.O
 
     ImageView closeBtn;
     private boolean mIsBound;
-
-    Button timePickButton;
-
-
-
+;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -78,7 +74,7 @@ public class SettingActivity extends AppCompatActivity implements NumberPicker.O
 
         setNumber = findViewById(R.id.setNumber);
         version = findViewById(R.id.version_Info);
-        osLicense = findViewById(R.id.OS_License);
+        //osLicense = findViewById(R.id.OS_License);
 
         voiceSettingLayout = findViewById(R.id.voice_Setting_Layout);
         numberSettingLayout1 = findViewById(R.id.set_Num_Layout1);
@@ -95,7 +91,7 @@ public class SettingActivity extends AppCompatActivity implements NumberPicker.O
 
         voicePower = findViewById(R.id.voice_Power);
         smishingPower = findViewById(R.id.smishing_Power);
-        timePickButton = findViewById(R.id.loadTime);
+        //timePickButton = findViewById(R.id.loadTime);
 
         sf = getSharedPreferences("settingFile", MODE_PRIVATE); // 로컬 DB 객체
         editor = sf.edit(); // DB 편집 객체
@@ -162,7 +158,7 @@ public class SettingActivity extends AppCompatActivity implements NumberPicker.O
         numberPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
             public void onValueChange(NumberPicker numberPicker, int i, int i1) {
-                Toast.makeText(SettingActivity.this, numberPicker.getValue() + "", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(SettingActivity.this, numberPicker.getValue() + "", Toast.LENGTH_SHORT).show();
                 long min = numberPicker.getValue() * 5;
                 editor.putLong("min", min);
                 editor.commit();
@@ -207,12 +203,6 @@ public class SettingActivity extends AppCompatActivity implements NumberPicker.O
         this.ButtonClickListener();
         this.SwitchCheckedListener();
 
-        timePickButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getNumberPicker();
-            }
-        });
 
         /***********
          * Fragment 연결
@@ -252,14 +242,14 @@ public class SettingActivity extends AppCompatActivity implements NumberPicker.O
         ************/
     }
 
-    /*******************************************
+/*    *//*******************************************
      * NumberPicker 불러오기
-     **********************************************/
+     **********************************************//*
     private void getNumberPicker() {
         NumberPickerDialog newFragment = new NumberPickerDialog();
         newFragment.setValueChangeListener(this);
         newFragment.show(getSupportFragmentManager(), "time picker");
-    }
+    }*/
 
     /*******************************************
      * 설정창 종료, 텍스트 클릭 이벤트
@@ -273,7 +263,7 @@ public class SettingActivity extends AppCompatActivity implements NumberPicker.O
                 switch (view.getId()) {
 
                     case R.id.closeBtn:
-                        Toast.makeText(SettingActivity.this, "종료 누름", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(SettingActivity.this, "종료 누름", Toast.LENGTH_SHORT).show();
                         finish();
                         break;
 //                    // 전화번호 입력 창 레이아웃
@@ -297,10 +287,10 @@ public class SettingActivity extends AppCompatActivity implements NumberPicker.O
                         Toast.makeText(SettingActivity.this, "Version 1.0.0", Toast.LENGTH_SHORT).show();
                         break;
 
-                    // OS 라이센스 정보
+/*                    // OS 라이센스 정보
                     case R.id.OS_License:
                         Toast.makeText(SettingActivity.this, "OS 클릭", Toast.LENGTH_SHORT).show();
-                        break;
+                        break;*/
                 }
             }
         };
@@ -308,7 +298,7 @@ public class SettingActivity extends AppCompatActivity implements NumberPicker.O
         closeBtn.setOnClickListener(Listener);
         setNumber.setOnClickListener(Listener);
         version.setOnClickListener(Listener);
-        osLicense.setOnClickListener(Listener);
+        //osLicense.setOnClickListener(Listener);
     }
 
     /*******************************************
@@ -370,7 +360,7 @@ public class SettingActivity extends AppCompatActivity implements NumberPicker.O
                         editor.putString("phoneNum2", inputPhoneNum2.getText().toString());
                         editor.putString("phoneNum3", inputPhoneNum3.getText().toString());
                         editor.commit();
-                        Toast.makeText(SettingActivity.this, "저장되었습니다.", Toast.LENGTH_SHORT).show();
+                        // Toast.makeText(SettingActivity.this, "저장되었습니다.", Toast.LENGTH_SHORT).show();
 
                         break;
 
@@ -449,7 +439,7 @@ public class SettingActivity extends AppCompatActivity implements NumberPicker.O
 
                             voiceSettingLayout.setVisibility(View.VISIBLE);
 
-                            Toast.makeText(SettingActivity.this, "VoiceFishing On", Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(SettingActivity.this, "VoiceFishing On", Toast.LENGTH_SHORT).show();
                         }
                         else
                         {
@@ -459,7 +449,7 @@ public class SettingActivity extends AppCompatActivity implements NumberPicker.O
                             voiceSettingLayout.setVisibility(View.GONE);
 
 
-                            Toast.makeText(SettingActivity.this, "VoiceFishing Off", Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(SettingActivity.this, "VoiceFishing Off", Toast.LENGTH_SHORT).show();
 
                         }
                         break;
@@ -470,12 +460,12 @@ public class SettingActivity extends AppCompatActivity implements NumberPicker.O
                         if(isChecked){
                             editor.putBoolean("smishing", true);
                             editor.commit();
-                            Toast.makeText(SettingActivity.this, "smishing On", Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(SettingActivity.this, "smishing On", Toast.LENGTH_SHORT).show();
                         } else{
                             editor.putBoolean("smishing", false);
                             editor.commit();
 
-                            Toast.makeText(SettingActivity.this, "smishing Off", Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(SettingActivity.this, "smishing Off", Toast.LENGTH_SHORT).show();
                         }
                         break;
                 }
@@ -531,11 +521,5 @@ public class SettingActivity extends AppCompatActivity implements NumberPicker.O
             cursor.close();
         }
 
-    }
-
-    @Override
-    public void onValueChange(NumberPicker numberPicker, int i, int i1) {
-        Toast.makeText(this,
-                "selected number " + numberPicker.getValue(), Toast.LENGTH_SHORT).show();
     }
 }
