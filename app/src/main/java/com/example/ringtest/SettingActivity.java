@@ -46,20 +46,20 @@ public class SettingActivity extends AppCompatActivity {
     TextView setNumber;
     TextView version;
     TextView osLicense;
-    TextView inputPhoneNum1;
+    /*TextView inputPhoneNum1;
     TextView inputPhoneNum2;
     TextView inputPhoneNum3;
     TextView inputPhoneName1;
     TextView inputPhoneName2;
-    TextView inputPhoneName3;
+    TextView inputPhoneName3;*/
 
     LinearLayout voiceSettingLayout;
-    LinearLayout numberSettingLayout1;
+    /* LinearLayout numberSettingLayout1;
     LinearLayout numberSettingLayout2;
     LinearLayout numberSettingLayout3;
     ImageButton deleteBtn1;
     ImageButton deleteBtn2;
-    ImageButton deleteBtn3;
+    ImageButton deleteBtn3;*/
     //Button saveBtn;
     Switch voicePower;
     Switch smishingPower;
@@ -98,11 +98,11 @@ public class SettingActivity extends AppCompatActivity {
         //osLicense = findViewById(R.id.OS_License);
 
         voiceSettingLayout = findViewById(R.id.voice_Setting_Layout);
-        numberSettingLayout1 = findViewById(R.id.set_Num_Layout1);
+        /*numberSettingLayout1 = findViewById(R.id.set_Num_Layout1);
         numberSettingLayout2 = findViewById(R.id.set_Num_Layout2);
-        numberSettingLayout3 = findViewById(R.id.set_Num_Layout3);
+        numberSettingLayout3 = findViewById(R.id.set_Num_Layout3);*/
 
-        inputPhoneName1 = findViewById(R.id.setting_phoneName1);
+        /*inputPhoneName1 = findViewById(R.id.setting_phoneName1);
         inputPhoneName2 = findViewById(R.id.setting_phoneName2);
         inputPhoneName3 = findViewById(R.id.setting_phoneName3);
         inputPhoneNum1 = findViewById(R.id.setting_phoneNum1);
@@ -110,7 +110,7 @@ public class SettingActivity extends AppCompatActivity {
         inputPhoneNum3 = findViewById(R.id.setting_phoneNum3);
         deleteBtn1 = findViewById(R.id.deleteBtn1);
         deleteBtn2 = findViewById(R.id.deleteBtn2);
-        deleteBtn3 = findViewById(R.id.deleteBtn3);
+        deleteBtn3 = findViewById(R.id.deleteBtn3);*/
         //saveBtn = findViewById(R.id.saveBtn);
 
         voicePower = findViewById(R.id.voice_Power);
@@ -143,7 +143,7 @@ public class SettingActivity extends AppCompatActivity {
         String phoneNum2 = sf.getString("phoneNum2", "");
         String phoneNum3 = sf.getString("phoneNum3", "");
 
-        inputPhoneName1.setText(phoneName1);
+        /*inputPhoneName1.setText(phoneName1);
         inputPhoneName2.setText(phoneName2);
         inputPhoneName3.setText(phoneName3);
         inputPhoneNum1.setText(phoneNum1);
@@ -160,7 +160,7 @@ public class SettingActivity extends AppCompatActivity {
                 numberSettingLayout3.setVisibility(View.VISIBLE);
             }
             numberSettingLayout2.setVisibility(View.VISIBLE);
-        }
+        }*/
 
         String name = sf.getString("contactName", "");
         String phone = sf.getString("contactPhone", "");
@@ -390,8 +390,8 @@ public class SettingActivity extends AppCompatActivity {
 
 
         this.TextClickListener();
-        this.SetNumberClickListener();
-        this.ButtonClickListener();
+        //this.SetNumberClickListener();
+        //this.ButtonClickListener();
         this.SwitchCheckedListener();
 
 
@@ -506,144 +506,144 @@ public class SettingActivity extends AppCompatActivity {
     /*******************************************
      * 보호자 전화번호 설정 클릭 이벤트
      *******************************************/
-    public void SetNumberClickListener() {
-        View.OnClickListener Listener = new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                Intent intent = new Intent(Intent.ACTION_PICK);
-
-                switch (view.getId()) {
-
-                    // 번호 설정
-
-                    case R.id.setting_phoneNum1:
-                    case R.id.setting_phoneName1:
-
-                        editor.putInt("textViewNum", 1);
-                        editor.commit();
-                        intent.setData(ContactsContract.CommonDataKinds.Phone.CONTENT_URI);
-                        startActivityForResult(intent, 1);
-                        break;
-
-                    case R.id.setting_phoneName2:
-                    case R.id.setting_phoneNum2:
-                        editor.putInt("textViewNum", 2);
-                        editor.commit();
-                        intent.setData(ContactsContract.CommonDataKinds.Phone.CONTENT_URI);
-                        startActivityForResult(intent, 1);
-                        break;
-
-                    case R.id.setting_phoneName3:
-                    case R.id.setting_phoneNum3:
-                        editor.putInt("textViewNum", 3);
-                        editor.commit();
-                        intent.setData(ContactsContract.CommonDataKinds.Phone.CONTENT_URI);
-                        startActivityForResult(intent, 1);
-                        break;
-                }
-            }
-        };
-        inputPhoneName1.setOnClickListener(Listener);
-        inputPhoneName2.setOnClickListener(Listener);
-        inputPhoneName3.setOnClickListener(Listener);
-        inputPhoneNum1.setOnClickListener(Listener);
-        inputPhoneNum2.setOnClickListener(Listener);
-        inputPhoneNum3.setOnClickListener(Listener);
-    }
+//    public void SetNumberClickListener() {
+//        View.OnClickListener Listener = new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//                Intent intent = new Intent(Intent.ACTION_PICK);
+//
+//                switch (view.getId()) {
+//
+//                    // 번호 설정
+//
+//                    case R.id.setting_phoneNum1:
+//                    case R.id.setting_phoneName1:
+//
+//                        editor.putInt("textViewNum", 1);
+//                        editor.commit();
+//                        intent.setData(ContactsContract.CommonDataKinds.Phone.CONTENT_URI);
+//                        startActivityForResult(intent, 1);
+//                        break;
+//
+//                    case R.id.setting_phoneName2:
+//                    case R.id.setting_phoneNum2:
+//                        editor.putInt("textViewNum", 2);
+//                        editor.commit();
+//                        intent.setData(ContactsContract.CommonDataKinds.Phone.CONTENT_URI);
+//                        startActivityForResult(intent, 1);
+//                        break;
+//
+//                    case R.id.setting_phoneName3:
+//                    case R.id.setting_phoneNum3:
+//                        editor.putInt("textViewNum", 3);
+//                        editor.commit();
+//                        intent.setData(ContactsContract.CommonDataKinds.Phone.CONTENT_URI);
+//                        startActivityForResult(intent, 1);
+//                        break;
+//                }
+//            }
+//        };
+//        /*inputPhoneName1.setOnClickListener(Listener);
+//        inputPhoneName2.setOnClickListener(Listener);
+//        inputPhoneName3.setOnClickListener(Listener);
+//        inputPhoneNum1.setOnClickListener(Listener);
+//        inputPhoneNum2.setOnClickListener(Listener);
+//        inputPhoneNum3.setOnClickListener(Listener);*/
+//    }
 
     /*******************************************
      * 전화번호 저장 및 삭제 클릭 이벤트
      *******************************************/
-    public void ButtonClickListener() {
-        View.OnClickListener Listener = new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                switch (view.getId()) {
-
-                    // 저장 버튼
-//                    case R.id.saveBtn:
+//    public void ButtonClickListener() {
+//        View.OnClickListener Listener = new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//                switch (view.getId()) {
+//
+//                    // 저장 버튼
+////                    case R.id.saveBtn:
+////                        editor.putString("phoneNum1", inputPhoneNum1.getText().toString());     // DB에 보호자 번호 저장
+////                        editor.putString("phoneNum2", inputPhoneNum2.getText().toString());
+////                        editor.putString("phoneNum3", inputPhoneNum3.getText().toString());
+////                        editor.commit();
+////                        Toast.makeText(SettingActivity.this, "저장되었습니다.", Toast.LENGTH_SHORT).show();
+////
+////                        break;
+//
+//                    // 번호 삭제
+//                    case R.id.deleteBtn1:
+//                        inputPhoneName1.setText("");
+//                        inputPhoneNum1.setText("");
+//                        if (!inputPhoneNum3.getText().equals("")) // 1, 2, 3 모두 있는 상태
+//                        {
+//                            inputPhoneName1.setText(inputPhoneName2.getText());
+//                            inputPhoneNum1.setText(inputPhoneNum2.getText());
+//                            inputPhoneName2.setText(inputPhoneName3.getText());
+//                            inputPhoneNum2.setText(inputPhoneNum3.getText());
+//                            inputPhoneName3.setText("");
+//                            inputPhoneNum3.setText("");
+//                        } else if (!inputPhoneNum2.getText().equals("")) // 1, 2가 있는 상태
+//                        {
+//                            inputPhoneName1.setText(inputPhoneName2.getText());
+//                            inputPhoneNum1.setText(inputPhoneNum2.getText());
+//                            inputPhoneName2.setText("");
+//                            inputPhoneNum2.setText("");
+//                            numberSettingLayout3.setVisibility(View.GONE);
+//                        } else { // 1만 있는 상태
+//                            numberSettingLayout2.setVisibility(View.GONE);
+//                        }
+//
+//                        editor.putString("phoneName1", inputPhoneName1.getText().toString());
+//                        editor.putString("phoneName2", inputPhoneName2.getText().toString());
+//                        editor.putString("phoneName3", inputPhoneName3.getText().toString());
 //                        editor.putString("phoneNum1", inputPhoneNum1.getText().toString());     // DB에 보호자 번호 저장
 //                        editor.putString("phoneNum2", inputPhoneNum2.getText().toString());
 //                        editor.putString("phoneNum3", inputPhoneNum3.getText().toString());
 //                        editor.commit();
-//                        Toast.makeText(SettingActivity.this, "저장되었습니다.", Toast.LENGTH_SHORT).show();
-//
+//                        Toast.makeText(SettingActivity.this, "삭제되었습니다.", Toast.LENGTH_SHORT).show();
 //                        break;
-
-                    // 번호 삭제
-                    case R.id.deleteBtn1:
-                        inputPhoneName1.setText("");
-                        inputPhoneNum1.setText("");
-                        if (!inputPhoneNum3.getText().equals("")) // 1, 2, 3 모두 있는 상태
-                        {
-                            inputPhoneName1.setText(inputPhoneName2.getText());
-                            inputPhoneNum1.setText(inputPhoneNum2.getText());
-                            inputPhoneName2.setText(inputPhoneName3.getText());
-                            inputPhoneNum2.setText(inputPhoneNum3.getText());
-                            inputPhoneName3.setText("");
-                            inputPhoneNum3.setText("");
-                        } else if (!inputPhoneNum2.getText().equals("")) // 1, 2가 있는 상태
-                        {
-                            inputPhoneName1.setText(inputPhoneName2.getText());
-                            inputPhoneNum1.setText(inputPhoneNum2.getText());
-                            inputPhoneName2.setText("");
-                            inputPhoneNum2.setText("");
-                            numberSettingLayout3.setVisibility(View.GONE);
-                        } else { // 1만 있는 상태
-                            numberSettingLayout2.setVisibility(View.GONE);
-                        }
-
-                        editor.putString("phoneName1", inputPhoneName1.getText().toString());
-                        editor.putString("phoneName2", inputPhoneName2.getText().toString());
-                        editor.putString("phoneName3", inputPhoneName3.getText().toString());
-                        editor.putString("phoneNum1", inputPhoneNum1.getText().toString());     // DB에 보호자 번호 저장
-                        editor.putString("phoneNum2", inputPhoneNum2.getText().toString());
-                        editor.putString("phoneNum3", inputPhoneNum3.getText().toString());
-                        editor.commit();
-                        Toast.makeText(SettingActivity.this, "삭제되었습니다.", Toast.LENGTH_SHORT).show();
-                        break;
-
-                    case R.id.deleteBtn2:
-                        inputPhoneName2.setText("");
-                        inputPhoneNum2.setText("");
-                        if (!inputPhoneNum3.getText().equals("")) // 1, 2, 3 모두 있는 상태
-                        {
-                            inputPhoneName2.setText(inputPhoneName3.getText());
-                            inputPhoneNum2.setText(inputPhoneNum3.getText());
-                            inputPhoneName3.setText("");
-                            inputPhoneNum3.setText("");
-                        } else {
-                            numberSettingLayout3.setVisibility(View.GONE);
-                        }
-
-                        editor.putString("phoneName2", inputPhoneName2.getText().toString());
-                        editor.putString("phoneName3", inputPhoneName3.getText().toString());
-                        editor.putString("phoneNum2", inputPhoneNum2.getText().toString());
-                        editor.putString("phoneNum3", inputPhoneNum3.getText().toString());
-                        editor.commit();
-                        Toast.makeText(SettingActivity.this, "삭제되었습니다.", Toast.LENGTH_SHORT).show();
-                        break;
-
-                    case R.id.deleteBtn3:
-                        inputPhoneName3.setText("");
-                        inputPhoneNum3.setText("");
-                        editor.putString("phoneName3", inputPhoneName3.getText().toString());
-                        editor.putString("phoneNum3", inputPhoneNum3.getText().toString());
-                        editor.commit();
-                        Toast.makeText(SettingActivity.this, "삭제되었습니다.", Toast.LENGTH_SHORT).show();
-                        break;
-                }
-            }
-        };
-        //saveBtn.setOnClickListener(Listener);
-        deleteBtn1.setOnClickListener(Listener);
-        deleteBtn2.setOnClickListener(Listener);
-        deleteBtn3.setOnClickListener(Listener);
-
-
-    }
+//
+//                    case R.id.deleteBtn2:
+//                        inputPhoneName2.setText("");
+//                        inputPhoneNum2.setText("");
+//                        if (!inputPhoneNum3.getText().equals("")) // 1, 2, 3 모두 있는 상태
+//                        {
+//                            inputPhoneName2.setText(inputPhoneName3.getText());
+//                            inputPhoneNum2.setText(inputPhoneNum3.getText());
+//                            inputPhoneName3.setText("");
+//                            inputPhoneNum3.setText("");
+//                        } else {
+//                            numberSettingLayout3.setVisibility(View.GONE);
+//                        }
+//
+//                        editor.putString("phoneName2", inputPhoneName2.getText().toString());
+//                        editor.putString("phoneName3", inputPhoneName3.getText().toString());
+//                        editor.putString("phoneNum2", inputPhoneNum2.getText().toString());
+//                        editor.putString("phoneNum3", inputPhoneNum3.getText().toString());
+//                        editor.commit();
+//                        Toast.makeText(SettingActivity.this, "삭제되었습니다.", Toast.LENGTH_SHORT).show();
+//                        break;
+//
+//                    case R.id.deleteBtn3:
+//                        inputPhoneName3.setText("");
+//                        inputPhoneNum3.setText("");
+//                        editor.putString("phoneName3", inputPhoneName3.getText().toString());
+//                        editor.putString("phoneNum3", inputPhoneNum3.getText().toString());
+//                        editor.commit();
+//                        Toast.makeText(SettingActivity.this, "삭제되었습니다.", Toast.LENGTH_SHORT).show();
+//                        break;
+//                }
+//            }
+//        };
+//        //saveBtn.setOnClickListener(Listener);
+//        deleteBtn1.setOnClickListener(Listener);
+//        deleteBtn2.setOnClickListener(Listener);
+//        deleteBtn3.setOnClickListener(Listener);
+//
+//
+//    }
 
     public void SwitchCheckedListener() {
         // 보이스피싱 파워 체크
@@ -758,48 +758,48 @@ public class SettingActivity extends AppCompatActivity {
 
         }
 
-        if (requestCode == 1 && resultCode == RESULT_OK) {
-            Cursor cursor = getContentResolver().query(data.getData(),
-                    new String[]{ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME,
-                            ContactsContract.CommonDataKinds.Phone.NUMBER}, null, null, null);
-            cursor.moveToFirst();
-            String name = cursor.getString(0);        //0은 이름을 얻어옵니다.
-            String num = cursor.getString(1);   //1은 번호를 받아옵니다.
-
-            switch (textViewNum) {
-                case 1:
-                    inputPhoneName1.setText(name);
-                    inputPhoneNum1.setText(num);
-                    editor.putString("phoneName1", inputPhoneName1.getText().toString());
-                    editor.putString("phoneNum1", inputPhoneNum1.getText().toString());     // DB에 보호자 번호 저장
-                    editor.commit();
-                    if (!inputPhoneNum1.getText().equals("")) {
-                        numberSettingLayout2.setVisibility(View.VISIBLE);
-                    }
-                    break;
-
-                case 2:
-                    inputPhoneName2.setText(name);
-                    inputPhoneNum2.setText(num);
-                    editor.putString("phoneName2", inputPhoneName2.getText().toString());
-                    editor.putString("phoneNum2", inputPhoneNum2.getText().toString());
-                    editor.commit();
-                    if (!inputPhoneNum2.getText().equals("")) {
-                        numberSettingLayout3.setVisibility(View.VISIBLE);
-                    }
-                    break;
-
-                case 3:
-                    inputPhoneName3.setText(name);
-                    inputPhoneNum3.setText(num);
-                    editor.putString("phoneName3", inputPhoneName3.getText().toString());
-                    editor.putString("phoneNum3", inputPhoneNum3.getText().toString());
-                    editor.commit();
-                    break;
-            }
-
-            cursor.close();
-        }
+//        if (requestCode == 1 && resultCode == RESULT_OK) {
+//            Cursor cursor = getContentResolver().query(data.getData(),
+//                    new String[]{ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME,
+//                            ContactsContract.CommonDataKinds.Phone.NUMBER}, null, null, null);
+//            cursor.moveToFirst();
+//            String name = cursor.getString(0);        //0은 이름을 얻어옵니다.
+//            String num = cursor.getString(1);   //1은 번호를 받아옵니다.
+//
+//            switch (textViewNum) {
+//                case 1:
+//                    inputPhoneName1.setText(name);
+//                    inputPhoneNum1.setText(num);
+//                    editor.putString("phoneName1", inputPhoneName1.getText().toString());
+//                    editor.putString("phoneNum1", inputPhoneNum1.getText().toString());     // DB에 보호자 번호 저장
+//                    editor.commit();
+//                    if (!inputPhoneNum1.getText().equals("")) {
+//                        numberSettingLayout2.setVisibility(View.VISIBLE);
+//                    }
+//                    break;
+//
+//                case 2:
+//                    inputPhoneName2.setText(name);
+//                    inputPhoneNum2.setText(num);
+//                    editor.putString("phoneName2", inputPhoneName2.getText().toString());
+//                    editor.putString("phoneNum2", inputPhoneNum2.getText().toString());
+//                    editor.commit();
+//                    if (!inputPhoneNum2.getText().equals("")) {
+//                        numberSettingLayout3.setVisibility(View.VISIBLE);
+//                    }
+//                    break;
+//
+//                case 3:
+//                    inputPhoneName3.setText(name);
+//                    inputPhoneNum3.setText(num);
+//                    editor.putString("phoneName3", inputPhoneName3.getText().toString());
+//                    editor.putString("phoneNum3", inputPhoneNum3.getText().toString());
+//                    editor.commit();
+//                    break;
+//            }
+//
+//            cursor.close();
+//        }
 
 
     }

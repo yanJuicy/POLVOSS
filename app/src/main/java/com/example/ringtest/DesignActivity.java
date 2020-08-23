@@ -97,9 +97,9 @@ public class DesignActivity extends AppCompatActivity implements AutoPermissions
             public void onClick(View v) {
                 checkPermission();
                 // DB에서 보호자 번호가 있는지 확인
-                String phoneNo1 = sf.getString("phoneNum1", "");
-                String phoneNo2 = sf.getString("phoneNum2", "");
-                String phoneNo3 = sf.getString("phoneNum3", "");
+                String phoneNo1 = sf.getString("contactPhone", "");
+                String phoneNo2 = sf.getString("contactPhone2", "");
+                String phoneNo3 = sf.getString("contactPhone3", "");
 
                 if (phoneNo1.equals("") && phoneNo2.equals("") && phoneNo3.equals("")) { // 설정된 휴대폰 번호가 없으면 MainActivity로 이동
                     Toast.makeText(DesignActivity.this, "보호자 연락처를 설정해 주세요.", Toast.LENGTH_SHORT).show();
