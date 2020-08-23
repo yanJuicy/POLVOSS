@@ -32,6 +32,7 @@ public class DesignActivity extends AppCompatActivity implements AutoPermissions
     ImageView settingButton;
     boolean powerOn;
     boolean smsOn;
+    boolean voiceOn;
     SharedPreferences sf;
     SharedPreferences.Editor editor;
     Intent serviceIntent;
@@ -96,22 +97,28 @@ public class DesignActivity extends AppCompatActivity implements AutoPermissions
             @Override
             public void onClick(View v) {
                 checkPermission();
+
+                //스미싱, 보이스피싱이 켜져있는지 DB에서 확인
+                smsOn = sf.getBoolean("smishing", false);
+                voiceOn = sf.getBoolean("voice_fishing", false);
+
                 // DB에서 보호자 번호가 있는지 확인
                 String phoneNo1 = sf.getString("contactPhone", "");
                 String phoneNo2 = sf.getString("contactPhone2", "");
                 String phoneNo3 = sf.getString("contactPhone3", "");
 
-                if (phoneNo1.equals("") && phoneNo2.equals("") && phoneNo3.equals("")) { // 설정된 휴대폰 번호가 없으면 MainActivity로 이동
+                if (phoneNo1.equals("") && phoneNo2.equals("") && phoneNo3.equals("") && voiceOn) { // 설정된 휴대폰 번호가 없으면 MainActivity로 이동
                     Toast.makeText(DesignActivity.this, "보호자 연락처를 설정해 주세요.", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(DesignActivity.this, SettingActivity.class));
                     return;
                 }
+
                 // 파워 버튼 상태 변경
                 powerOn = !powerOn;
                 editor.putBoolean("power", powerOn);
                 editor.commit();
 
-                if (powerOn) { // 서비스 시작
+                if (powerOn) { // 서비스 시작 (스미싱, 보이스피싱 둘 다 켜져있을때)
                     Toast.makeText(DesignActivity.this, "서비스 시작", Toast.LENGTH_SHORT).show();
                     changeUI();
                     changeReceiver();
