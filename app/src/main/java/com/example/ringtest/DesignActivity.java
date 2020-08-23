@@ -49,10 +49,11 @@ public class DesignActivity extends AppCompatActivity implements AutoPermissions
 
         // id 매핑
         textState = findViewById(R.id.textState);
-        voiceState = findViewById(R.id.textVoiceFishingState);
-        smsState = findViewById(R.id.textSmishingState);
-        powerButton = findViewById(R.id.powerBtn);
+        //voiceState = findViewById(R.id.textVoiceFishingState);
+        //smsState = findViewById(R.id.textSmishingState);
         settingButton = findViewById(R.id.settingButton);
+        powerButton = findViewById(R.id.powerBtn);
+
 
         // DB에서 파워 버튼 설정 값 확인
         sf = getSharedPreferences("settingFile", MODE_PRIVATE);
@@ -60,12 +61,12 @@ public class DesignActivity extends AppCompatActivity implements AutoPermissions
         powerOn = sf.getBoolean("power", false);
         if (powerOn) {
             powerButton.setImageResource(R.mipmap.lock3);
-            voiceState.setText("활성화");
-            smsState.setText("활성화");
+//            voiceState.setText("활성화");
+//            smsState.setText("활성화");
         } else {
             powerButton.setImageResource(R.mipmap.unlock3);
-            voiceState.setText("비 활성화");
-            smsState.setText("비 활성화");
+//            voiceState.setText("비 활성화");
+//            smsState.setText("비 활성화");
         }
 
         // 파워 버튼 클릭 이벤트
@@ -129,15 +130,15 @@ public class DesignActivity extends AppCompatActivity implements AutoPermissions
     private void changeUI() { // 파워 버튼 상태값에 따른 UI 변경
         if (powerOn) {
             powerButton.setImageResource(R.mipmap.lock3);
-            Toast.makeText(DesignActivity.this, "서비스 시작", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(DesignActivity.this, "서비스 시작", Toast.LENGTH_SHORT).show();
             textState.setText("안전하게 보호 중입니다.");
-            voiceState.setText("활성화");
-            smsState.setText("활성화");
+//            voiceState.setText("활성화");
+//            smsState.setText("활성화");
         } else {
             powerButton.setImageResource(R.mipmap.unlock3);
             textState.setText("보호 중이 아닙니다.");
-            voiceState.setText("비 활성화");
-            smsState.setText("비 활성화");
+//            voiceState.setText("비 활성화");
+//            smsState.setText("비 활성화");
         }
     }
 
