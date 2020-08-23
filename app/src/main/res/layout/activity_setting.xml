@@ -417,7 +417,6 @@
                 android:layout_height="40dp"
                 android:layout_gravity="center"
                 android:background="@drawable/round_layout_maincolor"
-                android:fontFamily="@font/app_main_font"
                 android:text="시간 선택"
                 android:textSize="15sp" />
 
