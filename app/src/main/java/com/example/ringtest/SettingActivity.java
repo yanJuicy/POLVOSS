@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.util.Log;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
@@ -422,16 +423,16 @@ public class SettingActivity extends AppCompatActivity {
         /*******************************************
          * 시간 설정, text가 범위 초과하는 현상 발생
          *******************************************/
-        long min = sf.getLong("min", 0);
+        long min = sf.getLong("min", 10);
 
         NumberPicker numberPicker = findViewById(R.id.numberPicker);
-        numberPicker.setMaxValue(24);
-        numberPicker.setMinValue(0);
+        numberPicker.setMaxValue(4);
+        numberPicker.setMinValue(2);
         numberPicker.setValue((int) min / 5);
 
-        String[] values = new String[25];
-        for (int i = 0; i < 25; i++) {
-            values[i] = String.valueOf(i * 5);
+        String[] values = new String[3];
+        for (int i = 0; i < 3; i++) {
+            values[i] = String.valueOf((i+2) * 5);
         }
         numberPicker.setDisplayedValues(values);
         numberPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
@@ -439,6 +440,7 @@ public class SettingActivity extends AppCompatActivity {
             public void onValueChange(NumberPicker numberPicker, int i, int i1) {
                 //Toast.makeText(SettingActivity.this, numberPicker.getValue() + "", Toast.LENGTH_SHORT).show();
                 long min = numberPicker.getValue() * 5;
+                Log.d("SettingActivity", ""+min);
                 editor.putLong("min", min);
                 editor.commit();
             }
@@ -475,7 +477,6 @@ public class SettingActivity extends AppCompatActivity {
             }
         });
 */
-
 
         this.TextClickListener();
         //this.SetNumberClickListener();
