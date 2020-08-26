@@ -330,7 +330,8 @@ public class PhoneManageService extends Service {
         String phoneNum1 = sf.getString("contactPhone", "");
         String phoneNum2 = sf.getString("contactPhone2", "");
         String phoneNum3 = sf.getString("contactPhone3", "");
-
+        String phoneNum4 = sf.getString("contactPhone4", "");
+        String phoneNum5 = sf.getString("contactPhone5", "");
 
         String sms = "[안심전화 서비스 자동발신]\n사용자께서 모르는 전화와 통화를 하고 있습니다\n피싱 위험이 감지되니 안심 전화를 걸어 주세요";
 
@@ -359,6 +360,28 @@ public class PhoneManageService extends Service {
             try{
                 SmsManager smsManager = SmsManager.getDefault();
                 smsManager.sendTextMessage(phoneNum3, null, sms, null, null);
+                // Toast.makeText(getApplicationContext(), "전송 완료", Toast.LENGTH_SHORT).show();
+            }catch(Exception e){
+                // Toast.makeText(getApplicationContext(), "전송 실패", Toast.LENGTH_SHORT).show();
+                e.printStackTrace();
+            }
+        }
+
+        if (!phoneNum4.equals("")) {
+            try{
+                SmsManager smsManager = SmsManager.getDefault();
+                smsManager.sendTextMessage(phoneNum4, null, sms, null, null);
+                // Toast.makeText(getApplicationContext(), "전송 완료", Toast.LENGTH_SHORT).show();
+            }catch(Exception e){
+                // Toast.makeText(getApplicationContext(), "전송 실패", Toast.LENGTH_SHORT).show();
+                e.printStackTrace();
+            }
+        }
+
+        if (!phoneNum5.equals("")) {
+            try{
+                SmsManager smsManager = SmsManager.getDefault();
+                smsManager.sendTextMessage(phoneNum5, null, sms, null, null);
                 // Toast.makeText(getApplicationContext(), "전송 완료", Toast.LENGTH_SHORT).show();
             }catch(Exception e){
                 // Toast.makeText(getApplicationContext(), "전송 실패", Toast.LENGTH_SHORT).show();
