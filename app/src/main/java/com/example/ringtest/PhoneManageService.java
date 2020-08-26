@@ -327,7 +327,7 @@ public class PhoneManageService extends Service {
     private void sendSMS() {
         sf = getSharedPreferences("settingFile", MODE_PRIVATE);
 
-        String phoneNum1 = sf.getString("contactPhone", "");
+        String phoneNum1 = sf.getString("contactPhone1", "");
         String phoneNum2 = sf.getString("contactPhone2", "");
         String phoneNum3 = sf.getString("contactPhone3", "");
         String phoneNum4 = sf.getString("contactPhone4", "");
