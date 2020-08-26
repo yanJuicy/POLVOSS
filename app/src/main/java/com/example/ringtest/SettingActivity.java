@@ -1,20 +1,11 @@
 package com.example.ringtest;
 
-import android.app.AlertDialog;
-import android.app.TimePickerDialog;
-import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
-import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.database.Cursor;
-import android.graphics.Point;
 import android.os.Bundle;
-import android.os.IBinder;
 import android.provider.ContactsContract;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -23,17 +14,10 @@ import android.widget.NumberPicker;
 import android.widget.SeekBar;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.TimePicker;
 import android.widget.Toast;
-
-import com.google.android.material.tabs.TabLayout;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.transition.Visibility;
-import androidx.viewpager.widget.ViewPager;
-
-import java.lang.annotation.Retention;
 
 
 public class SettingActivity extends AppCompatActivity {
@@ -67,10 +51,10 @@ public class SettingActivity extends AppCompatActivity {
     ImageView closeBtn;
     private boolean mIsBound;
 
-    LinearLayout contactLayout;
-    ImageButton contactButton;
-    TextView contactName;
-    TextView contactPhone;
+    LinearLayout contactLayout1;
+    ImageButton contactButton1;
+    TextView contactName1;
+    TextView contactPhone1;
 
     LinearLayout contactLayout2;
     ImageButton contactButton2;
@@ -81,6 +65,18 @@ public class SettingActivity extends AppCompatActivity {
     ImageButton contactButton3;
     TextView contactName3;
     TextView contactPhone3;
+
+    LinearLayout contactLayout4;
+    ImageButton contactButton4;
+    TextView contactName4;
+    TextView contactPhone4;
+
+    LinearLayout contactLayout5;
+    ImageButton contactButton5;
+    TextView contactName5;
+    TextView contactPhone5;
+
+    LinearLayout protectLayout;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -117,10 +113,10 @@ public class SettingActivity extends AppCompatActivity {
         smishingPower = findViewById(R.id.smishing_Power);
         //timePickButton = findViewById(R.id.loadTime);
 
-        contactLayout = findViewById(R.id.setContactLayout);
-        contactButton = findViewById(R.id.contactButton);
-        contactName = findViewById(R.id.contactName);
-        contactPhone = findViewById(R.id.contatctPhone);
+        contactLayout1 = findViewById(R.id.setContactLayout1);
+        contactButton1 = findViewById(R.id.contactButton1);
+        contactName1 = findViewById(R.id.contactName1);
+        contactPhone1 = findViewById(R.id.contatctPhone1);
 
         contactLayout2 = findViewById(R.id.setContactLayout2);
         contactButton2 = findViewById(R.id.contactButton2);
@@ -131,6 +127,18 @@ public class SettingActivity extends AppCompatActivity {
         contactButton3 = findViewById(R.id.contactButton3);
         contactName3 = findViewById(R.id.contactName3);
         contactPhone3 = findViewById(R.id.contatctPhone3);
+
+        contactLayout4 = findViewById(R.id.setContactLayout4);
+        contactButton4 = findViewById(R.id.contactButton4);
+        contactName4 = findViewById(R.id.contactName4);
+        contactPhone4 = findViewById(R.id.contatctPhone4);
+
+        contactLayout5 = findViewById(R.id.setContactLayout5);
+        contactButton5 = findViewById(R.id.contactButton5);
+        contactName5 = findViewById(R.id.contactName5);
+        contactPhone5 = findViewById(R.id.contatctPhone5);
+
+        protectLayout = findViewById(R.id.protectorLayout);
 
 
         sf = getSharedPreferences("settingFile", MODE_PRIVATE); // 로컬 DB 객체
@@ -162,75 +170,83 @@ public class SettingActivity extends AppCompatActivity {
             numberSettingLayout2.setVisibility(View.VISIBLE);
         }*/
 
-        String name = sf.getString("contactName", "");
-        String phone = sf.getString("contactPhone", "");
-        String name2 = sf.getString("contactName2", "");
-        String phone2 = sf.getString("contactPhone2", "");
-        String name3 = sf.getString("contactName3", "");
-        String phone3 = sf.getString("contactPhone3", "");
 
-        if (!name.equals("")) {
-            contactName.setText(name);
-            contactPhone.setText(phone);
-            contactButton.setImageResource(R.drawable.ic_baseline_remove_circle_outline_35);
+        /**
+         보호자 연락처 추가
+         */
+
+        String[] names = new String[5];
+        String[] phones = new String[5];
+
+        for (int i = 0; i < 5; i++) {
+            names[i] = sf.getString("contactName" + (i + 1), "");
+            phones[i] = sf.getString("contactPhone" + (i + 1), "");
+        }
+
+        if (!names[0].equals("")) {
+            contactName1.setText(names[0]);
+            contactPhone1.setText(phones[0]);
+            contactButton1.setImageResource(R.drawable.ic_baseline_remove_circle_outline_35);
             editor.putBoolean("contact", true);
             contactLayout2.setVisibility(View.VISIBLE);
         }
-        if (!name2.equals("")) {
-            contactName2.setText(name2);
-            contactPhone2.setText(phone2);
+        if (!names[1].equals("")) {
+            contactName2.setText(names[1]);
+            contactPhone2.setText(phones[1]);
             contactButton2.setImageResource(R.drawable.ic_baseline_remove_circle_outline_35);
-
-            contactLayout2.setVisibility(View.VISIBLE);
             contactLayout3.setVisibility(View.VISIBLE);
             editor.putBoolean("contact2", true);
         }
-        if (!name3.equals("")) {
-            contactName3.setText(name3);
-            contactPhone3.setText(phone3);
+        if (!names[2].equals("")) {
+            contactName3.setText(names[2]);
+            contactPhone3.setText(phones[2]);
             contactButton3.setImageResource(R.drawable.ic_baseline_remove_circle_outline_35);
-            contactLayout3.setVisibility(View.VISIBLE);
+            contactLayout4.setVisibility(View.VISIBLE);
             editor.putBoolean("contact3", true);
         }
+        if (!names[3].equals("")) {
+            contactName4.setText(names[3]);
+            contactPhone4.setText(phones[3]);
+            contactButton4.setImageResource(R.drawable.ic_baseline_remove_circle_outline_35);
+            contactLayout5.setVisibility(View.VISIBLE);
+            editor.putBoolean("contact4", true);
+        }
+        if (!names[4].equals("")) {
+            contactName5.setText(names[4]);
+            contactPhone5.setText(phones[4]);
+            contactButton5.setImageResource(R.drawable.ic_baseline_remove_circle_outline_35);
+            editor.putBoolean("contact5", true);
+        }
 
-        contactButton.setOnClickListener(new View.OnClickListener() {
+        contactButton1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (sf.getBoolean("contact", false)) {
-                    if (!contactName3.getText().equals("") && !contactName2.getText().equals("")) {
-                        contactName.setText(contactName2.getText());
-                        contactPhone.setText(contactPhone2.getText());
-                        contactName2.setText(contactName3.getText());
-                        contactPhone2.setText(contactPhone3.getText());
-                        contactName3.setText("");
-                        contactPhone3.setText("");
-                        editor.putString("contactName", contactName2.getText().toString());
-                        editor.putString("contactPhone", contactPhone2.getText().toString());
-                        editor.putString("contactName2", contactName3.getText().toString());
-                        editor.putString("contactPhone2", contactPhone3.getText().toString());
-                        editor.putString("contactName3", "");
-                        editor.putString("contactPhone3", "");
+                    if (!contactName5.getText().equals("") && !contactName4.getText().equals("")) {
+                        delContactName(0, contactName1, contactName2, contactName3, contactName4, contactName5);
+                        delContactPhone(0, contactPhone1, contactPhone2, contactPhone3, contactPhone4, contactPhone5);
+                        contactButton5.setImageResource(R.drawable.ic_baseline_add_circle_outline_35);
+                        editor.putBoolean("contact5", false);
+                    } else if (!contactName4.getText().equals("") && !contactName3.getText().equals("")) {
+                        delContactName(0, contactName1, contactName2, contactName3, contactName4);
+                        delContactPhone(0, contactPhone1, contactPhone2, contactPhone3, contactPhone4);
+                        contactButton4.setImageResource(R.drawable.ic_baseline_add_circle_outline_35);
+                        editor.putBoolean("contact4", false);
+                    } else if (!contactName3.getText().equals("") && !contactName2.getText().equals("")) {
+                        delContactName(0, contactName1, contactName2, contactName3);
+                        delContactPhone(0, contactPhone1, contactPhone2, contactPhone3);
                         contactButton3.setImageResource(R.drawable.ic_baseline_add_circle_outline_35);
                         editor.putBoolean("contact3", false);
                     } else if (!contactName2.getText().equals("")) {
-                        contactName.setText(contactName2.getText());
-                        contactPhone.setText(contactPhone2.getText());
-                        contactName2.setText("");
-                        contactPhone2.setText("");
-                        editor.putString("contactName", contactName2.getText().toString());
-                        editor.putString("contactPhone", contactPhone2.getText().toString());
-                        editor.putString("contactName2", contactName2.getText().toString());
-                        editor.putString("contactPhone2", contactPhone2.getText().toString());
+                        delContactName(0, contactName1, contactName2);
+                        delContactPhone(0, contactPhone1, contactPhone2);
                         editor.putBoolean("contact2", false);
                         contactButton2.setImageResource(R.drawable.ic_baseline_add_circle_outline_35);
 
                     } else {
-                        contactName.setText("");
-                        contactPhone.setText("");
-                        editor.putString("contactName", "");
-                        editor.putString("contactPhone", "");
-                        contactLayout2.setVisibility(View.GONE);
-                        contactButton.setImageResource(R.drawable.ic_baseline_add_circle_outline_35);
+                        delContactName(0, contactName1);
+                        delContactPhone(0, contactPhone1);
+                        contactButton1.setImageResource(R.drawable.ic_baseline_add_circle_outline_35);
                         editor.putBoolean("contact", false);
                     }
 
@@ -238,6 +254,9 @@ public class SettingActivity extends AppCompatActivity {
                         contactLayout3.setVisibility(View.GONE);
 
                     editor.commit();
+                    afterContactLayoutDelete();
+
+
                 } else {
                     Intent intent = new Intent(Intent.ACTION_PICK);
                     intent.setData(ContactsContract.CommonDataKinds.Phone.CONTENT_URI);
@@ -252,30 +271,34 @@ public class SettingActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (sf.getBoolean("contact2", false)) {
-                    if (!contactName3.getText().equals("")) {
-                        contactName2.setText(contactName3.getText());
-                        contactPhone2.setText(contactPhone3.getText());
-                        contactName3.setText("");
-                        contactPhone3.setText("");
-                        editor.putString("contactName3", "");
-                        editor.putString("contactPhone3", "");
-                        editor.putString("contactName2", contactName2.getText().toString());
-                        editor.putString("contactPhone2", contactName2.getText().toString());
+                    if (!contactName5.getText().equals("")) {
+                        delContactName(1, contactName2, contactName3, contactName4, contactName5);
+                        delContactPhone(1, contactPhone2, contactPhone3, contactPhone4, contactPhone5);
+                        contactButton5.setImageResource(R.drawable.ic_baseline_add_circle_outline_35);
+                        editor.putBoolean("contact5", false);
+
+                    } else if (!contactName4.getText().equals("")) {
+                        delContactName(1, contactName2, contactName3, contactName4);
+                        delContactPhone(1, contactPhone2, contactPhone3, contactPhone4);
+                        contactButton4.setImageResource(R.drawable.ic_baseline_add_circle_outline_35);
+                        editor.putBoolean("contact4", false);
+
+                    } else if (!contactName3.getText().equals("")) {
+                        delContactName(1, contactName2, contactName3);
+                        delContactPhone(1, contactPhone2, contactPhone3);
                         contactButton3.setImageResource(R.drawable.ic_baseline_add_circle_outline_35);
                         editor.putBoolean("contact3", false);
 
                     } else {
-                        contactName2.setText("");
-                        contactPhone2.setText("");
-                        editor.putString("contactName2", "");
-                        editor.putString("contactPhone2", "");
+                        delContactName(1, contactName2);
+                        delContactPhone(1, contactPhone2);
                         contactButton2.setImageResource(R.drawable.ic_baseline_add_circle_outline_35);
                         editor.putBoolean("contact2", false);
-                        contactLayout3.setVisibility(View.GONE);
-
                     }
-
                     editor.commit();
+
+                    afterContactLayoutDelete();
+
                 } else {
                     Intent intent = new Intent(Intent.ACTION_PICK);
                     intent.setData(ContactsContract.CommonDataKinds.Phone.CONTENT_URI);
@@ -290,19 +313,84 @@ public class SettingActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (sf.getBoolean("contact3", false)) {
-                    contactName3.setText("");
-                    contactPhone3.setText("");
-                    editor.putString("contactName3", "");
-                    editor.putString("contactPhone3", "");
-                    editor.putBoolean("contact3", false);
+
+                    if (!contactName5.getText().equals("")) {
+                        delContactName(2, contactName3, contactName4, contactName5);
+                        delContactPhone(2, contactPhone3, contactPhone4, contactPhone5);
+                        editor.putBoolean("contact5", false);
+                        contactButton5.setImageResource(R.drawable.ic_baseline_add_circle_outline_35);
+                    } else if (!contactName4.getText().equals("")) {
+                        delContactName(2, contactName3, contactName4);
+                        delContactPhone(2, contactPhone3, contactPhone4);
+                        editor.putBoolean("contact4", false);
+                        contactButton4.setImageResource(R.drawable.ic_baseline_add_circle_outline_35);
+                    } else {
+                        delContactName(2, contactName3);
+                        delContactPhone(2, contactPhone3);
+                        editor.putBoolean("contact3", false);
+                        contactButton3.setImageResource(R.drawable.ic_baseline_add_circle_outline_35);
+                    }
 
                     editor.commit();
-                    contactButton3.setImageResource(R.drawable.ic_baseline_add_circle_outline_35);
+                    afterContactLayoutDelete();
+
                 } else {
                     Intent intent = new Intent(Intent.ACTION_PICK);
                     intent.setData(ContactsContract.CommonDataKinds.Phone.CONTENT_URI);
                     startActivityForResult(intent, 2);
                     editor.putInt("textViewNum", 3);
+                    editor.commit();
+                }
+            }
+        });
+
+        contactButton4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (sf.getBoolean("contact4", false)) {
+
+                    if (!contactName5.getText().equals("")) {
+                        delContactName(3, contactName4, contactName5);
+                        delContactPhone(3, contactPhone4, contactPhone5);
+                        editor.putBoolean("contact5", false);
+                        contactButton5.setImageResource(R.drawable.ic_baseline_add_circle_outline_35);
+                    } else {
+                        delContactName(3, contactName4);
+                        delContactPhone(3, contactPhone4);
+                        editor.putBoolean("contact4", false);
+                        contactButton4.setImageResource(R.drawable.ic_baseline_add_circle_outline_35);
+                        //contactLayout5.setVisibility(View.GONE);
+                    }
+
+                    editor.commit();
+                    afterContactLayoutDelete();
+
+                } else {
+                    Intent intent = new Intent(Intent.ACTION_PICK);
+                    intent.setData(ContactsContract.CommonDataKinds.Phone.CONTENT_URI);
+                    startActivityForResult(intent, 2);
+                    editor.putInt("textViewNum", 4);
+                    editor.commit();
+                }
+            }
+        });
+
+        contactButton5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (sf.getBoolean("contact5", false)) {
+                    delContactName(4, contactName5);
+                    delContactPhone(4, contactPhone5);
+                    editor.putBoolean("contact5", false);
+                    contactButton5.setImageResource(R.drawable.ic_baseline_add_circle_outline_35);
+                    editor.commit();
+                    afterContactLayoutDelete();
+
+                } else {
+                    Intent intent = new Intent(Intent.ACTION_PICK);
+                    intent.setData(ContactsContract.CommonDataKinds.Phone.CONTENT_URI);
+                    startActivityForResult(intent, 2);
+                    editor.putInt("textViewNum", 5);
                     editor.commit();
                 }
             }
@@ -415,36 +503,67 @@ public class SettingActivity extends AppCompatActivity {
 
          // Set TabSelectedListener
          tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-<<<<<<< Updated upstream
-        @Override
-        public void onTabSelected(TabLayout.Tab tab) {
-        viewPager.setCurrentItem(tab.getPosition());
-        }
+         <<<<<<< Updated upstream
+         @Override public void onTabSelected(TabLayout.Tab tab) {
+         viewPager.setCurrentItem(tab.getPosition());
+         }
 
-        @Override
-        public void onTabUnselected(TabLayout.Tab tab) {
+         @Override public void onTabUnselected(TabLayout.Tab tab) {
 
-        }
+         }
 
-        @Override
-        public void onTabReselected(TabLayout.Tab tab) {
-=======
-        @Override public void onTabSelected(TabLayout.Tab tab) {
-        viewPager.setCurrentItem(tab.getPosition());
-        }
+         @Override public void onTabReselected(TabLayout.Tab tab) {
+         =======
+         @Override public void onTabSelected(TabLayout.Tab tab) {
+         viewPager.setCurrentItem(tab.getPosition());
+         }
 
-        @Override public void onTabUnselected(TabLayout.Tab tab) {
+         @Override public void onTabUnselected(TabLayout.Tab tab) {
 
-        }
+         }
 
-        @Override public void onTabReselected(TabLayout.Tab tab) {
->>>>>>> Stashed changes
+         @Override public void onTabReselected(TabLayout.Tab tab) {
+         >>>>>>> Stashed changes
 
-        }
-        });
+         }
+         });
          ************/
     }
 
+    private void afterContactLayoutDelete() {
+        String[] names = new String[5];
+
+        int start = 0;
+        for (int i = 0; i < 5; i++) {
+            names[i] = sf.getString("contactName" + (i + 1), "");
+            if (names[i].equals("")) {
+                start = i + 1;
+                break;
+            }
+        }
+
+        switch (start) {
+            case 1:
+                contactLayout2.setVisibility(View.GONE);
+                contactLayout3.setVisibility(View.GONE);
+                contactLayout4.setVisibility(View.GONE);
+                contactLayout5.setVisibility(View.GONE);
+                break;
+            case 2:
+                contactLayout3.setVisibility(View.GONE);
+                contactLayout4.setVisibility(View.GONE);
+                contactLayout5.setVisibility(View.GONE);
+                break;
+            case 3:
+                contactLayout4.setVisibility(View.GONE);
+                contactLayout5.setVisibility(View.GONE);
+                break;
+            case 4:
+                contactLayout5.setVisibility(View.GONE);
+                break;
+        }
+        Toast.makeText(this, "삭제되었습니다.", Toast.LENGTH_SHORT).show();
+    }
     /*******************************************
      * NumberPicker 불러오기
      **********************************************//*
@@ -501,6 +620,31 @@ public class SettingActivity extends AppCompatActivity {
         setNumber.setOnClickListener(Listener);
         version.setOnClickListener(Listener);
         //osLicense.setOnClickListener(Listener);
+    }
+
+    private void delContactName(int idx, TextView... textViews) {
+        int i = 0;
+        int size = textViews.length;
+        for (i = 0; i < size - 1; i++) {
+            TextView curName = textViews[i];
+            TextView nextName = textViews[i + 1];
+            editor.putString("contactName" + (idx + i + 1), nextName.getText().toString());
+            curName.setText(nextName.getText().toString());
+        }
+        editor.putString("contactName" + (idx + i + 1), "");
+        textViews[i].setText("");
+    }
+
+    private void delContactPhone(int idx, TextView... textViews) {
+        int i = 0;
+        int size = textViews.length;
+        for (i = 0; i < size - 1; i++) {
+            TextView curPhone = textViews[i];
+            TextView nextPhone = textViews[i + 1];
+            editor.putString("contactPhone" + (idx + i + 1), nextPhone.getText().toString());
+            curPhone.setText(nextPhone.getText().toString());
+        }
+        textViews[i].setText("");
     }
 
     /*******************************************
@@ -644,7 +788,6 @@ public class SettingActivity extends AppCompatActivity {
 //
 //
 //    }
-
     public void SwitchCheckedListener() {
         // 보이스피싱 파워 체크
         CompoundButton.OnCheckedChangeListener onCheckedChangeListener = new CompoundButton.OnCheckedChangeListener() {
@@ -666,10 +809,6 @@ public class SettingActivity extends AppCompatActivity {
                             editor.commit();
 
                             voiceSettingLayout.setVisibility(View.GONE);
-
-
-                            //Toast.makeText(SettingActivity.this, "VoiceFishing Off", Toast.LENGTH_SHORT).show();
-
                         }
                         break;
 
@@ -700,9 +839,9 @@ public class SettingActivity extends AppCompatActivity {
 
         int textViewNum = sf.getInt("textViewNum", 0);
         String[] names = new String[3];
-        names[0] = sf.getString("contactName", "");
-        names[1] = sf.getString("contactName1", "");
-        names[2] = sf.getString("contactName2", "");
+        names[0] = sf.getString("contactName1", "");
+        names[1] = sf.getString("contactName2", "");
+        names[2] = sf.getString("contactName3", "");
 
         if (requestCode == 2 && resultCode == RESULT_OK) {
             Cursor cursor = getContentResolver().query(data.getData(),
@@ -712,8 +851,7 @@ public class SettingActivity extends AppCompatActivity {
             String name = cursor.getString(0);        //0은 이름을 얻어옵니다.
             String num = cursor.getString(1);   //1은 번호를 받아옵니다.
 
-            for (int i=0; i<3; i++)
-            {
+            for (int i = 0; i < 3; i++) {
                 if (name.equals(names[i])) {
                     Toast.makeText(this, "중복되지 않는 연락처를 선택하세요.", Toast.LENGTH_SHORT).show();
                     return;
@@ -721,12 +859,12 @@ public class SettingActivity extends AppCompatActivity {
             }
 
             if (textViewNum == 1) {
-                contactName.setText(name);
-                contactPhone.setText(num);
-                contactButton.setImageResource(R.drawable.ic_baseline_remove_circle_outline_35);
+                contactName1.setText(name);
+                contactPhone1.setText(num);
+                contactButton1.setImageResource(R.drawable.ic_baseline_remove_circle_outline_35);
 
-                editor.putString("contactName", name);
-                editor.putString("contactPhone", num);     // DB에 보호자 번호 저장
+                editor.putString("contactName1", name);
+                editor.putString("contactPhone1", num);     // DB에 보호자 번호 저장
                 editor.putBoolean("contact", true);
                 editor.commit();
 
@@ -744,7 +882,7 @@ public class SettingActivity extends AppCompatActivity {
 
                 if (contactLayout3.getVisibility() == View.GONE)
                     contactLayout3.setVisibility(View.VISIBLE);
-            } else {
+            } else if (textViewNum == 3) {
                 contactName3.setText(name);
                 contactPhone3.setText(num);
                 contactButton3.setImageResource(R.drawable.ic_baseline_remove_circle_outline_35);
@@ -752,6 +890,30 @@ public class SettingActivity extends AppCompatActivity {
                 editor.putString("contactName3", name);
                 editor.putString("contactPhone3", num);     // DB에 보호자 번호 저장
                 editor.putBoolean("contact3", true);
+                editor.commit();
+
+                if (contactLayout4.getVisibility() == View.GONE)
+                    contactLayout4.setVisibility(View.VISIBLE);
+            } else if (textViewNum == 4) {
+                contactName4.setText(name);
+                contactPhone4.setText(num);
+                contactButton4.setImageResource(R.drawable.ic_baseline_remove_circle_outline_35);
+
+                editor.putString("contactName4", name);
+                editor.putString("contactPhone4", num);     // DB에 보호자 번호 저장
+                editor.putBoolean("contact4", true);
+                editor.commit();
+
+                if (contactLayout5.getVisibility() == View.GONE)
+                    contactLayout5.setVisibility(View.VISIBLE);
+            } else {
+                contactName5.setText(name);
+                contactPhone5.setText(num);
+                contactButton5.setImageResource(R.drawable.ic_baseline_remove_circle_outline_35);
+
+                editor.putString("contactName5", name);
+                editor.putString("contactPhone5", num);     // DB에 보호자 번호 저장
+                editor.putBoolean("contact5", true);
                 editor.commit();
             }
 

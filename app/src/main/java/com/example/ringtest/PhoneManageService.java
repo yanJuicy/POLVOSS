@@ -330,6 +330,8 @@ public class PhoneManageService extends Service {
         String phoneNum1 = sf.getString("contactPhone", "");
         String phoneNum2 = sf.getString("contactPhone2", "");
         String phoneNum3 = sf.getString("contactPhone3", "");
+
+
         String sms = "[안심전화 서비스 자동발신]\n사용자께서 모르는 전화와 통화를 하고 있습니다\n피싱 위험이 감지되니 안심 전화를 걸어 주세요";
 
         if (!phoneNum1.equals("")) { // 번호가 존재하면 문자 전송
