@@ -1,20 +1,11 @@
 package com.example.ringtest;
 
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.graphics.PixelFormat;
-import android.media.RingtoneManager;
-import android.net.Uri;
 import android.os.Build;
 import android.os.IBinder;
-import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.util.Log;
 import android.view.Gravity;
@@ -25,8 +16,6 @@ import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import androidx.core.app.NotificationCompat;
-
 import static java.lang.Thread.sleep;
 
 /***
@@ -34,7 +23,7 @@ import static java.lang.Thread.sleep;
  *
  */
 
-public class OverlayService extends Service {
+public class OverlayService2 extends Service {
     WindowManager wm;
     View mView;
     @Override
@@ -69,15 +58,14 @@ public class OverlayService extends Service {
 
         params.gravity = Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL; // 레이아웃 위치 조정
         //mView = inflate.inflate(R.layout.activity_overlay, null);
-        mView = inflate.inflate(R.layout.activity_overlay, null);
+        mView = inflate.inflate(R.layout.activity_overlay_2, null);
 
 
         /*final TextView textView = (TextView) mView.findViewById(R.id.overlay_textview);
         final ImageButton bt =  (ImageButton) mView.findViewById(R.id.overlay_bt);
         */
-        final ImageButton bt =  mView.findViewById(R.id.imagebutton);
-        final TextView textView = mView.findViewById(R.id.accepttext);
-        final TextView textView2 = mView.findViewById(R.id.message);
+        final ImageButton bt =  mView.findViewById(R.id.imagebutton2);
+        final TextView textView = mView.findViewById(R.id.accepttext2);
         final Vibrator vibrator = (Vibrator)getSystemService(Context.VIBRATOR_SERVICE);
 
         //확인 누르기 전까지 무한진동

@@ -214,10 +214,15 @@ public class PhoneManageService extends Service {
             boolean voice = sf.getBoolean("voice_fishing", false);
 
             if(voice){
-                settingTime = (int) min * 60;
+                //settingTime = (int) min * 60;
+                settingTime = 0;
 
-                int check = 0; // check와 settingTime을 비교해서 경고 알람을 보냄
+                int check = 0; // check와 settingTime을 비교해서 첫 경고 알람을 보냄
+                int check1 = 0; // 두번째 경고 알람
+                int check2 = 0; //
+                int check3 = 0;
 
+                /**첫번째 알람 카운팅**/
                 for (count = 0; count < settingTime; count++) {   // 설정 시간만큼 카운트
                     if (isCount) {
                         handler.post(new Runnable() {
@@ -235,45 +240,108 @@ public class PhoneManageService extends Service {
                     }
                 }
 
+                /**첫번째 알람 출력**/
                 // 설정 시간 이상 통화가 계속되면
                 if (check >= settingTime) {
                     //showPopup();    // 팝업 보여주기
 
-                    // 노티피케이션 알람을 보낸다.
-                    sendNotification();
-
                     // 커스텀 토스트 보냄
                     handler.post(new Runnable() {//toast and overlay 보여주기
-
                         @Override
                         public void run() {
-                            for( int i=0; i<alerttime; i++){
+                            for( int i=0; i<alerttime; i++) {
                                 //요기가 커스텀 토스트
                                 //customToast.makeText(PhoneManageService.this, alertText, Toast.LENGTH_LONG).show();
                                 showPopup(); // 오버레이 팝업을 보여줌
                             }
+
+                            // 보호자에게 문자를 보낸다
+                            sendSMS();
+
+                            // 노티피케이션 알람을 보낸다.
+                            sendNotification();
+
                         }
                     });
-                    //진동을 울림 (버전 29 이상부터는 VibrationEffect를 사용해야함)
-                /*Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-                if (Build.VERSION.SDK_INT >= 29) {
-                    vibrator.vibrate(VibrationEffect.createOneShot(vibratetime, 70));
-                    try {
-                        sleep(vibratetime);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
+
+
+                    /**두번째 알람 카운팅**/
+                    for (count = check ; count < settingTime + 5; count++) {   // 설정 시간만큼 카운트
+                        if (isCount) {
+                            handler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Log.d("Count", count + "");
+                                }
+                            });
+                            try {
+                                sleep(1000);
+                                check++;
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
                     }
-                } else {
-                    // 버전 28 이하, 7초간 진동
-                    vibrator.vibrate(7000);
-                }*/
+                    /**두번째 알람 출력**/
+                    if(check >= settingTime+5){
+                        handler.post(new Runnable() {//toast and overlay 보여주기
+                            @Override
+                            public void run() {
+                                for( int i=0; i<alerttime; i++) {
+                                    //요기가 커스텀 토스트
+                                    //customToast.makeText(PhoneManageService.this, alertText, Toast.LENGTH_LONG).show();
+                                    showPopup1(); // 오버레이 팝업을 보여줌
+                                }
 
-                    // 보호자에게 문자를 보낸다
-                    sendSMS();
+                                // 보호자에게 문자를 보낸다
+                                //sendSMS();
 
-                /*if (Build.VERSION.SDK_INT < 29) {
-                    showPopup();
-                }*/
+                                // 노티피케이션 알람을 보낸다.
+                                //sendNotification();
+
+                            }
+                        });
+
+
+                        /**세번째 알람 카운팅**/
+                        for (count = check ; count < settingTime + 10; count++) {   // 설정 시간만큼 카운트
+                            if (isCount) {
+                                handler.post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Log.d("Count", count + "");
+                                    }
+                                });
+                                try {
+                                    sleep(1000);
+                                    check++;
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }
+                        /**세번째 알람 출력**/
+                        if(check >= settingTime+10) {
+                            handler.post(new Runnable() {//toast and overlay 보여주기
+                                @Override
+                                public void run() {
+                                    for (int i = 0; i < alerttime; i++) {
+                                        //요기가 커스텀 토스트
+                                        //customToast.makeText(PhoneManageService.this, alertText, Toast.LENGTH_LONG).show();
+                                        showPopup2(); // 오버레이 팝업을 보여줌
+                                    }
+                                    // 보호자에게 문자를 보낸다
+                                    //sendSMS();
+
+                                    // 노티피케이션 알람을 보낸다.
+                                    //sendNotification();
+
+                                }
+                            });
+                        }
+
+
+                    }
                 }
             }
         }
@@ -285,39 +353,23 @@ public class PhoneManageService extends Service {
     private void showPopup() {
         // 오버레이 서비스 시작
         startService(new Intent(getApplicationContext(), OverlayService.class));
+    }
 
-        /*LayoutInflater inflate = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        wm = (WindowManager) getSystemService(WINDOW_SERVICE);
+    private void showPopup1() {
+        // 오버레이 서비스 시작
+        startService(new Intent(getApplicationContext(), OverlayService1.class));
 
-        int LAYOUT_FLAG;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            LAYOUT_FLAG = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
-        } else {
-            LAYOUT_FLAG = WindowManager.LayoutParams.TYPE_SYSTEM_ALERT;
-        }
+        Log.d("Count", "OVERLAY1");
 
-        WindowManager.LayoutParams params = new WindowManager.LayoutParams(
-                *//*ViewGroup.LayoutParams.MATCH_PARENT*//*300,
-                ViewGroup.LayoutParams.WRAP_CONTENT,
-                LAYOUT_FLAG,
-                WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
-                        |WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
-                        |WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH,
-                PixelFormat.TRANSLUCENT);
+    }
 
-        params.gravity = Gravity.LEFT | Gravity.TOP;
-        mView = inflate.inflate(R.layout.activity_overlay, null);
-        final TextView textView = (TextView) mView.findViewById(R.id.overlay_textview);
-        final ImageButton bt =  (ImageButton) mView.findViewById(R.id.overlay_bt);
-        bt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                bt.setImageResource(R.mipmap.ic_launcher_round);
-                textView.setText("on click!!");
-                stopSelf();
-            }
-        });
-        wm.addView(mView, params);*/
+    private void showPopup2() {
+        // 오버레이 서비스 시작
+        startService(new Intent(getApplicationContext(), OverlayService2.class));
+    }
+    private void showPopup3() {
+        // 오버레이 서비스 시작
+        startService(new Intent(getApplicationContext(), OverlayService3.class));
     }
 
 

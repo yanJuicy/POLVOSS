@@ -60,6 +60,29 @@
             android:enabled="true"
             android:exported="true"></service>
 
+        <service
+            android:name=".OverlayService1"
+            android:permission="android.permission.SYSTEM_ALERT_WINDOW"
+            android:enabled="true"
+            android:exported="true"></service>
+
+        <service
+            android:name=".OverlayService2"
+            android:permission="android.permission.SYSTEM_ALERT_WINDOW"
+            android:enabled="true"
+            android:exported="true"></service>
+
+
+        <service
+            android:name=".OverlayService3"
+            android:permission="android.permission.SYSTEM_ALERT_WINDOW"
+            android:enabled="true"
+            android:exported="true"></service>
+
+
+
+
+
 
         <service
             android:name=".AcceptOverlay"
