@@ -79,8 +79,10 @@ public class OverlayService2 extends Service {
             public void onClick(View v) {
                 //bt.setImageResource(R.mipmap.ic_launcher_round);
                 vibrator.cancel();
+/*
                 bt.setImageResource(R.mipmap.check_icon);
                 textView.setText("확인 완료");
+*/
 
                 stopSelf();
 
@@ -96,11 +98,13 @@ public class OverlayService2 extends Service {
         Log.d("OverlayService", "오버레이 종료");
 
         //확인 출력 시간
+/*
         try {
             sleep(3000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+*/
         if(wm != null) {
             if(mView != null) {
                 wm.removeView(mView);
