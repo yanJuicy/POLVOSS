@@ -265,7 +265,7 @@ public class PhoneManageService extends Service {
                     });
 
 
-                    /**두번째 알람 카운팅**/
+                    /**두번째 알람 카운팅(+5분)**/
                     for (count = check ; count < settingTime + 5; count++) {   // 설정 시간만큼 카운트
                         if (isCount) {
                             handler.post(new Runnable() {
@@ -303,7 +303,7 @@ public class PhoneManageService extends Service {
                         });
 
 
-                        /**세번째 알람 카운팅**/
+                        /**세번째 알람 카운팅(+10분)**/
                         for (count = check ; count < settingTime + 10; count++) {   // 설정 시간만큼 카운트
                             if (isCount) {
                                 handler.post(new Runnable() {
@@ -366,10 +366,6 @@ public class PhoneManageService extends Service {
     private void showPopup2() {
         // 오버레이 서비스 시작
         startService(new Intent(getApplicationContext(), OverlayService2.class));
-    }
-    private void showPopup3() {
-        // 오버레이 서비스 시작
-        //startService(new Intent(getApplicationContext(), OverlayService3.class));
     }
 
 

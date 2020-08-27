@@ -85,7 +85,6 @@ public class OverlayService extends Service {
             vibrator.vibrate(new long[]{100,1000,100,500,100,500,100,1000},0);
         }
 
-
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

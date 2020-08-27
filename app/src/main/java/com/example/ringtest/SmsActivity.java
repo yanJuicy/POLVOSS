@@ -46,6 +46,8 @@ public class SmsActivity extends AppCompatActivity {
                 mSelectionArgs[1] = sender_no;
 
 
+
+
                 try{
                     String qry = "body = ? AND address = ?";
 
