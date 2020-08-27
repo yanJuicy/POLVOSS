@@ -189,7 +189,7 @@ public class SmsReceiver extends BroadcastReceiver {
 
     private void showPopup() {
         // 오버레이 서비스 시작
-        context.startService(new Intent(context.getApplicationContext(), OverlayService.class));
+        context.startService(new Intent(context.getApplicationContext(), OverlayServiceSMS.class));
     }
 
 
