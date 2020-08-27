@@ -181,6 +181,13 @@ public class FirstSettingActivity extends AppCompatActivity {
             numberSettingLayout2.setVisibility(View.VISIBLE);
         }*/
 
+        /************************************
+         * 초기 세팅 보이스피싱, 스미싱 파워 On
+         ***********************************/
+        editor.putBoolean("voice_fishing", true);
+        editor.putBoolean("smishing", true);
+        editor.commit();
+
 
         /**
          보호자 연락처 추가
