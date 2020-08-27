@@ -13,9 +13,11 @@ import android.graphics.Color;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
+import android.telephony.SmsMessage;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -26,6 +28,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.text.MessageFormat;
+import java.util.Date;
 
 import static android.content.Context.NOTIFICATION_SERVICE;
 import static java.lang.Thread.sleep;
@@ -36,39 +39,65 @@ public class MMSReceiver extends BroadcastReceiver
     private int alerttime = 4; //toast 알림 출력 시간(n * 3.5 초 )
     Vibrator vibrator;  // 진동 관리 변수
     private int vibratetime = 5000;
+    private Handler handler = new Handler();
 
 
     @Override
     public void onReceive(Context $context, final Intent $intent)
     {
+//        Log.d(TAG, "onReceive() 호출됨."); // sms가 오면 onReceive() 가 호출된다. 여기에 처리하는 코드 작성하면 된다.
+//        Bundle bundle = intent.getExtras();
+//        SmsMessage[] messages = parseSmsMessage(bundle);  // parseSmsMessage() 메서드의 코드들은 SMS문자의 내용을 뽑아내는 정형화된 코드이다.
+//        int CheckNum = 0;
+//
+//        if(messages.length>0){
+//            // 문자메세지에서 송신자와 관련된 내용을 뽑아낸다.
+//            String sender = messages[0].getOriginatingAddress();
+//            Log.d(TAG, "sender: "+sender);
+//
+//            // 문자메세지 내용 추출
+//            String contents = messages[0].getMessageBody().toString();
+//            Log.d(TAG, "contents: "+contents);
+//
+//            // 수신 날짜/시간 데이터 추출
+//            Date receivedDate = new Date(messages[0].getTimestampMillis());
+//            Log.d(TAG, "received date: "+receivedDate);
+//
+//            // 해당 내용을 모두 합쳐서 액티비티로 보낸다.
+//            URLCheck(contents, context);
+//            //sendToActivity(context, sender, contents, receivedDate);
+//            //OnSmsNotification(context, sender, contents);
+//        }
+
         _context = $context;
 
-        Runnable runn = new Runnable()
-        {
-            @Override
-            public void run()
-            {
-                parseMMS();
-            }
-        };
-        Handler handler = new Handler();
-        handler.postDelayed(runn, 6000); // 시간이 너무 짧으면 못 가져오는게 있더라
-        Log.d("MMS_RECEIVE", "Receive complete");
-        handler.post(new Runnable() {//toast and overlay 보여주기
+        parseMMS();
 
-            @Override
-            public void run() {
-                for( int i=0; i<alerttime; i++){
-                    //요기가 커스텀 토스트
-                    //customToast.makeText(PhoneManageService.this, alertText, Toast.LENGTH_LONG).show();
-                    showPopup();
-                }
-            }
-        });
+//        Runnable runn = new Runnable()
+//        {
+//            @Override
+//            public void run()
+//            {
+//                parseMMS();
+//            }
+//        };
+//        Handler handler = new Handler();
+//        handler.postDelayed(runn, 6000); // 시간이 너무 짧으면 못 가져오는게 있더라
+//        Log.d("MMS_RECEIVE", "Receive complete");
+//        handler.post(new Runnable() {//toast and overlay 보여주기
+//
+//            @Override
+//            public void run() {
+////                for( int i=0; i<alerttime; i++){
+////                    //요기가 커스텀 토스트
+////                    //customToast.makeText(PhoneManageService.this, alertText, Toast.LENGTH_LONG).show();
+//////                    showPopup();
+////                }
+//            }
+//        });
 
         //노티피케이션 추가
-        sendNotification();
-
+        // sendNotification();
     }
 
     private void parseMMS()
@@ -91,6 +120,8 @@ public class MMSReceiver extends BroadcastReceiver
         String number = parseNumber(id);
         String msg = parseMessage(id);
         Log.d("MMS", "MMS Parse");
+
+        URLCheck(msg, _context);
     }
 
     private String parseNumber(String $id)
@@ -235,5 +266,69 @@ public class MMSReceiver extends BroadcastReceiver
 
         NotificationManager manager = (NotificationManager) _context.getSystemService(NOTIFICATION_SERVICE);
         manager.notify(3, builder.build());
+    }
+
+    private void URLCheck(String contents, final Context context){
+        //내용에서 .을 찾는다
+        //.의 인덱스를 배열에 넣는다 순서대로 ( 브루드 포스트 알고리즘 사용 )
+        //.의 인데스의 -1 +1번째 문자에 영단어가 들어가는지 판단한다
+        // url인지 아닌지 구별한다
+        // + 더 정확하게 url 인지 아닌지 판단할 수 있는 기준을 더한다.
+        int idx = -1;
+        int checkNum = 0;
+        int result = -1;
+        this._context = context;
+        vibrator = (Vibrator) context.getSystemService(context.VIBRATOR_SERVICE);   // 진동 객체 초기화, 안드로이드 9까지 통화중 진동 가능 (아마도)
+        Uri uri = Uri.parse(contents);
+        if (uri.getScheme() == null || uri.getScheme().isEmpty()) {
+            // safe text
+            Log.d("URL X", contents);
+
+        } else {
+            // has url
+            Log.d("URL O", contents);
+        }
+        while(true)
+        {
+            checkNum = contents.indexOf(".", idx+1);
+            if(checkNum == -1)
+            {
+                break;
+            }
+            idx = contents.indexOf(".", idx+1);
+            result = check(idx, contents);
+            if(result == 1)
+            {
+                Log.d("mms", "메세지수신");
+                handler.post(new Runnable() {//toast and overlay 보여주기
+
+                    //오버레이 팝업 출력
+                    @Override
+                    public void run() {
+                        for( int i=0; i<alerttime; i++){
+                            //요기가 커스텀 토스트
+                            //customToast.makeText(PhoneManageService.this, alertText, Toast.LENGTH_LONG).show();
+                            showPopup();
+                        }
+                    }
+                });
+
+                //노티피케이션 보내기
+
+                sendNotification();
+                break;
+            }
+
+        }
+    }
+
+    private static int check(int idx, String contents){
+        if(idx <= 0)
+            return -1;
+        else{
+            if((contents.charAt(idx-1) >= 65 && contents.charAt(idx-1) <= 122) || (contents.charAt(idx+1) >= 65 && contents.charAt(idx+1) <= 122))
+                return 1;
+        }
+        return -1;
     }
 }
