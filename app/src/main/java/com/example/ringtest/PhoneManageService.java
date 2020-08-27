@@ -369,7 +369,7 @@ public class PhoneManageService extends Service {
     }
     private void showPopup3() {
         // 오버레이 서비스 시작
-        startService(new Intent(getApplicationContext(), OverlayService3.class));
+        //startService(new Intent(getApplicationContext(), OverlayService3.class));
     }
 
 

@@ -77,12 +77,23 @@ public class FirstSettingActivity extends AppCompatActivity {
     TextView contactPhone5;
 
     LinearLayout protectLayout;
+    TextView finishBtn;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_first_setting);
 
+        sf = getSharedPreferences("settingFile", MODE_PRIVATE);
+        editor = sf.edit();
+
+        boolean is_first = sf.getBoolean("is_first", true);
+
+//        if(!is_first){
+//            Intent intent = new Intent(getApplicationContext(), DesignActivity.class);
+//            startActivity(intent);
+//            finish();
+//        }
 
         closeBtn = findViewById(R.id.closeBtn);
 
@@ -137,6 +148,8 @@ public class FirstSettingActivity extends AppCompatActivity {
         contactPhone5 = findViewById(R.id.contatctPhone5);
 
         protectLayout = findViewById(R.id.protectorLayout);
+
+        finishBtn = findViewById(R.id.btn_finish);
 
 
         sf = getSharedPreferences("settingFile", MODE_PRIVATE); // 로컬 DB 객체
@@ -394,6 +407,25 @@ public class FirstSettingActivity extends AppCompatActivity {
             }
         });
 
+        /******************************************
+         * 확인 버튼 눌렀을때
+         *****************************************/
+
+        finishBtn.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View view) {
+                 if (sf.getBoolean("contact", false)) {    //연락처 1이 저장이 되어있을때
+                     editor.putBoolean("is_first", false);
+                     editor.commit();
+                     Intent intent = new Intent(getApplicationContext(), DesignActivity.class);
+                     startActivity(intent);
+                     finish();
+                 } else {   //연락처 1이 저장이 안되어있을때
+                     Toast.makeText(FirstSettingActivity.this, "연락처를 설정해 주세요", Toast.LENGTH_SHORT).show();
+                 }
+             }
+        });
+
         /*******************************************
          * 보이스 피싱 파워
          ******************************************/
@@ -526,6 +558,7 @@ public class FirstSettingActivity extends AppCompatActivity {
          }
          });
          ************/
+
     }
 
     private void afterContactLayoutDelete() {
