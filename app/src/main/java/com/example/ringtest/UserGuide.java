@@ -91,7 +91,7 @@ public class UserGuide extends FragmentActivity {
 
         //가이드를 끝냈을때
         if(!is_first){
-            Intent intent = new Intent(getApplicationContext(), DesignActivity.class);
+            Intent intent = new Intent(getApplicationContext(), FirstSettingActivity.class);
             startActivity(intent);
             finish();
         }

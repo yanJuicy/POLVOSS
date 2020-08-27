@@ -1,0 +1,610 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorMain"
+    android:orientation="vertical">
+
+    <include layout="@layout/tool_bar_setting" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="10dp"
+            tools:ignore="ExtraText">
+
+
+            <Switch
+                android:id="@+id/voice_Power"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:checked="true"
+                android:padding="5dp"
+                android:text="보이스 피싱 차단 설정"
+                android:textColor="#80000000"
+                android:textSize="22sp"
+                android:thumb="@drawable/switch_thumb"
+                android:track="@drawable/switch_track_selector" />
+
+            <LinearLayout
+                android:id="@+id/voice_Setting_Layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:animateLayoutChanges="true"
+                android:orientation="vertical"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp"
+                android:paddingRight="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/textView2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="시간 선택"
+                        android:textColor="@color/colorMain"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:id="@+id/textView11"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:showText="true"
+                        android:text="착신 불명 상대방과의 통화 허용 시간을 설정합니다."
+                        android:textColor="#80000000"
+                        android:textSize="12sp" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp">
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1" />
+
+                    <NumberPicker
+                        android:id="@+id/numberPicker"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:descendantFocusability="blocksDescendants"
+                        android:theme="@style/numberPickerCustomSize" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/app_main_font"
+                        android:text="분"
+                        android:textColor="@color/colorMain"
+                        android:textSize="20dp" />
+                </LinearLayout>
+
+
+                <!--<SeekBar
+                    android:id="@+id/seekBarTime"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:max="120"
+                    android:progress="0"
+                    android:scrollbarAlwaysDrawHorizontalTrack="false" />
+-->
+                <!--<TextView
+                    android:id="@+id/textViewTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/seekBarTime"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="20dp"
+                    android:textColor="@color/colorMain"
+                    android:textSize="15sp" />
+-->
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/setNumber"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="보호자 연락처 설정"
+                        android:textColor="@color/colorMain"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:id="@+id/textView10"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:showText="true"
+                        android:text="보이스 피싱 의심 안내 메세지를 받을 보호자 연락처를 설정합니다."
+                        android:textColor="#80000000"
+                        android:textSize="12sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/protectorLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:orientation="vertical"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="10dp"
+                    android:paddingRight="10dp">
+
+                    <LinearLayout
+                        android:id="@+id/setContactLayout1"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginBottom="10dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:visibility="visible">
+
+                        <TextView
+                            android:id="@+id/contactName1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="5dp"
+                            android:layout_weight="7"
+                            android:hint="보호자"
+                            android:textColor="#000000"
+                            android:textColorHint="#888888"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:id="@+id/contatctPhone1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="5"
+                            android:hint="보호자 연락처"
+                            android:text=""
+                            android:textColor="#000000"
+                            android:textColorHint="#888888"
+                            android:textSize="15sp" />
+
+                        <ImageButton
+                            android:id="@+id/contactButton1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="@android:color/transparent"
+                            app:srcCompat="@drawable/ic_baseline_add_circle_outline_35" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/setContactLayout2"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginBottom="10dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:id="@+id/contactName2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="5dp"
+                            android:layout_weight="7"
+                            android:hint="보호자"
+                            android:text=""
+                            android:textColor="#000000"
+                            android:textColorHint="#888888"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:id="@+id/contatctPhone2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="5"
+                            android:hint="보호자 연락처"
+                            android:text=""
+                            android:textColor="#000000"
+                            android:textColorHint="#888888"
+                            android:textSize="15sp" />
+
+                        <ImageButton
+                            android:id="@+id/contactButton2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="@android:color/transparent"
+                            app:srcCompat="@drawable/ic_baseline_add_circle_outline_35" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/setContactLayout3"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginBottom="10dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:id="@+id/contactName3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="5dp"
+                            android:layout_weight="7"
+                            android:hint="보호자"
+                            android:text=""
+                            android:textColor="#000000"
+                            android:textColorHint="#888888"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:id="@+id/contatctPhone3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="5"
+                            android:hint="보호자 연락처"
+                            android:text=""
+                            android:textColor="#000000"
+                            android:textColorHint="#888888"
+                            android:textSize="15sp" />
+
+                        <ImageButton
+                            android:id="@+id/contactButton3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="@android:color/transparent"
+                            app:srcCompat="@drawable/ic_baseline_add_circle_outline_35" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/setContactLayout4"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginBottom="10dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:id="@+id/contactName4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="5dp"
+                            android:layout_weight="7"
+                            android:hint="보호자"
+                            android:text=""
+                            android:textColor="#000000"
+                            android:textColorHint="#888888"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:id="@+id/contatctPhone4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="5"
+                            android:hint="보호자 연락처"
+                            android:text=""
+                            android:textColor="#000000"
+                            android:textColorHint="#888888"
+                            android:textSize="15sp" />
+
+                        <ImageButton
+                            android:id="@+id/contactButton4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="@android:color/transparent"
+                            app:srcCompat="@drawable/ic_baseline_add_circle_outline_35" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/setContactLayout5"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginBottom="10dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:id="@+id/contactName5"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="5dp"
+                            android:layout_weight="7"
+                            android:hint="보호자"
+                            android:text=""
+                            android:textColor="#000000"
+                            android:textColorHint="#888888"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:id="@+id/contatctPhone5"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="5"
+                            android:hint="보호자 연락처"
+                            android:text=""
+                            android:textColor="#000000"
+                            android:textColorHint="#888888"
+                            android:textSize="15sp" />
+
+                        <ImageButton
+                            android:id="@+id/contactButton5"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="@android:color/transparent"
+                            app:srcCompat="@drawable/ic_baseline_add_circle_outline_35" />
+                    </LinearLayout>
+
+
+                    <!--<LinearLayout
+                        android:id="@+id/set_Num_Layout1"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginBottom="10dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:visibility="visible">
+
+                        <TextView
+                            android:id="@+id/setting_phoneName1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="5dp"
+                            android:layout_weight="7"
+                            android:hint="연락처 불러오기"
+                            android:text=""
+                            android:textColor="#000000"
+                            android:textColorHint="#888888"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:id="@+id/setting_phoneNum1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="right"
+                            android:text=""
+                            android:textColor="#000000"
+                            android:textColorHint="#888888"
+                            android:textSize="15sp" />
+
+                        <ImageButton
+                            android:id="@+id/addBtn1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="@android:color/transparent"
+                            app:srcCompat="@drawable/ic_baseline_add_circle_outline_35" />
+
+                        <ImageButton
+                            android:id="@+id/deleteBtn1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="@android:color/transparent"
+                            app:srcCompat="@drawable/ic_baseline_remove_circle_outline_35" />
+
+
+                    </LinearLayout>-->
+
+                    <LinearLayout
+                        android:id="@+id/set_Num_Layout2"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginBottom="10dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:id="@+id/setting_phoneName2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="5dp"
+                            android:layout_weight="7"
+                            android:hint="연락처 불러오기"
+                            android:text=""
+                            android:textColor="#000000"
+                            android:textColorHint="#888888"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:id="@+id/setting_phoneNum2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="right"
+                            android:text=""
+                            android:textColor="#000000"
+                            android:textColorHint="#888888"
+                            android:textSize="15sp" />
+
+                        <ImageButton
+                            android:id="@+id/deleteBtn2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="@android:color/transparent"
+                            app:srcCompat="@drawable/ic_baseline_remove_circle_outline_35" />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/set_Num_Layout3"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginBottom="10dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:id="@+id/setting_phoneName3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="5dp"
+                            android:layout_weight="7"
+                            android:hint="연락처 불러오기"
+                            android:text=""
+                            android:textColor="#000000"
+                            android:textColorHint="#888888"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:id="@+id/setting_phoneNum3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="right"
+                            android:text=""
+                            android:textColor="#000000"
+                            android:textColorHint="#888888"
+                            android:textSize="15sp" />
+
+                        <ImageButton
+                            android:id="@+id/deleteBtn3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="@android:color/transparent"
+                            app:srcCompat="@drawable/ic_baseline_remove_circle_outline_35" />
+
+
+                    </LinearLayout>
+
+                    <!--                    <LinearLayout-->
+                    <!--                        android:layout_width="match_parent"-->
+                    <!--                        android:layout_height="wrap_content"-->
+                    <!--                        android:gravity="center"-->
+                    <!--                        android:orientation="horizontal">-->
+
+                    <!--                        <Button-->
+                    <!--                            android:id="@+id/saveBtn"-->
+                    <!--                            android:layout_width="150dp"-->
+                    <!--                            android:layout_height="40dp"-->
+                    <!--                            android:layout_gravity="center"-->
+                    <!--                            android:background="@drawable/accept_button2"-->
+                    <!--                            android:text="저장"-->
+                    <!--                            android:textSize="15sp" />-->
+                    <!--                    </LinearLayout>-->
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="#000000" />
+
+
+            <Switch
+                android:id="@+id/smishing_Power"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="10dp"
+                android:checked="true"
+                android:padding="5dp"
+                android:text="스미싱 차단 설정"
+                android:textColor="#80000000"
+                android:textSize="22sp"
+                android:thumb="@drawable/switch_thumb"
+                android:track="@drawable/switch_track_selector" />
+
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:showText="true"
+                android:text="메세지, 멀티미디어 메세지 내용 중에 있는 URL 탐색을 수행합니다."
+                android:textColor="#80000000"
+                android:textSize="12sp" />
+
+            <TextView
+                    android:id="@+id/btn_finish"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="50dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="12dp"
+                    android:background="@drawable/accept_button2"
+                    android:gravity="center"
+                    android:padding="16dp"
+                    android:text="확   인"
+                    android:textColor="#EFF5FB"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
+
+        </LinearLayout>
+
+
+
+
+    </ScrollView>
+
+
+    <!--    <androidx.viewpager.widget.ViewPager-->
+    <!--        android:id="@+id/pager"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="match_parent"-->
+    <!--        android:layout_weight="1"-->
+    <!--        android:background="@color/white"-->
+    <!--        android:paddingLeft="20dp"-->
+    <!--        android:paddingTop="10dp"-->
+    <!--        android:paddingRight="20dp"-->
+    <!--        android:paddingBottom="10dp" />-->
+
+    <!--    <com.google.android.material.tabs.TabLayout-->
+    <!--        android:id="@+id/tabLayout"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:minHeight="?attr/actionBarSize"/>-->
+
+
+</LinearLayout>
