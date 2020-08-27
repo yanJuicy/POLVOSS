@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -98,7 +99,7 @@ public class DesignActivity extends AppCompatActivity implements AutoPermissions
             public void onClick(View v) {
                 checkPermission();
                 // DB에서 보호자 번호가 있는지 확인
-                String phoneNo1 = sf.getString("contactPhone", "");
+                String phoneNo1 = sf.getString("contactPhone1", "");
                 String phoneNo2 = sf.getString("contactPhone2", "");
                 String phoneNo3 = sf.getString("contactPhone3", "");
                 smsOn = sf.getBoolean("smishing", false);
@@ -109,8 +110,10 @@ public class DesignActivity extends AppCompatActivity implements AutoPermissions
                 editor.putBoolean("power", powerOn);
                 editor.commit();
 
+                Log.d("DesignActivity ", phoneNo1);
+
                 if (powerOn && smsOn && voiceOn) { // 서비스 시작 (스미싱, 보이스피싱 둘 다 켜져있을때)
-                    if (phoneNo1.equals("") && phoneNo2.equals("") && phoneNo3.equals("")) { // 설정된 휴대폰 번호가 없으면 MainActivity로 이동
+                    if (phoneNo1.equals("")) { // 설정된 휴대폰 번호가 없으면 MainActivity로 이동
                         // 파워 버튼 상태 변경
                         powerOn = !powerOn;
                         editor.putBoolean("power", powerOn);
@@ -135,7 +138,7 @@ public class DesignActivity extends AppCompatActivity implements AutoPermissions
                     serviceIntent.setAction("startForeground"); //포그라운드 액션지정
                     startService(serviceIntent);
                 } else if(powerOn && !smsOn && voiceOn){ // 서비스 시작 (보이스만 켜져있을때)
-                    if (phoneNo1.equals("") && phoneNo2.equals("") && phoneNo3.equals("")) { // 설정된 휴대폰 번호가 없으면 MainActivity로 이동
+                    if (phoneNo1.equals("")) { // 설정된 휴대폰 번호가 없으면 MainActivity로 이동
                         // 파워 버튼 상태 변경
                         powerOn = !powerOn;
                         editor.putBoolean("power", powerOn);

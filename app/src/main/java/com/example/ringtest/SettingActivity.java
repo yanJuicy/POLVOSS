@@ -172,9 +172,9 @@ public class SettingActivity extends AppCompatActivity {
         }*/
 
 
-        /**
-         보호자 연락처 추가
-         */
+        /*****
+         * 보호자 연락처 설정
+         *****/
 
         String[] names = new String[5];
         String[] phones = new String[5];
@@ -421,18 +421,23 @@ public class SettingActivity extends AppCompatActivity {
         }
 
         /*******************************************
-         * 시간 설정, text가 범위 초과하는 현상 발생
+         * 시간 설정, NumberPicker로 변경
+         * -> 5분, 10분, 15분으로 변경
          *******************************************/
         long min = sf.getLong("min", 10);
+        int maxValue = 20;
+        int minValue = 10;
+        int step = 5;
 
         NumberPicker numberPicker = findViewById(R.id.numberPicker);
-        numberPicker.setMaxValue(4);
-        numberPicker.setMinValue(2);
-        numberPicker.setValue((int) min / 5);
+        numberPicker.setMaxValue(maxValue/step);
+        numberPicker.setMinValue(minValue/step);
+        numberPicker.setValue((int) min / step);
 
-        String[] values = new String[3];
-        for (int i = 0; i < 3; i++) {
-            values[i] = String.valueOf((i+2) * 5);
+        int size = (maxValue/step) - (minValue/step) + 1;
+        String[] values = new String[size];
+        for (int i = 0; i < size; i++) {
+            values[i] = String.valueOf((i+(minValue/step)) * step);
         }
         numberPicker.setDisplayedValues(values);
         numberPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
@@ -440,7 +445,7 @@ public class SettingActivity extends AppCompatActivity {
             public void onValueChange(NumberPicker numberPicker, int i, int i1) {
                 //Toast.makeText(SettingActivity.this, numberPicker.getValue() + "", Toast.LENGTH_SHORT).show();
                 long min = numberPicker.getValue() * 5;
-                Log.d("SettingActivity", ""+min);
+                Log.d("SettingActivity", ""+min+" 분 설정");
                 editor.putLong("min", min);
                 editor.commit();
             }
@@ -645,6 +650,7 @@ public class SettingActivity extends AppCompatActivity {
             editor.putString("contactPhone" + (idx + i + 1), nextPhone.getText().toString());
             curPhone.setText(nextPhone.getText().toString());
         }
+        editor.putString("contactPhone" + (idx + i + 1), "");
         textViews[i].setText("");
     }
 

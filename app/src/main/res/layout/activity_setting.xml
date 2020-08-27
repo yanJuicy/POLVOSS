@@ -20,7 +20,6 @@
             android:orientation="vertical"
             android:padding="10dp">
 
-
             <Switch
                 android:id="@+id/voice_Power"
                 android:layout_width="match_parent"
