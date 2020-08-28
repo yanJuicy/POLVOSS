@@ -10,6 +10,7 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -29,6 +30,7 @@ public class UserGuide extends FragmentActivity {
     private CircleIndicator3 mIndicator;
     private TextView finish_btn;
 
+    SharedPreferences sf;
     private boolean is_first;
     private Context mContext;
 
@@ -40,6 +42,14 @@ public class UserGuide extends FragmentActivity {
 
         mContext = this;
 
+        sf = getSharedPreferences("settingFile", MODE_PRIVATE);
+
+        if(!sf.getBoolean("is_first", true)){
+            Intent intent = new Intent(getApplicationContext(), DesignActivity.class);
+            startActivity(intent);
+            finish();
+        }
+
         is_first = PreferenceManager.getBoolean(mContext, "is_first");
 
         finish_btn = findViewById(R.id.btn_finish);
@@ -47,9 +57,7 @@ public class UserGuide extends FragmentActivity {
         finish_btn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                PreferenceManager.setBoolean(mContext, "is_first", false);
-
-                Intent intent = new Intent(getApplicationContext(), DesignActivity.class);
+                Intent intent = new Intent(getApplicationContext(), FirstSettingActivity.class);
                 startActivity(intent);
                 finish();
 
@@ -90,11 +98,7 @@ public class UserGuide extends FragmentActivity {
         });
 
         //가이드를 끝냈을때
-        if(!is_first){
-            Intent intent = new Intent(getApplicationContext(), FirstSettingActivity.class);
-            startActivity(intent);
-            finish();
-        }
+
     }
 
     @Override

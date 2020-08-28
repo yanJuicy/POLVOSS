@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:background="@android:color/transparent"
-        android:src="@mipmap/alert" />
+        android:src="@mipmap/alert4" />
 
     <TextView
         android:id="@+id/accepttext"
