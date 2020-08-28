@@ -14,7 +14,6 @@ public class AutoRunReceiver extends BroadcastReceiver {
     private SharedPreferences sf;
     boolean powerOn;
 
-
     @Override
     public void onReceive(Context context, Intent intent) {
         Log.d("AutoRunReceiver", "시작되서 호출됨");

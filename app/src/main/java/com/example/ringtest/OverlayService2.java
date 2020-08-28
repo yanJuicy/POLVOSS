@@ -68,9 +68,13 @@ public class OverlayService2 extends Service {
         final TextView textView = mView.findViewById(R.id.accepttext2);
         final Vibrator vibrator = (Vibrator)getSystemService(Context.VIBRATOR_SERVICE);
 
+        long pattern[] = new long[]{100,1000,100,500,100,500,100,1000};
+
         //확인 누르기 전까지 무한진동
         if (Build.VERSION.SDK_INT >= 29) {
-            vibrator.vibrate(new long[]{100,1000,100,500,100,500,100,1000},0);
+            vibrator.vibrate(pattern,0);
+        } else {
+            vibrator.vibrate(pattern, 0);
         }
 
 
