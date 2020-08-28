@@ -29,12 +29,15 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.text.MessageFormat;
 import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static android.content.Context.NOTIFICATION_SERVICE;
 import static java.lang.Thread.sleep;
 
 public class MMSReceiver extends BroadcastReceiver
 {
+    private static final String TAG = "MMSReceiver";
     private Context _context;
     private int alerttime = 4; //toast 알림 출력 시간(n * 3.5 초 )
     Vibrator vibrator;  // 진동 관리 변수
@@ -279,47 +282,86 @@ public class MMSReceiver extends BroadcastReceiver
         int result = -1;
         this._context = context;
         vibrator = (Vibrator) context.getSystemService(context.VIBRATOR_SERVICE);   // 진동 객체 초기화, 안드로이드 9까지 통화중 진동 가능 (아마도)
-        Uri uri = Uri.parse(contents);
-        if (uri.getScheme() == null || uri.getScheme().isEmpty()) {
-            // safe text
-            Log.d("URL X", contents);
 
-        } else {
-            // has url
-            Log.d("URL O", contents);
-        }
-        while(true)
-        {
-            checkNum = contents.indexOf(".", idx+1);
-            if(checkNum == -1)
-            {
-                break;
-            }
-            idx = contents.indexOf(".", idx+1);
-            result = check(idx, contents);
-            if(result == 1)
-            {
-                Log.d("mms", "메세지수신");
-                handler.post(new Runnable() {//toast and overlay 보여주기
+        Log.d(TAG, "내용 : "+ contents);
+        String regex ="[(http(s)?):\\/\\/(www\\.)?a-zA-Z0-9ㄱ-ㅎㅏ-ㅣ가-힣@:%_.\\+~#=]{2,256}\\.[a-zA-Z0-9가-힣]{2,6}\\b([-a-zA-Z0-9@:%_\\+.~#?&//=]*)";
+        Pattern p = Pattern.compile(regex);
+        Matcher m=p.matcher(contents);
 
-                    //오버레이 팝업 출력
-                    @Override
-                    public void run() {
-                        for( int i=0; i<alerttime; i++){
-                            //요기가 커스텀 토스트
-                            //customToast.makeText(PhoneManageService.this, alertText, Toast.LENGTH_LONG).show();
-                            showPopup();
-                        }
+        if(m.find()){
+            //sb.append(m.group(0));
+            //System.out.println("==="+m.group(0));
+         /*for(int i=0;i<=m.groupCount();i++){s
+             System.out.println(i+"==="+m.group(i));
+             sb.append(m.group(i));
+         }*/
+            Log.d(TAG, "메세지수신");
+            handler.post(new Runnable() {//toast and overlay 보여주기
+
+                //오버레이 팝업 출력
+                @Override
+                public void run() {
+                    for( int i=0; i<alerttime; i++){
+                        //요기가 커스텀 토스트
+                        //customToast.makeText(PhoneManageService.this, alertText, Toast.LENGTH_LONG).show();
+                        showPopup();
                     }
-                });
+                }
+            });
+            //노티피케이션 보내기
 
-                //노티피케이션 보내기
-
-                sendNotification();
-                break;
-            }
-
+            sendNotification();
         }
+
+
+
+
+
+
+
+
+
+//        Uri uri = Uri.parse(contents);
+//        if (uri.getScheme() == null || uri.getScheme().isEmpty()) {
+//            // safe text
+//            Log.d("URL X", contents);
+//
+//        } else {
+//            // has url
+//            Log.d("URL O", contents);
+//        }
+//        while(true)
+//        {
+//            checkNum = contents.indexOf(".", idx+1);
+//            if(checkNum == -1)
+//            {
+//                break;
+//            }
+//            idx = contents.indexOf(".", idx+1);
+//            result = check(idx, contents);
+//            if(result == 1)
+//            {
+//                Log.d("mms", "메세지수신");
+//                handler.post(new Runnable() {//toast and overlay 보여주기
+//
+//                    //오버레이 팝업 출력
+//                    @Override
+//                    public void run() {
+//                        for( int i=0; i<alerttime; i++){
+//                            //요기가 커스텀 토스트
+//                            //customToast.makeText(PhoneManageService.this, alertText, Toast.LENGTH_LONG).show();
+//                            showPopup();
+//                        }
+//                    }
+//                });
+//
+//                //노티피케이션 보내기
+//
+//                sendNotification();
+//                break;
+//            }
+
+//        }
     }
 
     private static int check(int idx, String contents){
