@@ -444,7 +444,7 @@ public class SettingActivity extends AppCompatActivity {
             @Override
             public void onValueChange(NumberPicker numberPicker, int i, int i1) {
                 //Toast.makeText(SettingActivity.this, numberPicker.getValue() + "", Toast.LENGTH_SHORT).show();
-                long min = numberPicker.getValue();
+                long min = numberPicker.getValue() * 5;
                 Log.d("SettingActivity", ""+min+" 분 설정");
                 editor.putLong("min", min);
                 editor.commit();
