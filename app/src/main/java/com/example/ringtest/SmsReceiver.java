@@ -20,6 +20,8 @@ import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.telephony.SmsMessage;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
 
 import androidx.core.app.NotificationCompat;
 
@@ -45,9 +47,7 @@ public class SmsReceiver extends BroadcastReceiver {
     private int vibratetime = 5000;
 
     @Override
-    public void onReceive(Context context, Intent intent) {
-        OnSmsReceive(context, intent);
-    }
+    public void onReceive(Context context, Intent intent) { OnSmsReceive(context, intent); }
 
     private void OnSmsReceive(Context context, Intent intent){
         Log.d(TAG, "onReceive() 호출됨."); // sms가 오면 onReceive() 가 호출된다. 여기에 처리하는 코드 작성하면 된다.
@@ -73,6 +73,7 @@ public class SmsReceiver extends BroadcastReceiver {
             //sendToActivity(context, sender, contents, receivedDate);
             //OnSmsNotification(context, sender, contents);
         }
+
     }
 
     // 데이터 받아오기
@@ -142,7 +143,9 @@ public class SmsReceiver extends BroadcastReceiver {
         vibrator = (Vibrator) context.getSystemService(context.VIBRATOR_SERVICE);   // 진동 객체 초기화, 안드로이드 9까지 통화중 진동 가능 (아마도)
 
         Log.d(TAG, "내용 : "+ contents);
-        String regex ="[(http(s)?):\\/\\/(www\\.)?a-zA-Z0-9ㄱ-ㅎㅏ-ㅣ가-힣@:%_.\\+~#=]{2,256}\\.[a-zA-Z0-9가-힣]{2,6}\\b([-a-zA-Z0-9@:%_\\+.~#?&//=]*)";
+        String regex ="[(http(s)?):\\/\\/(www\\)?a-zA-Z0-9ㄱ-ㅎㅏ-ㅣ가-힣@:%_" +
+                "ⓐⓑⓒⓓⓔⓕⓖⓗⓘⓙⓚⓛⓜⓝⓞⓠⓡⓢⓣⓤⓥⓦⓧⓨⓩ①②③④⑤⑥⑦⑧⑨㉠㉡㉢㉣㉤㉥㉦㉧㉨㉩㉪㉫㉬㉭㉮㉯㉰㉱㉲㉳㉴㉵㉶㉷㉸㉹㉺㉻" +
+                "\\+~#=]{2,256}\\.[a-zA-Z0-9가-힣]{2,6}\\b([-a-zA-Z0-9@:%_\\+.~#?&//=]*)";
         Pattern p = Pattern.compile(regex);
         Matcher m=p.matcher(contents);
 

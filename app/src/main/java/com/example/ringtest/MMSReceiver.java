@@ -284,7 +284,9 @@ public class MMSReceiver extends BroadcastReceiver
         vibrator = (Vibrator) context.getSystemService(context.VIBRATOR_SERVICE);   // 진동 객체 초기화, 안드로이드 9까지 통화중 진동 가능 (아마도)
 
         Log.d(TAG, "내용 : "+ contents);
-        String regex ="[(http(s)?):\\/\\/(www\\.)?a-zA-Z0-9ㄱ-ㅎㅏ-ㅣ가-힣@:%_.\\+~#=]{2,256}\\.[a-zA-Z0-9가-힣]{2,6}\\b([-a-zA-Z0-9@:%_\\+.~#?&//=]*)";
+        String regex ="[(http(s)?):\\/\\/(www\\)?a-zA-Z0-9ㄱ-ㅎㅏ-ㅣ가-힣@:%_" +
+                "ⓐⓑⓒⓓⓔⓕⓖⓗⓘⓙⓚⓛⓜⓝⓞⓠⓡⓢⓣⓤⓥⓦⓧⓨⓩ①②③④⑤⑥⑦⑧⑨㉠㉡㉢㉣㉤㉥㉦㉧㉨㉩㉪㉫㉬㉭㉮㉯㉰㉱㉲㉳㉴㉵㉶㉷㉸㉹㉺㉻" +
+                "\\+~#=]{2,256}\\.[a-zA-Z0-9가-힣]{2,6}\\b([-a-zA-Z0-9@:%_\\+.~#?&//=]*)";
         Pattern p = Pattern.compile(regex);
         Matcher m=p.matcher(contents);
 
