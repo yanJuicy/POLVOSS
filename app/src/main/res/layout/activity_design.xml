@@ -32,10 +32,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginBottom="12dp"
-            app:srcCompat="@mipmap/lock5"
-            android:background ="@drawable/ripple_effect"/>
-
+            android:background="@drawable/ripple_effect"
+            app:srcCompat="@mipmap/lock5" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -56,24 +54,41 @@
             android:textSize="24dp" />
     </LinearLayout>
 
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
-
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="100dp"
+        android:layout_weight="2.5"
         android:gravity="center"
-        android:orientation="horizontal" >
+        android:orientation="vertical">
+        
 
-        <ViewFlipper
-            android:id="@+id/image_slide"
+        <ImageView
+            android:id="@+id/imageView3"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-        </ViewFlipper>
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:srcCompat="@mipmap/memo" />
 
     </LinearLayout>
+
+<!--    <Space-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="0dp"-->
+<!--        android:layout_weight="1" />-->
+
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:gravity="center"-->
+<!--        android:orientation="horizontal" >-->
+
+<!--        <ViewFlipper-->
+<!--            android:id="@+id/image_slide"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content">-->
+<!--        </ViewFlipper>-->
+
+<!--    </LinearLayout>-->
 
 
 </LinearLayout>

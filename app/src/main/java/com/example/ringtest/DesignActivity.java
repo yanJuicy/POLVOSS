@@ -43,7 +43,7 @@ public class DesignActivity extends AppCompatActivity implements AutoPermissions
     TextView voiceState;
     TextView smsState;
 
-    ViewFlipper v_fllipper;
+    //ViewFlipper v_fllipper;
 
 
     @Override
@@ -72,11 +72,11 @@ public class DesignActivity extends AppCompatActivity implements AutoPermissions
 
         };
 
-        v_fllipper = findViewById(R.id.image_slide);
+        //v_fllipper = findViewById(R.id.image_slide);
 
-        for(int image : images) {
-            fllipperImages(image);
-        }
+//        for(int image : images) {
+//            fllipperImages(image);
+//        }
 
 
         // DB에서 파워 버튼 설정 값 확인
@@ -206,13 +206,13 @@ public class DesignActivity extends AppCompatActivity implements AutoPermissions
         ImageView imageView = new ImageView(this);
         imageView.setBackgroundResource(image);
 
-        v_fllipper.addView(imageView);      // 이미지 추가
-        v_fllipper.setFlipInterval(4000);       // 자동 이미지 슬라이드 딜레이시간(1000 당 1초)
-        v_fllipper.setAutoStart(true);          // 자동 시작 유무 설정
+        //v_fllipper.addView(imageView);      // 이미지 추가
+        //v_fllipper.setFlipInterval(4000);       // 자동 이미지 슬라이드 딜레이시간(1000 당 1초)
+        //v_fllipper.setAutoStart(true);          // 자동 시작 유무 설정
 
         // animation
-        v_fllipper.setInAnimation(this,android.R.anim.slide_in_left);
-        v_fllipper.setOutAnimation(this,android.R.anim.slide_out_right);
+        ///.setInAnimation(this,android.R.anim.slide_in_left);
+        //v_fllipper.setOutAnimation(this,android.R.anim.slide_out_right);
     }
 
 
