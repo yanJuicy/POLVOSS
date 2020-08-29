@@ -21,7 +21,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/logo"
+        android:icon="@mipmap/logo3"
         android:label="안심전화"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
@@ -35,9 +35,9 @@
             </intent-filter>
         </receiver>
 
-        <activity
-            android:name=".Popup"
-            android:theme="@style/Theme.AppCompat.Dialog.Alert" />
+<!--        <activity-->
+<!--            android:name=".Popup"-->
+<!--            android:theme="@style/Theme.AppCompat.Dialog.Alert" />-->
 
         <receiver
             android:name=".MMSReceiver"
