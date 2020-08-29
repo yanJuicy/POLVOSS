@@ -36,12 +36,15 @@
         android:orientation="horizontal">
 
         <ImageView
+
             android:id="@+id/powerBtn"
             android:layout_width="wrap_content"
             android:layout_height="155dp"
             android:layout_gravity="center"
             android:layout_marginBottom="12dp"
-            app:srcCompat="@mipmap/lock3" />
+            app:srcCompat="@mipmap/lock3"
+            android:background ="@drawable/ripple_effect"/>
+
     </LinearLayout>
 
     <TextView
