@@ -3,42 +3,31 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="60dp"
+    android:layout_height="100dp"
     android:orientation="vertical">
 
     <FrameLayout
+        android:background="#00469B"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ImageButton
-            android:id="@+id/logo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="left"
-            android:layout_margin="10dp"
-            android:background="@android:color/transparent"
-            android:src="@mipmap/logo2"
-            />
-
-        <TextView
-            android:id="@+id/title_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center|left"
-            android:layout_marginLeft="40dp"
-            android:fontFamily="@font/app_main_font"
-            android:text="안 심 전 화"
-            android:textColor="#F3BF3E"
-            android:textSize="20sp" />
 
         <ImageButton
             android:id="@+id/settingButton"
-            android:layout_width="27dp"
-            android:layout_height="wrap_content"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_gravity="right"
-            android:layout_margin="10dp"
+            android:layout_marginTop="35dp"
             android:background="@android:color/transparent"
             app:srcCompat="@drawable/ic_baseline_more_vert_24" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_marginLeft="45dp"
+            android:layout_marginTop="45dp"
+            android:layout_width="320dp"
+            android:layout_height="41dp"
+            app:srcCompat="@mipmap/name" />
     </FrameLayout>
 
 </LinearLayout>
