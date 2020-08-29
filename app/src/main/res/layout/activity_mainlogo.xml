@@ -1,46 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorMain">
-
-
-    <ImageView
-        android:id="@+id/Mainlogo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="250dp"
-        android:src="@mipmap/logo"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="79dp"
-        tools:layout_editor_absoluteY="4dp" />
-
-    <TextView
-        android:id="@+id/Mainlfont"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="400dp"
-        android:text=""
-        android:textColor="@color/white"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="79dp"
-        tools:layout_editor_absoluteY="4dp" />
+    android:background="@drawable/loading"
+    android:gravity="center"
+    android:orientation="vertical">
 
     <ViewFlipper
         android:id="@+id/loading"
+        android:layout_marginTop="210dp"
+        android:layout_gravity="center"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="450dp"
-        tools:layout_editor_absoluteX="79dp"
-        tools:layout_editor_absoluteY="4dp">
+        android:layout_height="wrap_content">
     </ViewFlipper>
 
 
-
-
-</RelativeLayout>
+</LinearLayout>
