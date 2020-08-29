@@ -104,7 +104,7 @@ public class PhoneManageService extends Service {
                     // 평소 상태
                     Log.d("PhoneManageService", "일반 상태");
                     isCount = false;
-                    Popup.isVibrate = false;
+                    //Popup.isVibrate = false;
                 } else if (state == TelephonyManager.CALL_STATE_RINGING) {
                     // 전화벨 울림
                     Log.d("PhoneManageService", "전화벨 울림");
