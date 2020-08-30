@@ -7,7 +7,7 @@
     android:orientation="vertical">
 
     <FrameLayout
-        android:background="#00469B"
+        android:background="#FFFFFF"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -18,13 +18,13 @@
             android:layout_height="50dp"
             android:layout_gravity="center|right"
             android:background="@android:color/transparent"
-            app:srcCompat="@drawable/ic_baseline_more_vert_24" />
+            app:srcCompat="@mipmap/menulogo" />
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_gravity="center"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
             app:srcCompat="@mipmap/name" />
     </FrameLayout>
 

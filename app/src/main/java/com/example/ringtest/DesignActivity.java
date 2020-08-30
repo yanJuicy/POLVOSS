@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -43,6 +44,9 @@ public class DesignActivity extends AppCompatActivity implements AutoPermissions
     private Context mContext;
 
     TextView textState;
+    TextView textState2;
+    TextView textState3;
+
     TextView voiceState;
     TextView smsState;
 
@@ -52,7 +56,7 @@ public class DesignActivity extends AppCompatActivity implements AutoPermissions
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_design);
+        setContentView(R.layout.activity_design2);
 
         mContext = this;
 
@@ -60,6 +64,8 @@ public class DesignActivity extends AppCompatActivity implements AutoPermissions
 
         // id 매핑
         textState = findViewById(R.id.textState);
+        textState2 = findViewById(R.id.textState2);
+        textState3 = findViewById(R.id.textState3);
         //voiceState = findViewById(R.id.textVoiceFishingState);
         //smsState = findViewById(R.id.textSmishingState);
         settingButton = findViewById(R.id.settingButton);
@@ -213,8 +219,7 @@ public class DesignActivity extends AppCompatActivity implements AutoPermissions
         v_fllipper.setFlipInterval(4000);       // 자동 이미지 슬라이드 딜레이시간(1000 당 1초)
         v_fllipper.setAutoStart(true);          // 자동 시작 유무 설정
 
-//         animation
-//        /.setInAnimation(this,android.R.anim.slide_in_left);
+        v_fllipper.setInAnimation(this,android.R.anim.slide_in_left);
         v_fllipper.setOutAnimation(this,android.R.anim.slide_out_right);
     }
 
@@ -223,12 +228,18 @@ public class DesignActivity extends AppCompatActivity implements AutoPermissions
         if (powerOn) {
             powerButton.setImageResource(R.mipmap.lock5);
 //            Toast.makeText(DesignActivity.this, "서비스 시작", Toast.LENGTH_SHORT).show();
-            textState.setText("안전하게 보호 중입니다.");
+            textState.setText("안전하게 ");
+            textState2.setText("보호 중");
+            textState2.setTextColor(Color.parseColor("#FFBF00"));
+            textState3.setText("입니다.");
 //            voiceState.setText("활성화");
 //            smsState.setText("활성화");
         } else {
             powerButton.setImageResource(R.mipmap.unlock5);
             textState.setText("보호 중이 아닙니다.");
+            textState2.setText("");
+            textState3.setText("");
+
 //            voiceState.setText("비 활성화");
 //            smsState.setText("비 활성화");
         }
