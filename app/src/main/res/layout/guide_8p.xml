@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#0F0525">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -13,10 +13,10 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="서비스 이용 동의"
-            android:textColor="@android:color/white"
             android:layout_marginTop="30dp"
+            android:gravity="center"
+            android:text="「폴보스」 앱 이용 동의"
+            android:textColor="@android:color/white"
             android:textSize="25dp"
             android:textStyle="bold" />
 
@@ -24,16 +24,15 @@
             android:id="@+id/guide_linear"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_above="@+id/tvName1"
+            android:layout_marginBottom="20dp"
+            android:layout_centerHorizontal="true"
             android:gravity="center">
 
 
             <ImageView
-                android:layout_width="353dp"
-                android:layout_height="295dp"
+                android:layout_width="282dp"
+                android:layout_height="236dp"
                 android:layout_gravity="center"
-                android:layout_marginTop="30dp"
                 android:src="@mipmap/podole" />
         </LinearLayout>
 
@@ -41,10 +40,10 @@
             android:id="@+id/tvName1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_gravity="center"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
             android:gravity="center"
-            android:text="\n'안심전화 서비스' 이용을 위한 동의"
+            android:text="서비스를 이용하고 싶으신 \n분은 아래 내용에 동의해주세요."
             android:textColor="@android:color/white"
             android:textSize="20dp"
             android:textStyle="bold" />
@@ -52,10 +51,9 @@
         <TextView
             android:id="@+id/guide1_middle"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:layout_gravity="center"
             android:gravity="center"
-            android:layout_below="@+id/tvName1"
 
             android:text=""
             android:textColor="@android:color/white"
@@ -67,14 +65,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:gravity="left"
-            android:layout_below="@+id/guide1_middle"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
-            android:text="서비스 이용을 위해 아래 내용에 동의해 주세요.\n\n보이스피싱 위험 여부는 실제와 다를 수 있으므로 본인의 판단에 참고만 하시기 바랍니다.\n\n이용 시 발생한 일체의 상황에 대해 책임을 지지 않습니다.\n\n앱은 본인의 휴대폰에 설치되며 개발자에게 어떠한 내용도 전달되지 않습니다."
+            android:gravity="left"
+            android:text="1. 보이스피싱 위험 여부는 실제와 다를 수 있으므로 본인의 판단에 참고만 하시기 바랍니다.\n\n2. 이용 시 발생한 일체의 상황에 대해 책임을 지지 않습니다.\n\n3. 앱은 본인의 휴대폰에 설치되며 개발자에게 어떠한 내용도 전달되지 않습니다.\n\n4. 위 내용에 동의하시고 확인버튼을 누르시면 설치가 진행됩니다."
             android:textColor="#888888"
             android:textSize="15dp"
-            android:textStyle="bold" />
+            android:textStyle="bold" />return new FragmentFirst();
 
-    </RelativeLayout>
+    </LinearLayout>
 </FrameLayout>

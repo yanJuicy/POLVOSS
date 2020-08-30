@@ -565,7 +565,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:showText="true"
-                android:text="메세지, 멀티미디어 메세지 내용 중에 있는 URL 탐색을 수행합니다."
+                android:text="메시지, 멀티미디어 메시지 내용 중에 있는 URL 탐색을 수행합니다."
                 android:textColor="#80000000"
                 android:textSize="12sp" />
 
