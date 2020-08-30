@@ -157,7 +157,6 @@ public class SettingActivity extends AppCompatActivity {
 
         if (is_first) {
             etcLayout.setVisibility(View.GONE);
-            is_first = false;
         } else {
             etcLayout.setVisibility(View.VISIBLE);
             setButton.setVisibility(View.GONE);
@@ -167,7 +166,7 @@ public class SettingActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (checkSettingFinish()) {
-                    editor.putBoolean("is_first", is_first);
+                    editor.putBoolean("is_first", false);
                     editor.commit();
                 } else {
                     Toast.makeText(SettingActivity.this, "보이스피싱 기능을 사용하려면\n먼저 보호자 연락처를 설정해주세요.", Toast.LENGTH_SHORT).show();
@@ -512,6 +511,8 @@ public class SettingActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        Log.d("SettingActivity ",  checkSettingFinish() + " " + is_first);
+
         if (checkSettingFinish() || is_first)
             super.onBackPressed();
         else
@@ -589,7 +590,10 @@ public class SettingActivity extends AppCompatActivity {
 
                     case R.id.closeBtn:
                         //Toast.makeText(SettingActivity.this, "종료 누름", Toast.LENGTH_SHORT).show();
-                        finish();
+                        if (checkSettingFinish() || is_first)
+                            finish();
+                        else
+                            Toast.makeText(SettingActivity.this, "보이스피싱 기능을 사용하려면\n 먼저 보호자 연락처를 설정해주세요.", Toast.LENGTH_SHORT).show();
                         break;
 //                    // 전화번호 입력 창 레이아웃
 //                    case R.id.setNumber:
@@ -793,7 +797,7 @@ public class SettingActivity extends AppCompatActivity {
                 kakaoPower.setChecked(true);
                 editor.putBoolean("kakaoCheck", true);
             } else {
-                //Toast.makeText(this, "카카오 설정 실패", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "카카오톡 URL 검사를 하기 위해서\n 폴보스에 권한을 추가해주세요.", Toast.LENGTH_LONG).show();
                 editor.putBoolean("kakaoCheck", false);
                 kakaoPower.setChecked(false);
             }
