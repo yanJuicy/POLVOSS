@@ -19,9 +19,14 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationManagerCompat;
+
+import java.util.Set;
 
 
 public class SettingActivity extends AppCompatActivity {
+
+    final int KAKAO_CHECK = 101;
 
     //    private TabLayout tabLayout;
 //    private ViewPager viewPager;
@@ -49,8 +54,12 @@ public class SettingActivity extends AppCompatActivity {
     Switch voicePower;
     Switch smishingPower;
 
+    Switch kakaoPower;
+
     ImageView closeBtn;
     private boolean mIsBound;
+
+    boolean isPermissionAllowd;
 
     LinearLayout contactLayout1;
     ImageButton contactButton1;
@@ -112,6 +121,7 @@ public class SettingActivity extends AppCompatActivity {
 
         voicePower = findViewById(R.id.voice_Power);
         smishingPower = findViewById(R.id.smishing_Power);
+        kakaoPower = findViewById(R.id.kakaotalk_Power);
         //timePickButton = findViewById(R.id.loadTime);
 
         contactLayout1 = findViewById(R.id.setContactLayout1);
@@ -420,6 +430,55 @@ public class SettingActivity extends AppCompatActivity {
             smishingPower.setChecked(false);
         }
 
+
+        /***************************************
+        * 카카오 버튼 확인부분
+        *******************************************/
+        isPermissionAllowd = isNotPermissionAllowed();
+
+        final boolean kakaoCheck = sf.getBoolean("kakaoCheck", false);
+        Toast.makeText(SettingActivity.this, kakaoCheck + " " + isPermissionAllowd, Toast.LENGTH_SHORT).show();
+
+        if (isPermissionAllowd && kakaoCheck) {
+            kakaoPower.setChecked(true);
+        } else {
+            kakaoPower.setChecked(false);
+        }
+        final Intent listenerIntent = new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS");
+
+        kakaoPower.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (b) {
+                    Toast.makeText(SettingActivity.this, "true", Toast.LENGTH_SHORT).show();
+                    if (!isPermissionAllowd)
+                        startActivityForResult(listenerIntent, KAKAO_CHECK);
+                    else {
+                        editor.putBoolean("kakaoCheck", true);
+                        editor.commit();
+                    }
+                } else {
+                    Toast.makeText(SettingActivity.this, "false", Toast.LENGTH_SHORT).show();
+                    editor.putBoolean("kakaoCheck", false);
+                    editor.commit();
+                }
+            }
+        });
+
+        /*kakaoPower.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (kakaoCheck) {
+                    kakaoPower.setChecked(false);
+                    editor.putBoolean("kakaoCheck", false);
+                } else {
+                    if (!isPermissionAllowd)
+                        startActivityForResult(listenerIntent, KAKAO_CHECK);
+                }
+            }
+        });*/
+
+
         /*******************************************
          * 시간 설정, NumberPicker로 변경
          * -> 5분, 10분, 15분으로 변경
@@ -534,6 +593,22 @@ public class SettingActivity extends AppCompatActivity {
          }
          });
          ************/
+    }
+
+    private boolean isNotPermissionAllowed() {
+        Set<String> notiListenerSet = NotificationManagerCompat.getEnabledListenerPackages(this);
+        String myPackageName = getPackageName();
+
+        for(String packageName : notiListenerSet) {
+            if(packageName == null) {
+                continue;
+            }
+            if(packageName.equals(myPackageName)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private void afterContactLayoutDelete() {
@@ -927,48 +1002,21 @@ public class SettingActivity extends AppCompatActivity {
 
         }
 
-//        if (requestCode == 1 && resultCode == RESULT_OK) {
-//            Cursor cursor = getContentResolver().query(data.getData(),
-//                    new String[]{ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME,
-//                            ContactsContract.CommonDataKinds.Phone.NUMBER}, null, null, null);
-//            cursor.moveToFirst();
-//            String name = cursor.getString(0);        //0은 이름을 얻어옵니다.
-//            String num = cursor.getString(1);   //1은 번호를 받아옵니다.
-//
-//            switch (textViewNum) {
-//                case 1:
-//                    inputPhoneName1.setText(name);
-//                    inputPhoneNum1.setText(num);
-//                    editor.putString("phoneName1", inputPhoneName1.getText().toString());
-//                    editor.putString("phoneNum1", inputPhoneNum1.getText().toString());     // DB에 보호자 번호 저장
-//                    editor.commit();
-//                    if (!inputPhoneNum1.getText().equals("")) {
-//                        numberSettingLayout2.setVisibility(View.VISIBLE);
-//                    }
-//                    break;
-//
-//                case 2:
-//                    inputPhoneName2.setText(name);
-//                    inputPhoneNum2.setText(num);
-//                    editor.putString("phoneName2", inputPhoneName2.getText().toString());
-//                    editor.putString("phoneNum2", inputPhoneNum2.getText().toString());
-//                    editor.commit();
-//                    if (!inputPhoneNum2.getText().equals("")) {
-//                        numberSettingLayout3.setVisibility(View.VISIBLE);
-//                    }
-//                    break;
-//
-//                case 3:
-//                    inputPhoneName3.setText(name);
-//                    inputPhoneNum3.setText(num);
-//                    editor.putString("phoneName3", inputPhoneName3.getText().toString());
-//                    editor.putString("phoneNum3", inputPhoneNum3.getText().toString());
-//                    editor.commit();
-//                    break;
-//            }
-//
-//            cursor.close();
-//        }
+        if (requestCode == KAKAO_CHECK) {
+            //Toast.makeText(this, "노티피 결과", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "" + resultCode, Toast.LENGTH_SHORT).show();
+            isPermissionAllowd = isNotPermissionAllowed();
+            if (isPermissionAllowd) {
+                //Toast.makeText(this, "카카오 설정", Toast.LENGTH_SHORT).show();
+                kakaoPower.setChecked(true);
+                editor.putBoolean("kakaoCheck", true);
+            } else {
+                //Toast.makeText(this, "카카오 설정 실패", Toast.LENGTH_SHORT).show();
+                editor.putBoolean("kakaoCheck", false);
+                kakaoPower.setChecked(false);
+            }
+            editor.commit();
+        }
 
 
     }

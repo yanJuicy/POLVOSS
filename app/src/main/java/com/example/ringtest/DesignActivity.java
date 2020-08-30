@@ -298,12 +298,6 @@ public class DesignActivity extends AppCompatActivity implements AutoPermissions
     public void checkPermission() {
         AutoPermissions.Companion.loadAllPermissions(this,101); // 권한 설정 오픈소스
 
-        boolean isPermissionAllowd = isNotPermissionAllowed();
-        Intent notiIntent = new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS");
-        if (!isPermissionAllowd) {
-            startActivity(notiIntent);
-        }
-
         // 다른 앱 위에 그리기 권한
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {   // 마시멜로우 이상일 경우
             if (!Settings.canDrawOverlays(this)) {              // 체크
