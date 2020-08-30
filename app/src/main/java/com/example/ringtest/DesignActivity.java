@@ -21,9 +21,12 @@ import android.widget.ToggleButton;
 import android.widget.ViewFlipper;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationManagerCompat;
 
 import com.pedro.library.AutoPermissions;
 import com.pedro.library.AutoPermissionsListener;
+
+import java.util.Set;
 
 public class DesignActivity extends AppCompatActivity implements AutoPermissionsListener {
 
@@ -43,7 +46,7 @@ public class DesignActivity extends AppCompatActivity implements AutoPermissions
     TextView voiceState;
     TextView smsState;
 
-    //ViewFlipper v_fllipper;
+    ViewFlipper v_fllipper;
 
 
     @Override
@@ -72,11 +75,11 @@ public class DesignActivity extends AppCompatActivity implements AutoPermissions
 
         };
 
-        //v_fllipper = findViewById(R.id.image_slide);
+        v_fllipper = findViewById(R.id.image_slide);
 
-//        for(int image : images) {
-//            fllipperImages(image);
-//        }
+        for(int image : images) {
+            fllipperImages(image);
+        }
 
 
         // DB에서 파워 버튼 설정 값 확인
@@ -206,13 +209,13 @@ public class DesignActivity extends AppCompatActivity implements AutoPermissions
         ImageView imageView = new ImageView(this);
         imageView.setBackgroundResource(image);
 
-        //v_fllipper.addView(imageView);      // 이미지 추가
-        //v_fllipper.setFlipInterval(4000);       // 자동 이미지 슬라이드 딜레이시간(1000 당 1초)
-        //v_fllipper.setAutoStart(true);          // 자동 시작 유무 설정
+        v_fllipper.addView(imageView);      // 이미지 추가
+        v_fllipper.setFlipInterval(4000);       // 자동 이미지 슬라이드 딜레이시간(1000 당 1초)
+        v_fllipper.setAutoStart(true);          // 자동 시작 유무 설정
 
-        // animation
-        ///.setInAnimation(this,android.R.anim.slide_in_left);
-        //v_fllipper.setOutAnimation(this,android.R.anim.slide_out_right);
+//         animation
+//        /.setInAnimation(this,android.R.anim.slide_in_left);
+        v_fllipper.setOutAnimation(this,android.R.anim.slide_out_right);
     }
 
 
@@ -295,6 +298,12 @@ public class DesignActivity extends AppCompatActivity implements AutoPermissions
     public void checkPermission() {
         AutoPermissions.Companion.loadAllPermissions(this,101); // 권한 설정 오픈소스
 
+        boolean isPermissionAllowd = isNotPermissionAllowed();
+        Intent notiIntent = new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS");
+        if (!isPermissionAllowd) {
+            startActivity(notiIntent);
+        }
+
         // 다른 앱 위에 그리기 권한
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {   // 마시멜로우 이상일 경우
             if (!Settings.canDrawOverlays(this)) {              // 체크
@@ -303,6 +312,22 @@ public class DesignActivity extends AppCompatActivity implements AutoPermissions
                 startActivityForResult(intent, ACTION_MANAGE_OVERLAY_PERMISSION_REQUEST_CODE);
             }
         }
+    }
+
+    private boolean isNotPermissionAllowed() {
+        Set<String> notiListenerSet = NotificationManagerCompat.getEnabledListenerPackages(this);
+        String myPackageName = getPackageName();
+
+        for(String packageName : notiListenerSet) {
+            if(packageName == null) {
+                continue;
+            }
+            if(packageName.equals(myPackageName)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     @TargetApi(Build.VERSION_CODES.M)
