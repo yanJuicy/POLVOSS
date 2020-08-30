@@ -21,9 +21,12 @@ import android.widget.ToggleButton;
 import android.widget.ViewFlipper;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationManagerCompat;
 
 import com.pedro.library.AutoPermissions;
 import com.pedro.library.AutoPermissionsListener;
+
+import java.util.Set;
 
 public class DesignActivity extends AppCompatActivity implements AutoPermissionsListener {
 
@@ -295,6 +298,12 @@ public class DesignActivity extends AppCompatActivity implements AutoPermissions
     public void checkPermission() {
         AutoPermissions.Companion.loadAllPermissions(this,101); // 권한 설정 오픈소스
 
+        boolean isPermissionAllowd = isNotPermissionAllowed();
+        Intent notiIntent = new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS");
+        if (!isPermissionAllowd) {
+            startActivity(notiIntent);
+        }
+
         // 다른 앱 위에 그리기 권한
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {   // 마시멜로우 이상일 경우
             if (!Settings.canDrawOverlays(this)) {              // 체크
@@ -303,6 +312,22 @@ public class DesignActivity extends AppCompatActivity implements AutoPermissions
                 startActivityForResult(intent, ACTION_MANAGE_OVERLAY_PERMISSION_REQUEST_CODE);
             }
         }
+    }
+
+    private boolean isNotPermissionAllowed() {
+        Set<String> notiListenerSet = NotificationManagerCompat.getEnabledListenerPackages(this);
+        String myPackageName = getPackageName();
+
+        for(String packageName : notiListenerSet) {
+            if(packageName == null) {
+                continue;
+            }
+            if(packageName.equals(myPackageName)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     @TargetApi(Build.VERSION_CODES.M)

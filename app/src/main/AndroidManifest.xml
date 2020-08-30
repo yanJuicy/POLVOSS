@@ -26,19 +26,25 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
+
+        <service
+            android:name=".NotificationGetService"
+            android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
+            <intent-filter>
+                <action android:name="android.service.notification.NotificationListenerService"/>
+            </intent-filter>
+        </service>
+
         <receiver
             android:name=".AutoRunReceiver"
             android:enabled="true"
             android:exported="false">
             <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
-        </receiver>
-
-<!--        <activity-->
-<!--            android:name=".Popup"-->
-<!--            android:theme="@style/Theme.AppCompat.Dialog.Alert" />-->
-
+        </receiver> <!-- <activity -->
+        <!-- android:name=".Popup" -->
+        <!-- android:theme="@style/Theme.AppCompat.Dialog.Alert" /> -->
         <receiver
             android:name=".MMSReceiver"
             android:permission="android.permission.BROADCAST_WAP_PUSH">
@@ -92,15 +98,16 @@
             android:enabled="true"
             android:exported="true" />
 
-        <activity android:name=".MainActivity"></activity>
-        <activity android:name=".DesignActivity"></activity>
+        <activity android:name=".MainActivity" />
+        <activity android:name=".DesignActivity" />
         <activity android:name=".LogoActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".UserGuide"></activity>
+        <activity android:name=".UserGuide" />
         <activity android:name=".SettingActivity" />
         <activity android:name=".FirstSettingActivity" />
         <activity
