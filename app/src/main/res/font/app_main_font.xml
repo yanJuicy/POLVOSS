@@ -2,8 +2,4 @@
 <font-family xmlns:android="http://schemas.android.com/apk/res/android">
     <font
         android:font="@font/jal" />
-<<<<<<< HEAD
-
-=======
->>>>>>> 88e50f9db2c2d95c00a30cdcd66716f7a0f3e95f
 </font-family>
