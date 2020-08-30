@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="50dp"
+    android:background="#00469B "
     android:orientation="vertical">
 
     <FrameLayout
@@ -16,7 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center|left"
             android:layout_marginLeft="20dp"
-            android:fontFamily="@font/app_main_font"
+            android:fontFamily="@font/jalnan2"
             android:text="설  정"
             android:textColor="@color/white"
             android:textSize="20sp" />

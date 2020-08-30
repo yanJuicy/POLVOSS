@@ -3,6 +3,7 @@ package com.example.ringtest;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.util.Log;
@@ -437,7 +438,7 @@ public class SettingActivity extends AppCompatActivity {
         isPermissionAllowd = isNotPermissionAllowed();
 
         final boolean kakaoCheck = sf.getBoolean("kakaoCheck", false);
-        Toast.makeText(SettingActivity.this, kakaoCheck + " " + isPermissionAllowd, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(SettingActivity.this, kakaoCheck + " " + isPermissionAllowd, Toast.LENGTH_SHORT).show();
 
         if (isPermissionAllowd && kakaoCheck) {
             kakaoPower.setChecked(true);
@@ -450,7 +451,7 @@ public class SettingActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if (b) {
-                    Toast.makeText(SettingActivity.this, "true", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(SettingActivity.this, "true", Toast.LENGTH_SHORT).show();
                     if (!isPermissionAllowd)
                         startActivityForResult(listenerIntent, KAKAO_CHECK);
                     else {
@@ -458,7 +459,7 @@ public class SettingActivity extends AppCompatActivity {
                         editor.commit();
                     }
                 } else {
-                    Toast.makeText(SettingActivity.this, "false", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(SettingActivity.this, "false", Toast.LENGTH_SHORT).show();
                     editor.putBoolean("kakaoCheck", false);
                     editor.commit();
                 }
