@@ -63,6 +63,7 @@ public class AcceptOverlay extends Service {
         mView = inflate.inflate(R.layout.accept_overlay, null);
 
 
+
         final TextView textView = mView.findViewById(R.id.accepttext2);
 
         final ImageButton imageButton = mView.findViewById(R.id.imagebutton2);
