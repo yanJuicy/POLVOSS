@@ -10,16 +10,16 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:background="@android:color/transparent"
-        android:src="@mipmap/alert2" />
+        android:src="@mipmap/alert3" />
 
     <TextView
         android:id="@+id/accepttext1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/background_toast"
+        android:background="@drawable/accept_button3"
         android:gravity="center"
         android:padding="16dp"
-        android:textColor="#EFF5FB"
+        android:textColor="#666666"
         android:textStyle="bold"
         android:textSize="20dp"
         android:text="확   인"
