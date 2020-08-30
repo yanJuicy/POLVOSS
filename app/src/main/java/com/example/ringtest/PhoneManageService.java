@@ -144,7 +144,7 @@ public class PhoneManageService extends Service {
         //오래오에서는 채널이 필수이다! 채널
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "default");
 
-        builder.setSmallIcon(R.mipmap.lock3);//아이콘 설정
+        builder.setSmallIcon(R.mipmap.logo3);//아이콘 설정
         //위 포어그라운들 아이콘으로 뜰 디스크립션
         builder.setContentTitle("Call Stop");
         builder.setContentTitle("보이스피싱 및 스미싱 보호 중");
