@@ -147,7 +147,7 @@ public class PhoneManageService extends Service {
         builder.setSmallIcon(R.mipmap.lock3);//아이콘 설정
         //위 포어그라운들 아이콘으로 뜰 디스크립션
         builder.setContentTitle("Call Stop");
-        builder.setContentTitle("보이스 피싱 및 스미싱 보호중");
+        builder.setContentTitle("보이스피싱 및 스미싱 보호 중");
 
 
         Intent intent = new Intent(this, DesignActivity.class);
@@ -455,7 +455,7 @@ public class PhoneManageService extends Service {
 
         builder.setSmallIcon(R.mipmap.alert2);
         builder.setContentTitle("피싱 위험 감지");
-        builder.setContentText("보이스 피싱이 우려됩니다. 주의해주세요.");
+        builder.setContentText("보이스 피싱이 의심됩니다. 주의해주세요.");
 
         Intent intent = new Intent(this, DesignActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(this,
