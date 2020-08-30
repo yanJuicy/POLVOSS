@@ -28,7 +28,7 @@
                 android:checked="true"
                 android:padding="5dp"
                 android:text="보이스 피싱 차단 설정"
-                android:textColor="#80000000"
+                android:textColor="#000000"
                 android:textSize="22sp"
                 android:thumb="@drawable/switch_thumb"
                 android:track="@drawable/switch_track_selector" />
@@ -158,7 +158,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
                         android:showText="true"
-                        android:text="보이스 피싱 의심 안내 메세지를 받을 보호자 연락처를 설정합니다."
+                        android:text="보이스 피싱 의심 안내 메시지를 받을 보호자 연락처를 설정합니다."
                         android:textColor="#80000000"
                         android:textSize="12sp" />
 
@@ -558,7 +558,7 @@
                     android:checked="true"
                     android:padding="5dp"
                     android:text="스미싱 차단 설정"
-                    android:textColor="#80000000"
+                    android:textColor="#000000"
                     android:textSize="22sp"
                     android:thumb="@drawable/switch_thumb"
                     android:track="@drawable/switch_track_selector" />
@@ -567,9 +567,10 @@
                     android:id="@+id/textView8"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
                     android:layout_marginLeft="5dp"
                     android:showText="true"
-                    android:text="메세지, 멀티미디어 메세지 내용 중에 있는 URL 탐색을 수행합니다."
+                    android:text="메시지, 멀티미디어 메시지 내용 중에 있는 URL 탐색을 수행합니다."
                     android:textColor="#80000000"
                     android:textSize="12sp" />
             </LinearLayout>
@@ -587,7 +588,7 @@
                     android:checked="true"
                     android:padding="5dp"
                     android:text="카카오톡 URL 차단 설정"
-                    android:textColor="#80000000"
+                    android:textColor="#000000"
                     android:textSize="22sp"
                     android:thumb="@drawable/switch_thumb"
                     android:track="@drawable/switch_track_selector" />
@@ -598,7 +599,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
                     android:showText="true"
-                    android:text="카카오톡 메세지 내용 중에 있는 URL 탐색을 수행합니다."
+                    android:text="카카오톡 메시지 내용 중에 있는 URL 탐색을 수행합니다."
                     android:textColor="#80000000"
                     android:textSize="12sp" />
             </LinearLayout>
@@ -622,7 +623,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="15dp"
                     android:text="이용안내"
-                    android:textColor="#80000000"
+                    android:textColor="#000000"
                     android:textSize="22sp" />
 
                 <TextView
