@@ -170,7 +170,7 @@ public class SettingActivity extends AppCompatActivity {
                     editor.putBoolean("is_first", is_first);
                     editor.commit();
                 } else {
-                    Toast.makeText(SettingActivity.this, "보이스피싱 기능을 사용하려면 보호자 연락처를 설정해주세요.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SettingActivity.this, "보이스피싱 기능을 사용하려면\n먼저 보호자 연락처를 설정해주세요.", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 startActivity(new Intent(SettingActivity.this, DesignActivity.class));
@@ -515,7 +515,7 @@ public class SettingActivity extends AppCompatActivity {
         if (checkSettingFinish() || is_first)
             super.onBackPressed();
         else
-            Toast.makeText(this, "보이스피싱 기능을 사용하려면 보호자 연락처를 설정해주세요.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "보이스피싱 기능을 사용하려면\n 먼저 보호자 연락처를 설정해주세요.", Toast.LENGTH_SHORT).show();
     }
 
     private boolean isNotPermissionAllowed() {

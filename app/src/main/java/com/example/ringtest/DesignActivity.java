@@ -170,7 +170,7 @@ public class DesignActivity extends AppCompatActivity implements AutoPermissions
                     editor.putBoolean("power", powerOn);
                     editor.commit();
 
-                    Toast.makeText(DesignActivity.this, "버튼을 켜주세요", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(DesignActivity.this, "보이스피싱 또는 스미싱 기능을 켜주세요", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(DesignActivity.this, SettingActivity.class));
                     return;
                 } else { // 서비스 종료
@@ -317,22 +317,6 @@ public class DesignActivity extends AppCompatActivity implements AutoPermissions
                 startActivityForResult(intent, ACTION_MANAGE_OVERLAY_PERMISSION_REQUEST_CODE);
             }
         }
-    }
-
-    private boolean isNotPermissionAllowed() {
-        Set<String> notiListenerSet = NotificationManagerCompat.getEnabledListenerPackages(this);
-        String myPackageName = getPackageName();
-
-        for(String packageName : notiListenerSet) {
-            if(packageName == null) {
-                continue;
-            }
-            if(packageName.equals(myPackageName)) {
-                return true;
-            }
-        }
-
-        return false;
     }
 
     @TargetApi(Build.VERSION_CODES.M)
