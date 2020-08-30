@@ -154,7 +154,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
                         android:showText="true"
-                        android:text="보이스 피싱 의심 안내 메세지를 받을 보호자 연락처를 설정합니다."
+                        android:text="보이스 피싱 의심 안내 메시지를 받을 보호자 연락처를 설정합니다."
                         android:textColor="#80000000"
                         android:textSize="12sp" />
 

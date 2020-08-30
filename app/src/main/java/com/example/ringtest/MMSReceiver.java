@@ -245,7 +245,7 @@ public class MMSReceiver extends BroadcastReceiver
 
         builder.setSmallIcon(R.mipmap.alert2);
         builder.setContentTitle("스미싱 위험 감지");
-        builder.setContentText("MMS(멀티미디어 메세지) 스미싱이 의심됩니다. 주의해주세요.");
+        builder.setContentText("MMS(멀티미디어 ) 스미싱이 의심됩니다. 주의해주세요.");
 
         Intent intent = new Intent(_context, DesignActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(_context,
@@ -297,7 +297,7 @@ public class MMSReceiver extends BroadcastReceiver
              System.out.println(i+"==="+m.group(i));
              sb.append(m.group(i));
          }*/
-            Log.d(TAG, "메세지수신");
+            Log.d(TAG, "메시지수신");
             handler.post(new Runnable() {//toast and overlay 보여주기
 
                 //오버레이 팝업 출력
