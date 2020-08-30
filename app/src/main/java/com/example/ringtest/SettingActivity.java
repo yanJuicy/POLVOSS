@@ -465,7 +465,7 @@ public class SettingActivity extends AppCompatActivity {
          * 시간 설정, NumberPicker로 변경
          * -> 5분, 10분, 15분으로 변경
          *******************************************/
-        long min = sf.getLong("min", 10);
+        long min = sf.getLong("min", 15);
         int maxValue = 20;
         int minValue = 10;
         int step = 5;

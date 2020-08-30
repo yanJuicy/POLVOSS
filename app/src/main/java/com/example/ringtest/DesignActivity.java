@@ -337,6 +337,6 @@ public class DesignActivity extends AppCompatActivity implements AutoPermissions
         // 오버레이 서비스 시작
         Intent intent = new Intent(DesignActivity.this, AcceptOverlay.class);
         startService(intent);
-        Toast.makeText(DesignActivity.this, "서비스 실행중", Toast.LENGTH_SHORT).show();
+        // Toast.makeText(DesignActivity.this, "서비스 실행중", Toast.LENGTH_SHORT).show();
     }
 }

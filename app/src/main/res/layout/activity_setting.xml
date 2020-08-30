@@ -7,7 +7,17 @@
     android:background="@color/colorMain"
     android:orientation="vertical">
 
-    <include layout="@layout/tool_bar_setting" />
+    <include
+        layout="@layout/tool_bar_setting"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent" />
+
+    <ImageView
+        android:id="@+id/tap2"
+        android:layout_width="wrap_content"
+        android:layout_height="5dp"
+        android:layout_gravity="center"
+        app:srcCompat="@mipmap/tap" />
 
     <ScrollView
         android:layout_width="match_parent"
