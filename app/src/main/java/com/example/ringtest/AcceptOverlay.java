@@ -65,6 +65,7 @@ public class AcceptOverlay extends Service {
 
         final TextView textView = mView.findViewById(R.id.accepttext2);
 
+        final ImageButton imageButton = mView.findViewById(R.id.imagebutton2);
         final Vibrator vibrator = (Vibrator)getSystemService(Context.VIBRATOR_SERVICE);
 
         //진동
@@ -73,7 +74,7 @@ public class AcceptOverlay extends Service {
         }
 
 
-        textView.setOnClickListener(new View.OnClickListener() {
+        imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //bt.setImageResource(R.mipmap.ic_launcher_round);
