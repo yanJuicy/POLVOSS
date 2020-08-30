@@ -89,6 +89,11 @@ public class SettingActivity extends AppCompatActivity {
 
     LinearLayout protectLayout;
 
+    LinearLayout etcLayout;
+    TextView setButton;
+    boolean is_first;
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -105,25 +110,10 @@ public class SettingActivity extends AppCompatActivity {
         //osLicense = findViewById(R.id.OS_License);
 
         voiceSettingLayout = findViewById(R.id.voice_Setting_Layout);
-        /*numberSettingLayout1 = findViewById(R.id.set_Num_Layout1);
-        numberSettingLayout2 = findViewById(R.id.set_Num_Layout2);
-        numberSettingLayout3 = findViewById(R.id.set_Num_Layout3);*/
-
-        /*inputPhoneName1 = findViewById(R.id.setting_phoneName1);
-        inputPhoneName2 = findViewById(R.id.setting_phoneName2);
-        inputPhoneName3 = findViewById(R.id.setting_phoneName3);
-        inputPhoneNum1 = findViewById(R.id.setting_phoneNum1);
-        inputPhoneNum2 = findViewById(R.id.setting_phoneNum2);
-        inputPhoneNum3 = findViewById(R.id.setting_phoneNum3);
-        deleteBtn1 = findViewById(R.id.deleteBtn1);
-        deleteBtn2 = findViewById(R.id.deleteBtn2);
-        deleteBtn3 = findViewById(R.id.deleteBtn3);*/
-        //saveBtn = findViewById(R.id.saveBtn);
 
         voicePower = findViewById(R.id.voice_Power);
         smishingPower = findViewById(R.id.smishing_Power);
         kakaoPower = findViewById(R.id.kakaotalk_Power);
-        //timePickButton = findViewById(R.id.loadTime);
 
         contactLayout1 = findViewById(R.id.setContactLayout1);
         contactButton1 = findViewById(R.id.contactButton1);
@@ -152,35 +142,41 @@ public class SettingActivity extends AppCompatActivity {
 
         protectLayout = findViewById(R.id.protectorLayout);
 
+        etcLayout = findViewById(R.id.etc_layout);
+        setButton = findViewById(R.id.btn_set);
+
 
         sf = getSharedPreferences("settingFile", MODE_PRIVATE); // 로컬 DB 객체
         editor = sf.edit(); // DB 편집 객체
 
-        String phoneName1 = sf.getString("phoneName1", "");
-        String phoneName2 = sf.getString("phoneName2", "");
-        String phoneName3 = sf.getString("phoneName3", "");
-        String phoneNum1 = sf.getString("phoneNum1", "");
-        String phoneNum2 = sf.getString("phoneNum2", "");
-        String phoneNum3 = sf.getString("phoneNum3", "");
+        /**
+         * 앱 초기 실행시 설정 창
+         */
 
-        /*inputPhoneName1.setText(phoneName1);
-        inputPhoneName2.setText(phoneName2);
-        inputPhoneName3.setText(phoneName3);
-        inputPhoneNum1.setText(phoneNum1);
-        inputPhoneNum2.setText(phoneNum2);
-        inputPhoneNum3.setText(phoneNum3);
+        is_first = sf.getBoolean("is_first", true);
 
-        numberSettingLayout1.setVisibility(View.VISIBLE);
+        if (is_first) {
+            etcLayout.setVisibility(View.GONE);
+            is_first = false;
+        } else {
+            etcLayout.setVisibility(View.VISIBLE);
+            setButton.setVisibility(View.GONE);
+        }
 
-
-        if (!inputPhoneNum1.getText().equals(""))  // 1번이 들어있으면
-        {
-            if (!inputPhoneNum2.getText().equals("")) // 2번이 들어있으면
-            {
-                numberSettingLayout3.setVisibility(View.VISIBLE);
+        setButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (checkSettingFinish()) {
+                    editor.putBoolean("is_first", is_first);
+                    editor.commit();
+                } else {
+                    Toast.makeText(SettingActivity.this, "보이스피싱 기능을 사용하려면 보호자 연락처를 설정해주세요.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                startActivity(new Intent(SettingActivity.this, DesignActivity.class));
+                finish();
             }
-            numberSettingLayout2.setVisibility(View.VISIBLE);
-        }*/
+        });
 
 
         /*****
@@ -466,20 +462,6 @@ public class SettingActivity extends AppCompatActivity {
             }
         });
 
-        /*kakaoPower.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (kakaoCheck) {
-                    kakaoPower.setChecked(false);
-                    editor.putBoolean("kakaoCheck", false);
-                } else {
-                    if (!isPermissionAllowd)
-                        startActivityForResult(listenerIntent, KAKAO_CHECK);
-                }
-            }
-        });*/
-
-
         /*******************************************
          * 시간 설정, NumberPicker로 변경
          * -> 5분, 10분, 15분으로 변경
@@ -511,89 +493,29 @@ public class SettingActivity extends AppCompatActivity {
             }
         });
 
-       /* textViewTime.setText("Time : " + seekBarTime.getProgress());
-        Point maxSizePoint = new Point();
-        getWindowManager().getDefaultDisplay().getSize(maxSizePoint);
-        maxX = maxSizePoint.x;
-
-        textViewTime.setText("Time : " + min + "분");
-
-        seekBarTime.setProgress((int) min);
-        seekBarTime.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progressValue, boolean fromUser) {
-                int val = (progressValue * (seekBar.getWidth() - 2 * seekBar.getThumbOffset())) / seekBar.getMax();
-                textViewTime.setText("Time : " + progressValue + "분");
-                int textViewX = val - (textViewTime.getWidth() / 2);
-                int finalX = textViewTime.getWidth() + textViewX > maxX ? (maxX - textViewTime.getWidth() - 16) : textViewX + 16 *//*your margin*//*;
-                textViewTime.setX(finalX < 0 ? 16*//*your margin*//* : finalX);
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-                Log.d("VoiceSetting", "DB 저장 " + seekBar.getProgress());
-                long min = seekBar.getProgress();
-                editor.putLong("min", min);      // 로컬 DB에 설정 시간 저장
-                editor.commit();
-            }
-        });
-*/
-
         this.TextClickListener();
-        //this.SetNumberClickListener();
-        //this.ButtonClickListener();
         this.SwitchCheckedListener();
 
 
-        /***********
-         * Fragment 연결
-         *
-         // Initializing the TabLayout
-         tabLayout = (TabLayout) findViewById(R.id.tabLayout);
-         tabLayout.addTab(tabLayout.newTab().setText("Voice"));
-         tabLayout.addTab(tabLayout.newTab().setText("SMS"));
-         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
-         // Initializing ViewPager
-         viewPager = (ViewPager)findViewById(R.id.pager);
+    }
 
+    private boolean checkSettingFinish() {
+        boolean isVoiceCheck = sf.getBoolean("voice_fishing", false);
+        String protector = sf.getString("contactName1", "");
+        if (isVoiceCheck && protector.equals("")) {
+            return false;
+        }
 
-         // Creating TabPagerAdapter adapter
-         TabPagerAdapter pagerAdapter = new TabPagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
-         viewPager.setAdapter(pagerAdapter);
-         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        return true;
+    }
 
-         // Set TabSelectedListener
-         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-         <<<<<<< Updated upstream
-         @Override public void onTabSelected(TabLayout.Tab tab) {
-         viewPager.setCurrentItem(tab.getPosition());
-         }
-
-         @Override public void onTabUnselected(TabLayout.Tab tab) {
-
-         }
-
-         @Override public void onTabReselected(TabLayout.Tab tab) {
-         =======
-         @Override public void onTabSelected(TabLayout.Tab tab) {
-         viewPager.setCurrentItem(tab.getPosition());
-         }
-
-         @Override public void onTabUnselected(TabLayout.Tab tab) {
-
-         }
-
-         @Override public void onTabReselected(TabLayout.Tab tab) {
-         >>>>>>> Stashed changes
-
-         }
-         });
-         ************/
+    @Override
+    public void onBackPressed() {
+        if (checkSettingFinish() || is_first)
+            super.onBackPressed();
+        else
+            Toast.makeText(this, "보이스피싱 기능을 사용하려면 보호자 연락처를 설정해주세요.", Toast.LENGTH_SHORT).show();
     }
 
     private boolean isNotPermissionAllowed() {
@@ -730,147 +652,6 @@ public class SettingActivity extends AppCompatActivity {
         textViews[i].setText("");
     }
 
-    /*******************************************
-     * 보호자 전화번호 설정 클릭 이벤트
-     *******************************************/
-//    public void SetNumberClickListener() {
-//        View.OnClickListener Listener = new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//                Intent intent = new Intent(Intent.ACTION_PICK);
-//
-//                switch (view.getId()) {
-//
-//                    // 번호 설정
-//
-//                    case R.id.setting_phoneNum1:
-//                    case R.id.setting_phoneName1:
-//
-//                        editor.putInt("textViewNum", 1);
-//                        editor.commit();
-//                        intent.setData(ContactsContract.CommonDataKinds.Phone.CONTENT_URI);
-//                        startActivityForResult(intent, 1);
-//                        break;
-//
-//                    case R.id.setting_phoneName2:
-//                    case R.id.setting_phoneNum2:
-//                        editor.putInt("textViewNum", 2);
-//                        editor.commit();
-//                        intent.setData(ContactsContract.CommonDataKinds.Phone.CONTENT_URI);
-//                        startActivityForResult(intent, 1);
-//                        break;
-//
-//                    case R.id.setting_phoneName3:
-//                    case R.id.setting_phoneNum3:
-//                        editor.putInt("textViewNum", 3);
-//                        editor.commit();
-//                        intent.setData(ContactsContract.CommonDataKinds.Phone.CONTENT_URI);
-//                        startActivityForResult(intent, 1);
-//                        break;
-//                }
-//            }
-//        };
-//        /*inputPhoneName1.setOnClickListener(Listener);
-//        inputPhoneName2.setOnClickListener(Listener);
-//        inputPhoneName3.setOnClickListener(Listener);
-//        inputPhoneNum1.setOnClickListener(Listener);
-//        inputPhoneNum2.setOnClickListener(Listener);
-//        inputPhoneNum3.setOnClickListener(Listener);*/
-//    }
-
-    /*******************************************
-     * 전화번호 저장 및 삭제 클릭 이벤트
-     *******************************************/
-//    public void ButtonClickListener() {
-//        View.OnClickListener Listener = new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//                switch (view.getId()) {
-//
-//                    // 저장 버튼
-////                    case R.id.saveBtn:
-////                        editor.putString("phoneNum1", inputPhoneNum1.getText().toString());     // DB에 보호자 번호 저장
-////                        editor.putString("phoneNum2", inputPhoneNum2.getText().toString());
-////                        editor.putString("phoneNum3", inputPhoneNum3.getText().toString());
-////                        editor.commit();
-////                        Toast.makeText(SettingActivity.this, "저장되었습니다.", Toast.LENGTH_SHORT).show();
-////
-////                        break;
-//
-//                    // 번호 삭제
-//                    case R.id.deleteBtn1:
-//                        inputPhoneName1.setText("");
-//                        inputPhoneNum1.setText("");
-//                        if (!inputPhoneNum3.getText().equals("")) // 1, 2, 3 모두 있는 상태
-//                        {
-//                            inputPhoneName1.setText(inputPhoneName2.getText());
-//                            inputPhoneNum1.setText(inputPhoneNum2.getText());
-//                            inputPhoneName2.setText(inputPhoneName3.getText());
-//                            inputPhoneNum2.setText(inputPhoneNum3.getText());
-//                            inputPhoneName3.setText("");
-//                            inputPhoneNum3.setText("");
-//                        } else if (!inputPhoneNum2.getText().equals("")) // 1, 2가 있는 상태
-//                        {
-//                            inputPhoneName1.setText(inputPhoneName2.getText());
-//                            inputPhoneNum1.setText(inputPhoneNum2.getText());
-//                            inputPhoneName2.setText("");
-//                            inputPhoneNum2.setText("");
-//                            numberSettingLayout3.setVisibility(View.GONE);
-//                        } else { // 1만 있는 상태
-//                            numberSettingLayout2.setVisibility(View.GONE);
-//                        }
-//
-//                        editor.putString("phoneName1", inputPhoneName1.getText().toString());
-//                        editor.putString("phoneName2", inputPhoneName2.getText().toString());
-//                        editor.putString("phoneName3", inputPhoneName3.getText().toString());
-//                        editor.putString("phoneNum1", inputPhoneNum1.getText().toString());     // DB에 보호자 번호 저장
-//                        editor.putString("phoneNum2", inputPhoneNum2.getText().toString());
-//                        editor.putString("phoneNum3", inputPhoneNum3.getText().toString());
-//                        editor.commit();
-//                        Toast.makeText(SettingActivity.this, "삭제되었습니다.", Toast.LENGTH_SHORT).show();
-//                        break;
-//
-//                    case R.id.deleteBtn2:
-//                        inputPhoneName2.setText("");
-//                        inputPhoneNum2.setText("");
-//                        if (!inputPhoneNum3.getText().equals("")) // 1, 2, 3 모두 있는 상태
-//                        {
-//                            inputPhoneName2.setText(inputPhoneName3.getText());
-//                            inputPhoneNum2.setText(inputPhoneNum3.getText());
-//                            inputPhoneName3.setText("");
-//                            inputPhoneNum3.setText("");
-//                        } else {
-//                            numberSettingLayout3.setVisibility(View.GONE);
-//                        }
-//
-//                        editor.putString("phoneName2", inputPhoneName2.getText().toString());
-//                        editor.putString("phoneName3", inputPhoneName3.getText().toString());
-//                        editor.putString("phoneNum2", inputPhoneNum2.getText().toString());
-//                        editor.putString("phoneNum3", inputPhoneNum3.getText().toString());
-//                        editor.commit();
-//                        Toast.makeText(SettingActivity.this, "삭제되었습니다.", Toast.LENGTH_SHORT).show();
-//                        break;
-//
-//                    case R.id.deleteBtn3:
-//                        inputPhoneName3.setText("");
-//                        inputPhoneNum3.setText("");
-//                        editor.putString("phoneName3", inputPhoneName3.getText().toString());
-//                        editor.putString("phoneNum3", inputPhoneNum3.getText().toString());
-//                        editor.commit();
-//                        Toast.makeText(SettingActivity.this, "삭제되었습니다.", Toast.LENGTH_SHORT).show();
-//                        break;
-//                }
-//            }
-//        };
-//        //saveBtn.setOnClickListener(Listener);
-//        deleteBtn1.setOnClickListener(Listener);
-//        deleteBtn2.setOnClickListener(Listener);
-//        deleteBtn3.setOnClickListener(Listener);
-//
-//
-//    }
     public void SwitchCheckedListener() {
         // 보이스피싱 파워 체크
         CompoundButton.OnCheckedChangeListener onCheckedChangeListener = new CompoundButton.OnCheckedChangeListener() {
@@ -921,10 +702,10 @@ public class SettingActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         int textViewNum = sf.getInt("textViewNum", 0);
-        String[] names = new String[3];
-        names[0] = sf.getString("contactName1", "");
-        names[1] = sf.getString("contactName2", "");
-        names[2] = sf.getString("contactName3", "");
+        String[] names = new String[5];
+        for (int i=0; i<5; i++) {
+            names[i] = sf.getString("contactName"+(i+1), "");
+        }
 
         if (requestCode == 2 && resultCode == RESULT_OK) {
             Cursor cursor = getContentResolver().query(data.getData(),

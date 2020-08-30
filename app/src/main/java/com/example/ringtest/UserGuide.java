@@ -57,7 +57,7 @@ public class UserGuide extends FragmentActivity {
         finish_btn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                Intent intent = new Intent(getApplicationContext(), FirstSettingActivity.class);
+                Intent intent = new Intent(getApplicationContext(), SettingActivity.class);
                 startActivity(intent);
                 finish();
 

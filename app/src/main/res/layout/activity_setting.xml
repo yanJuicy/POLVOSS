@@ -615,6 +615,7 @@
                 android:background="#000000" />
 
             <LinearLayout
+                android:id="@+id/etc_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
@@ -641,6 +642,22 @@
                     android:textSize="20sp" />
 
             </LinearLayout>
+
+            <TextView
+                android:id="@+id/btn_set"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="12dp"
+                android:background="@drawable/accept_button2"
+                android:gravity="center"
+                android:padding="16dp"
+                android:text="확   인"
+                android:textColor="#EFF5FB"
+                android:textSize="20dp"
+                android:textStyle="bold" />
         </LinearLayout>
 
 
