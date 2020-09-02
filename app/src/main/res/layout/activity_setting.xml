@@ -39,7 +39,7 @@
                 android:padding="5dp"
                 android:fontFamily="@font/jalnan2"
                 android:text="보이스 피싱 경고 설정"
-                android:textColor="#424242"
+                android:textColor="#000000"
                 android:textSize="20sp"
                 android:thumb="@drawable/switch_thumb"
                 android:track="@drawable/switch_track_selector" />
@@ -67,7 +67,7 @@
                         android:layout_height="wrap_content"
                         android:text="시간 선택"
                         android:fontFamily="@font/jalnan2"
-                        android:textColor="#000000"
+                        android:textColor="#424242"
                         android:textSize="15sp" />
 
                     <TextView
@@ -160,7 +160,7 @@
                         android:layout_height="wrap_content"
                         android:text="보호자 연락처 설정"
                         android:fontFamily="@font/jalnan2"
-                        android:textColor="#000000"
+                        android:textColor="#424242"
                         android:textSize="15sp" />
 
                     <TextView
