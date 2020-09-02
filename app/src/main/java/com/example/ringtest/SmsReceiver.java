@@ -142,6 +142,11 @@ public class SmsReceiver extends BroadcastReceiver {
         this.context = context;
         vibrator = (Vibrator) context.getSystemService(context.VIBRATOR_SERVICE);   // 진동 객체 초기화, 안드로이드 9까지 통화중 진동 가능 (아마도)
 
+        if(contents == null)
+        {
+            return;
+        }
+
         Log.d(TAG, "내용 : "+ contents);
         String regex ="[(http(s)?):\\/\\/(www\\)?a-zA-Z0-9ㄱ-ㅎㅏ-ㅣ가-힣@:%_" +
                 "ⓐⓑⓒⓓⓔⓕⓖⓗⓘⓙⓚⓛⓜⓝⓞⓠⓡⓢⓣⓤⓥⓦⓧⓨⓩ①②③④⑤⑥⑦⑧⑨㉠㉡㉢㉣㉤㉥㉦㉧㉨㉩㉪㉫㉬㉭㉮㉯㉰㉱㉲㉳㉴㉵㉶㉷㉸㉹㉺㉻" +
