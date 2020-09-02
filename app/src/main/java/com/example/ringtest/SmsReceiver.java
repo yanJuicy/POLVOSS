@@ -264,9 +264,9 @@ public class SmsReceiver extends BroadcastReceiver {
         Uri ringtoneUri = RingtoneManager.getActualDefaultRingtoneUri(context, RingtoneManager.TYPE_NOTIFICATION);
         builder.setSound(ringtoneUri);
 
-        long[] vibrate = {0, 7000};
-        builder.setVibrate(vibrate);
-        builder.setAutoCancel(true);
+//        long[] vibrate = {0, 7000};
+//        builder.setVibrate(vibrate);
+//        builder.setAutoCancel(true);
 
         NotificationManager manager = (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
         manager.notify(4, builder.build());

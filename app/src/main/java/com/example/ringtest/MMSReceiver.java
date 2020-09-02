@@ -191,7 +191,7 @@ public class MMSReceiver extends BroadcastReceiver
 
     private void showPopup() {
         // 오버레이 서비스 시작
-        _context.startService(new Intent(_context.getApplicationContext(), OverlayService.class));
+        _context.startService(new Intent(_context.getApplicationContext(), OverlayServiceSMS.class));
     }
 
 
@@ -263,9 +263,9 @@ public class MMSReceiver extends BroadcastReceiver
         Uri ringtoneUri = RingtoneManager.getActualDefaultRingtoneUri(_context, RingtoneManager.TYPE_NOTIFICATION);
         builder.setSound(ringtoneUri);
 
-        long[] vibrate = {0, 7000};
-        builder.setVibrate(vibrate);
-        builder.setAutoCancel(true);
+//        long[] vibrate = {0, 7000};
+//        builder.setVibrate(vibrate);
+//        builder.setAutoCancel(true);
 
         NotificationManager manager = (NotificationManager) _context.getSystemService(NOTIFICATION_SERVICE);
         manager.notify(3, builder.build());

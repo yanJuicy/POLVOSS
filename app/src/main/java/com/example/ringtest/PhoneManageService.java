@@ -479,9 +479,9 @@ public class PhoneManageService extends Service {
         Uri ringtoneUri = RingtoneManager.getActualDefaultRingtoneUri(this, RingtoneManager.TYPE_NOTIFICATION);
         builder.setSound(ringtoneUri);
 
-        long[] vibrate = {0, 7000};
-        builder.setVibrate(vibrate);
-        builder.setAutoCancel(true);
+//        long[] vibrate = {0, 7000};
+//        builder.setVibrate(vibrate);
+//        builder.setAutoCancel(true);
 
         NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         manager.notify(2, builder.build());
