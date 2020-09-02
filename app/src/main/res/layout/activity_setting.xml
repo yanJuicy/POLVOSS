@@ -39,7 +39,7 @@
                 android:padding="5dp"
                 android:fontFamily="@font/jalnan2"
                 android:text="보이스 피싱 설정"
-                android:textColor="#000000"
+                android:textColor="#424242"
                 android:textSize="22sp"
                 android:thumb="@drawable/switch_thumb"
                 android:track="@drawable/switch_track_selector" />
@@ -67,7 +67,7 @@
                         android:layout_height="wrap_content"
                         android:text="시간 선택"
                         android:fontFamily="@font/jalnan2"
-                        android:textColor="#000000"
+                        android:textColor="#424242"
                         android:textSize="20sp" />
 
                     <TextView
@@ -158,9 +158,9 @@
                         android:id="@+id/setNumber"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="보호자 연락처 설정"
                         android:fontFamily="@font/jalnan2"
-                        android:textColor="#000000"
+                        android:text="보호자 연락처 설정"
+                        android:textColor="#424242"
                         android:textSize="20sp" />
 
                     <TextView
@@ -570,7 +570,7 @@
                     android:padding="5dp"
                     android:text="스미싱 설정"
                     android:fontFamily="@font/jalnan2"
-                    android:textColor="#000000"
+                    android:textColor="#424242"
                     android:textSize="22sp"
                     android:thumb="@drawable/switch_thumb"
                     android:track="@drawable/switch_track_selector" />
@@ -601,7 +601,7 @@
                     android:padding="5dp"
                     android:text="카카오톡 URL 검사"
                     android:fontFamily="@font/jalnan2"
-                    android:textColor="#000000"
+                    android:textColor="#424242"
                     android:textSize="22sp"
                     android:thumb="@drawable/switch_thumb"
                     android:track="@drawable/switch_track_selector" />
@@ -638,7 +638,7 @@
                     android:layout_marginBottom="15dp"
                     android:text="이용안내"
                     android:fontFamily="@font/jalnan2"
-                    android:textColor="#000000"
+                    android:textColor="#424242"
                     android:textSize="22sp" />
 
                 <TextView
