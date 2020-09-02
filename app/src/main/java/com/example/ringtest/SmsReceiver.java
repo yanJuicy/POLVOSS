@@ -73,7 +73,6 @@ public class SmsReceiver extends BroadcastReceiver {
             //sendToActivity(context, sender, contents, receivedDate);
             //OnSmsNotification(context, sender, contents);
         }
-
     }
 
     // 데이터 받아오기
