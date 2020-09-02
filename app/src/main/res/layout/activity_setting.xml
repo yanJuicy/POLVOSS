@@ -9,8 +9,8 @@
 
     <include
         layout="@layout/tool_bar_setting"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent" />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
     <ImageView
         android:id="@+id/tap2"

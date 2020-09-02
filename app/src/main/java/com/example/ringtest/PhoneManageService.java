@@ -286,7 +286,7 @@ public class PhoneManageService extends Service {
                         }
                     }
                     /**두번째 알람 출력**/
-                    if(check >= settingTime+5){
+                    if(check >= settingTime+300){
                         handler.post(new Runnable() {//toast and overlay 보여주기
                             @Override
                             public void run() {
@@ -325,7 +325,7 @@ public class PhoneManageService extends Service {
                             }
                         }
                         /**세번째 알람 출력**/
-                        if(check >= settingTime+10) {
+                        if(check >= settingTime+600) {
                             handler.post(new Runnable() {//toast and overlay 보여주기
                                 @Override
                                 public void run() {

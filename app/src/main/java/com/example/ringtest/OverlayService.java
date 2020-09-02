@@ -81,12 +81,19 @@ public class OverlayService extends Service {
         final Vibrator vibrator = (Vibrator)getSystemService(Context.VIBRATOR_SERVICE);
 
         long pattern[] = new long[]{100,1000,100,500,100,500,100,1000};
+        final long[] timings = new long[] {100, 100, 400, 200, 400};
+        final int[] amplitudes = new int[] {0, 50, 100, 50, 150};
+
 
         //확인 누르기 전까지 무한진동
         if (Build.VERSION.SDK_INT >= 26) {
             vibrator.vibrate(pattern,0);
+            //vibrator.vibrate(VibrationEffect.createWaveform(timings, amplitudes, -1));
+            //vibrator.vibrate(VibrationEffect.createOneShot(1000,10));
+            Log.d("OverlayService ", "vibrate1");
         } else {
             vibrator.vibrate(pattern, 0);
+            Log.d("OverlayService ", "vibrate2");
         }
 
         textView.setOnClickListener(new View.OnClickListener() {
