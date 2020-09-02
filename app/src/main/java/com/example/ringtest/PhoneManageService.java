@@ -214,8 +214,10 @@ public class PhoneManageService extends Service {
             boolean voice = sf.getBoolean("voice_fishing", false);
 
             if(voice){
-                //settingTime = (int) min * 60;
-                settingTime = 0;
+                /**테스트 끝나면 아래걸로 하기**/
+                settingTime = (int) min * 60;
+                //settingTime = 0;
+
 
                 int check = 0; // check와 settingTime을 비교해서 첫 경고 알람을 보냄
                 int check1 = 0; // 두번째 경고 알람
@@ -266,7 +268,8 @@ public class PhoneManageService extends Service {
 
 
                     /**두번째 알람 카운팅(+5분)**/
-                    for (count = check ; count < settingTime + 5; count++) {   // 설정 시간만큼 카운트
+                    /**테스트 끝나면 +5가 아닌  +300으로 하기**/
+                    for (count = check ; count < settingTime + 300; count++) {   // 설정 시간만큼 카운트
                         if (isCount) {
                             handler.post(new Runnable() {
                                 @Override
@@ -304,7 +307,8 @@ public class PhoneManageService extends Service {
 
 
                         /**세번째 알람 카운팅(+10분)**/
-                        for (count = check ; count < settingTime + 10; count++) {   // 설정 시간만큼 카운트
+                        /**테스트 끝나면 +10 가 아닌  +600으로 하기**/
+                        for (count = check ; count < settingTime + 600; count++) {   // 설정 시간만큼 카운트
                             if (isCount) {
                                 handler.post(new Runnable() {
                                     @Override
