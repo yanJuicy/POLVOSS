@@ -91,6 +91,7 @@ public class SettingActivity extends AppCompatActivity {
 
     LinearLayout etcLayout;
     TextView setButton;
+    TextView testButton;
     boolean is_first;
 
 
@@ -145,6 +146,8 @@ public class SettingActivity extends AppCompatActivity {
         etcLayout = findViewById(R.id.etc_layout);
         setButton = findViewById(R.id.btn_set);
 
+        testButton = findViewById(R.id.btn_test);
+
 
         sf = getSharedPreferences("settingFile", MODE_PRIVATE); // 로컬 DB 객체
         editor = sf.edit(); // DB 편집 객체
@@ -176,6 +179,16 @@ public class SettingActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        testButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startService(new Intent(SettingActivity.this, TestService.class));
+                Toast.makeText(SettingActivity.this, "테스트 시작", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
 
 
         /*****

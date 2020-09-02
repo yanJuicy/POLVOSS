@@ -97,6 +97,11 @@
             android:name=".PhoneManageService"
             android:enabled="true"
             android:exported="true" />
+        <service
+            android:name=".TestService"
+            android:enabled="true"
+            android:exported="true" />
+
 
         <activity android:name=".MainActivity" />
         <activity android:name=".DesignActivity" />
