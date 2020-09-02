@@ -89,6 +89,11 @@
             android:exported="true"
             android:permission="android.permission.SYSTEM_ALERT_WINDOW" />
         <service
+            android:name=".OverlayServiceTest"
+            android:enabled="true"
+            android:exported="true"
+            android:permission="android.permission.SYSTEM_ALERT_WINDOW" />
+        <service
             android:name=".AcceptOverlay"
             android:enabled="true"
             android:exported="true"

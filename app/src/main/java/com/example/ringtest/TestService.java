@@ -92,7 +92,7 @@ public class TestService extends Service {
          */
         private void showPopup() {
             // 오버레이 서비스 시작
-            startService(new Intent(getApplicationContext(), OverlayService.class));
+            startService(new Intent(getApplicationContext(), OverlayServiceTest.class));
         }
 
 
@@ -184,8 +184,8 @@ public class TestService extends Service {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "default");
 
         builder.setSmallIcon(R.mipmap.logo4);
-        builder.setContentTitle("알람 테스트");
-        builder.setContentText("테스트가 실행되었습니다. 보호자에게 메세지가 갔는지 확인하세요. ");
+        builder.setContentTitle("테스트 실행");
+        builder.setContentText("보호자에게 메세지가 전송되었는지 확인하세요.");
 
         Intent intent = new Intent(this, DesignActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(this,

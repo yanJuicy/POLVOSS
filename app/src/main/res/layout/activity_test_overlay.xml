@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ImageButton
+        android:id="@+id/imagebutton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:background="@android:color/transparent"
+        android:src="@mipmap/testalert" />
+
+    <TextView
+        android:id="@+id/accepttext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/accept_button3"
+        android:gravity="center"
+        android:padding="16dp"
+        android:textColor="#666666"
+        android:textStyle="bold"
+        android:textSize="20dp"
+        android:text="확   인"
+        />
+
+
+
+</LinearLayout>
