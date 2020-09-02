@@ -79,7 +79,6 @@ public class TestService extends Service {
         Log.d("test", "서비스의 onStartCommand");
         showPopup(); // 오버레이 팝업을 보여줌
 
-        // 보호자에게 문자를 보낸다
         sendSMS();
         sendNotification();
         return super.onStartCommand(intent, flags, startId);

@@ -91,6 +91,7 @@ public class SettingActivity extends AppCompatActivity {
 
     LinearLayout etcLayout;
     TextView setButton;
+    LinearLayout testLayout;
     TextView testButton;
     boolean is_first;
 
@@ -146,6 +147,7 @@ public class SettingActivity extends AppCompatActivity {
         etcLayout = findViewById(R.id.etc_layout);
         setButton = findViewById(R.id.btn_set);
 
+        testLayout = findViewById(R.id.test_layout);
         testButton = findViewById(R.id.btn_test);
 
 
@@ -160,11 +162,11 @@ public class SettingActivity extends AppCompatActivity {
 
         if (is_first) {
             etcLayout.setVisibility(View.GONE);
-            testButton.setVisibility(View.GONE);
+            testLayout.setVisibility(View.GONE);
         } else {
             etcLayout.setVisibility(View.VISIBLE);
             setButton.setVisibility(View.GONE);
-            testButton.setVisibility(View.VISIBLE);
+            testLayout.setVisibility(View.VISIBLE);
         }
 
         setButton.setOnClickListener(new View.OnClickListener() {
