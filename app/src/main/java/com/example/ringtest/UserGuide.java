@@ -141,9 +141,9 @@ public class UserGuide extends FragmentActivity {
         @Override
         public Fragment createFragment(int position) {
             if (position == 0) {
-                return new FragmentSeven();
+                return new FragmentFirst();
             } else {
-                return new FragmentEight();
+                return new FragementSecond();
             }
         }
 
