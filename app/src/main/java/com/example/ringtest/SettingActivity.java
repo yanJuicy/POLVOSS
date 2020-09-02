@@ -160,9 +160,11 @@ public class SettingActivity extends AppCompatActivity {
 
         if (is_first) {
             etcLayout.setVisibility(View.GONE);
+            testButton.setVisibility(View.GONE);
         } else {
             etcLayout.setVisibility(View.VISIBLE);
             setButton.setVisibility(View.GONE);
+            testButton.setVisibility(View.VISIBLE);
         }
 
         setButton.setOnClickListener(new View.OnClickListener() {
