@@ -115,6 +115,7 @@ public class DesignActivity extends AppCompatActivity implements AutoPermissions
                 String phoneNo3 = sf.getString("contactPhone3", "");
                 smsOn = sf.getBoolean("smishing", false);
                 voiceOn = sf.getBoolean("voice_fishing", false);
+                boolean kakaoOn = sf.getBoolean("kakaoCheck", false);
 
                 // 파워 버튼 상태 변경
                 powerOn = !powerOn;
@@ -167,14 +168,24 @@ public class DesignActivity extends AppCompatActivity implements AutoPermissions
                         startService(serviceIntent);
                     }
                 } else if(powerOn && !smsOn && !voiceOn){ // 버튼 둘다 꺼져있는데 실행눌렀을때
-                    // 파워 버튼 상태 변경
-                    powerOn = !powerOn;
-                    editor.putBoolean("power", powerOn);
-                    editor.commit();
+                    if(kakaoOn){
+                        Toast.makeText(DesignActivity.this, "서비스 시작(카카오)", Toast.LENGTH_SHORT).show();
+                        changeUI();
+                        changeReceiver();
+                        serviceIntent = new Intent(DesignActivity.this, PhoneManageService.class);
+                        serviceIntent.setAction("startForeground"); //포그라운드 액션지정
+                        startService(serviceIntent);
+                    } else{
+                        // 파워 버튼 상태 변경
+                        powerOn = !powerOn;
+                        editor.putBoolean("power", powerOn);
+                        editor.commit();
 
-                    Toast.makeText(DesignActivity.this, "보이스피싱 또는 스미싱 기능을 켜주세요", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(DesignActivity.this, SettingActivity.class));
-                    return;
+                        Toast.makeText(DesignActivity.this, "보이스피싱 또는 스미싱 기능을 켜주세요", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(DesignActivity.this, SettingActivity.class));
+                        return;
+                    }
+
                 } else { // 서비스 종료
                     changeUI();
                     changeReceiver();
