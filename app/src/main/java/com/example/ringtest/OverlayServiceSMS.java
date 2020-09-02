@@ -67,7 +67,7 @@ public class OverlayServiceSMS extends Service {
         final Vibrator vibrator = (Vibrator)getSystemService(Context.VIBRATOR_SERVICE);
 
         //확인 누르기 전까지 무한진동
-        if (Build.VERSION.SDK_INT >= 29) {
+        if (Build.VERSION.SDK_INT >= 26) {
             vibrator.vibrate(new long[]{100,1000,100,500,100,500,100,1000},0);
         } else{
             vibrator.vibrate(new long[]{100,1000,100,500,100,500,100,1000},0);

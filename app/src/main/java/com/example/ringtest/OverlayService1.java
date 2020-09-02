@@ -71,7 +71,7 @@ public class OverlayService1 extends Service {
         long pattern[] = new long[]{100,1000,100,500,100,500,100,1000};
 
         //확인 누르기 전까지 무한진동
-        if (Build.VERSION.SDK_INT >= 29) {
+        if (Build.VERSION.SDK_INT >= 26) {
             vibrator.vibrate(pattern,0);
         } else {
             vibrator.vibrate(pattern, 0);
