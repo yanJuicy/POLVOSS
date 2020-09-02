@@ -79,5 +79,5 @@
         android:id="@+id/imageView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/guide2p" />
+        app:srcCompat="@drawable/guide2_new" />
 </FrameLayout>

@@ -46,6 +46,7 @@ public class DesignActivity extends AppCompatActivity implements AutoPermissions
     TextView textState;
     TextView textState2;
     TextView textState3;
+    TextView textState4;
 
     TextView voiceState;
     TextView smsState;
@@ -66,6 +67,7 @@ public class DesignActivity extends AppCompatActivity implements AutoPermissions
         textState = findViewById(R.id.textState);
         textState2 = findViewById(R.id.textState2);
         textState3 = findViewById(R.id.textState3);
+        textState4 = findViewById(R.id.textState4);
         //voiceState = findViewById(R.id.textVoiceFishingState);
         //smsState = findViewById(R.id.textSmishingState);
         settingButton = findViewById(R.id.settingButton);
@@ -228,17 +230,21 @@ public class DesignActivity extends AppCompatActivity implements AutoPermissions
         if (powerOn) {
             powerButton.setImageResource(R.mipmap.lock5);
 //            Toast.makeText(DesignActivity.this, "서비스 시작", Toast.LENGTH_SHORT).show();
-            textState.setText("안전하게 ");
-            textState2.setText("보호 중");
-            textState2.setTextColor(Color.parseColor("#FFBF00"));
-            textState3.setText("입니다.");
+            textState.setText("경찰로고를 터치하면 ");
+            textState2.setText("서비스(보호)를 ");
+            textState3.setText("종료");
+            textState3.setTextColor(Color.parseColor("#FFBF00"));
+            textState4.setText("합니다.");
 //            voiceState.setText("활성화");
 //            smsState.setText("활성화");
         } else {
             powerButton.setImageResource(R.mipmap.unlock5);
-            textState.setText("보호 중이 아닙니다.");
-            textState2.setText("");
-            textState3.setText("");
+            textState.setText("경찰로고를 터치하면 ");
+            textState2.setText("서비스(보호)를 ");
+            textState2.setText("서비스(보호)를 ");
+            textState3.setText("실행");
+            textState3.setTextColor(Color.parseColor("#124798"));
+            textState4.setText("합니다.");
 
 //            voiceState.setText("비 활성화");
 //            smsState.setText("비 활성화");

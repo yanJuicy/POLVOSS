@@ -22,7 +22,7 @@
     <application
         android:allowBackup="true"
         android:icon="@mipmap/logo3"
-        android:label="폴보스"
+        android:label="폴보스 피싱예방"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">

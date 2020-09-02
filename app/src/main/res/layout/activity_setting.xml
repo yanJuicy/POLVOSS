@@ -38,8 +38,8 @@
                 android:checked="true"
                 android:padding="5dp"
                 android:fontFamily="@font/jalnan2"
-                android:text="보이스 피싱 설정"
-                android:textColor="#000000"
+                android:text="보이스 피싱 경고 설정"
+                android:textColor="#424242"
                 android:textSize="22sp"
                 android:thumb="@drawable/switch_thumb"
                 android:track="@drawable/switch_track_selector" />
@@ -568,7 +568,7 @@
                     android:layout_marginBottom="10dp"
                     android:checked="true"
                     android:padding="5dp"
-                    android:text="스미싱 설정"
+                    android:text="문자 스미싱 경고 설정"
                     android:fontFamily="@font/jalnan2"
                     android:textColor="#000000"
                     android:textSize="22sp"
@@ -582,7 +582,7 @@
                     android:layout_marginBottom="20dp"
                     android:layout_marginLeft="5dp"
                     android:showText="true"
-                    android:text="메시지, 멀티미디어 메시지 내용 중에 있는 URL 탐색을 수행합니다."
+                    android:text="메시지, 멀티미디어 메시지 내용 중에 있는 스미싱 위험 요소를 탐색합니다."
                     android:textColor="#80000000"
                     android:textSize="12sp" />
             </LinearLayout>
@@ -599,7 +599,7 @@
                     android:layout_marginBottom="10dp"
                     android:checked="true"
                     android:padding="5dp"
-                    android:text="카카오톡 URL 검사"
+                    android:text="카카오톡 스미싱 경고 설정"
                     android:fontFamily="@font/jalnan2"
                     android:textColor="#000000"
                     android:textSize="22sp"
@@ -612,7 +612,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
                     android:showText="true"
-                    android:text="카카오톡 메시지 내용 중에 있는 URL 탐색을 수행합니다."
+                    android:text="카카오톡 메시지 내용 중에 있는 스미싱 위험 요소를 탐색합니다."
                     android:textColor="#80000000"
                     android:textSize="12sp" />
             </LinearLayout>

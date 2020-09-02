@@ -51,7 +51,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/textState"
@@ -59,30 +59,48 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:fontFamily="@font/jalnan2"
-                android:text="하단 로고를 터치해주세요"
+                android:text="경찰로고를 터치하면 "
                 android:textColor="#424242"
                 android:textSize="24dp" />
 
-            <TextView
-                android:id="@+id/textState2"
-                android:fontFamily="@font/jalnan2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text=""
-                android:textColor="#424242"
-                android:textSize="24dp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/textState2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/jalnan2"
+                    android:text="서비스(보호)를 "
+                    android:textColor="#424242"
+                    android:textSize="24dp" />
+
+                <TextView
+                    android:id="@+id/textState3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/jalnan2"
+                    android:text="실행"
+                    android:textColor="#124798"
+                    android:textSize="24dp" />
+
+                <TextView
+                    android:id="@+id/textState4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/jalnan2"
+                    android:text="합니다."
+                    android:textColor="#424242"
+                    android:textSize="24dp" />
 
 
-            <TextView
-                android:id="@+id/textState3"
-                android:fontFamily="@font/jalnan2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text=""
-                android:textColor="#424242"
-                android:textSize="24dp" />
+            </LinearLayout>
 
 
         </LinearLayout>
