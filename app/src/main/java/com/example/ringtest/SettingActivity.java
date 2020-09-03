@@ -482,7 +482,7 @@ public class SettingActivity extends AppCompatActivity {
          * 시간 설정, NumberPicker로 변경
          * -> 5분, 10분, 15분으로 변경
          *******************************************/
-        long min = sf.getLong("min", 15);
+        long min = sf.getLong("min", 10);
         int maxValue = 20;
         int minValue = 10;
         int step = 5;
@@ -630,7 +630,7 @@ public class SettingActivity extends AppCompatActivity {
 
                     // 버전 정보
                     case R.id.version_Info:
-                        Toast.makeText(SettingActivity.this, "Version 1.0.0", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SettingActivity.this, "Version 3.1.31", Toast.LENGTH_SHORT).show();
                         break;
 
 /*                    // OS 라이센스 정보

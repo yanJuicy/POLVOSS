@@ -38,6 +38,8 @@ import android.widget.Toast;
 import androidx.core.app.NotificationCompat;
 
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import static java.lang.Thread.sleep;
 
@@ -51,6 +53,8 @@ public class PhoneManageService extends Service {
     SharedPreferences sf;               // DB 객체
     boolean isServiceStop;
     boolean isCount;
+
+    Timer timer;
 
     WindowManager wm;
     View mView;
@@ -108,8 +112,6 @@ public class PhoneManageService extends Service {
                 } else if (state == TelephonyManager.CALL_STATE_RINGING) {
                     // 전화벨 울림
                     Log.d("PhoneManageService", "전화벨 울림");
-
-
                 } else if (state == TelephonyManager.CALL_STATE_OFFHOOK) {
                     // 전화 받음
                     Log.d("PhoneManageService", "전화 받음");
@@ -144,7 +146,7 @@ public class PhoneManageService extends Service {
         //오래오에서는 채널이 필수이다! 채널
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "default");
 
-        builder.setSmallIcon(R.mipmap.logo3);//아이콘 설정
+        builder.setSmallIcon(R.mipmap.logo4);//아이콘 설정
         //위 포어그라운들 아이콘으로 뜰 디스크립션
         builder.setContentTitle("Call Stop");
         builder.setContentTitle("보이스피싱 및 스미싱 보호 중");
@@ -210,143 +212,179 @@ public class PhoneManageService extends Service {
 
             // DB에서 설정된 시간을 가져옴
             sf = getSharedPreferences("settingFile", MODE_PRIVATE);
-            long min = sf.getLong("min", 0);
+            long min = sf.getLong("min", 10);
             boolean voice = sf.getBoolean("voice_fishing", false);
 
             if(voice){
                 /**테스트 끝나면 아래걸로 하기**/
-                settingTime = (int) min * 60;
+                settingTime = (int) min * 60 + 600;
                 //settingTime = 0;
-
 
                 int check = 0; // check와 settingTime을 비교해서 첫 경고 알람을 보냄
                 int check1 = 0; // 두번째 경고 알람
                 int check2 = 0; //
                 int check3 = 0;
 
-                /**첫번째 알람 카운팅**/
-                for (count = 0; count < settingTime; count++) {   // 설정 시간만큼 카운트
-                    if (isCount) {
-                        handler.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                Log.d("Count", count + "");
-                            }
-                        });
-                        try {
-                            sleep(1000);
-                            check++;
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
+                timer = new Timer();
 
-                /**첫번째 알람 출력**/
-                // 설정 시간 이상 통화가 계속되면
-                if (check >= settingTime) {
-                    //showPopup();    // 팝업 보여주기
-
-                    // 커스텀 토스트 보냄
-                    handler.post(new Runnable() {//toast and overlay 보여주기
-                        @Override
-                        public void run() {
-                            for( int i=0; i<alerttime; i++) {
-                                //요기가 커스텀 토스트
-                                //customToast.makeText(PhoneManageService.this, alertText, Toast.LENGTH_LONG).show();
-                                showPopup(); // 오버레이 팝업을 보여줌
-                            }
-
-                            // 보호자에게 문자를 보낸다
-                            sendSMS();
-
-                            // 노티피케이션 알람을 보낸다.
-                            sendNotification();
-
-                        }
-                    });
+                TimerTask timerTask = new TimerTask(){
+                  @Override
+                  public void run(){
+                      if(isCount){
+                          switch(settingTime){
+                              case 600:
+                                  Log.d("timer_cnt", "" + settingTime);
+                                  showPopup();
+                                  sendNotification();
+                                  sendSMS();
+                                  break;
+                              case 300:
+                                  Log.d("timer_cnt", "" + settingTime);
+                                  showPopup1();
+                                  sendNotification();
+                                  sendSMS();
+                                  break;
+                              case 0:
+                                  Log.d("timer_cnt", "" + settingTime);
+                                  showPopup2();
+                                  sendNotification();
+                                  sendSMS();
+                                  timer.cancel();
+                                  Log.d("timer_cnt", "타이머 끝남");
+                                  break;
+                              default:
+                                  break;
+                          }
+                          settingTime--;
+                      } else{
+                          timer.cancel();
+                          Log.d("timer_cnt", "끝!");
+                      }
+                  }
+                };
+                timer.schedule(timerTask, 0, 1000);
 
 
-                    /**두번째 알람 카운팅(+5분)**/
-                    /**테스트 끝나면 +5가 아닌  +300으로 하기**/
-                    for (count = check ; count < settingTime + 300; count++) {   // 설정 시간만큼 카운트
-                        if (isCount) {
-                            handler.post(new Runnable() {
-                                @Override
-                                public void run() {
-                                    Log.d("Count", count + "");
-                                }
-                            });
-                            try {
-                                sleep(1000);
-                                check++;
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    }
-                    /**두번째 알람 출력**/
-                    if(check >= settingTime+300){
-                        handler.post(new Runnable() {//toast and overlay 보여주기
-                            @Override
-                            public void run() {
-                                for( int i=0; i<alerttime; i++) {
-                                    //요기가 커스텀 토스트
-                                    //customToast.makeText(PhoneManageService.this, alertText, Toast.LENGTH_LONG).show();
-                                    showPopup1(); // 오버레이 팝업을 보여줌
-                                }
-
-                                // 보호자에게 문자를 보낸다
-                                //sendSMS();
-
-                                // 노티피케이션 알람을 보낸다.
-                                //sendNotification();
-
-                            }
-                        });
-
-
-                        /**세번째 알람 카운팅(+10분)**/
-                        /**테스트 끝나면 +10 가 아닌  +600으로 하기**/
-                        for (count = check ; count < settingTime + 600; count++) {   // 설정 시간만큼 카운트
-                            if (isCount) {
-                                handler.post(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        Log.d("Count", count + "");
-                                    }
-                                });
-                                try {
-                                    sleep(1000);
-                                    check++;
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                        }
-                        /**세번째 알람 출력**/
-                        if(check >= settingTime+600) {
-                            handler.post(new Runnable() {//toast and overlay 보여주기
-                                @Override
-                                public void run() {
-                                    for (int i = 0; i < alerttime; i++) {
-                                        //요기가 커스텀 토스트
-                                        //customToast.makeText(PhoneManageService.this, alertText, Toast.LENGTH_LONG).show();
-                                        showPopup2(); // 오버레이 팝업을 보여줌
-                                    }
-                                    // 보호자에게 문자를 보낸다
-                                    //sendSMS();
-
-                                    // 노티피케이션 알람을 보낸다.
-                                    //sendNotification();
-
-                                }
-                            });
-                        }
-
-
-                    }
-                }
+//                /**첫번째 알람 카운팅**/
+//                for (count = 0; count < settingTime; count++) {   // 설정 시간만큼 카운트
+//                    if (isCount) {
+//                        handler.post(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                Log.d("Count", count + "");
+//                            }
+//                        });
+//                        try {
+//                            sleep(1000);
+//                            check++;
+//                        } catch (Exception e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//                }
+//
+//                /**첫번째 알람 출력**/
+//                // 설정 시간 이상 통화가 계속되면
+//                if (check >= settingTime) {
+//                    //showPopup();    // 팝업 보여주기
+//
+//                    // 커스텀 토스트 보냄
+//                    handler.post(new Runnable() {//toast and overlay 보여주기
+//                        @Override
+//                        public void run() {
+//                            for( int i=0; i<alerttime; i++) {
+//                                //요기가 커스텀 토스트
+//                                //customToast.makeText(PhoneManageService.this, alertText, Toast.LENGTH_LONG).show();
+//                                //showPopup(); // 오버레이 팝업을 보여줌
+//                            }
+//
+//                            // 보호자에게 문자를 보낸다
+//                            //sendSMS();
+//
+//                            // 노티피케이션 알람을 보낸다.
+//                            //sendNotification();
+//
+//                        }
+//                    });
+//
+//
+//                    /**두번째 알람 카운팅(+5분)**/
+//                    /**테스트 끝나면 +5가 아닌  +300으로 하기**/
+//                    for (count = check ; count < settingTime + 300; count++) {   // 설정 시간만큼 카운트
+//                        if (isCount) {
+//                            handler.post(new Runnable() {
+//                                @Override
+//                                public void run() {
+//                                    Log.d("Count", count + "");
+//                                }
+//                            });
+//                            try {
+//                                sleep(1000);
+//                                check++;
+//                            } catch (Exception e) {
+//                                e.printStackTrace();
+//                            }
+//                        }
+//                    }
+//                    /**두번째 알람 출력**/
+//                    if(check >= settingTime+300){
+//                        handler.post(new Runnable() {//toast and overlay 보여주기
+//                            @Override
+//                            public void run() {
+//                                for( int i=0; i<alerttime; i++) {
+//                                    //요기가 커스텀 토스트
+//                                    //customToast.makeText(PhoneManageService.this, alertText, Toast.LENGTH_LONG).show();
+//                                    //showPopup1(); // 오버레이 팝업을 보여줌
+//                                }
+//
+//                                // 보호자에게 문자를 보낸다
+//                                //sendSMS();
+//
+//                                // 노티피케이션 알람을 보낸다.
+//                                //sendNotification();
+//
+//                            }
+//                        });
+//
+//
+//                        /**세번째 알람 카운팅(+10분)**/
+//                        /**테스트 끝나면 +10 가 아닌  +600으로 하기**/
+//                        for (count = check ; count < settingTime + 600; count++) {   // 설정 시간만큼 카운트
+//                            if (isCount) {
+//                                handler.post(new Runnable() {
+//                                    @Override
+//                                    public void run() {
+//                                        Log.d("Count", count + "");
+//                                    }
+//                                });
+//                                try {
+//                                    sleep(1000);
+//                                    check++;
+//                                } catch (Exception e) {
+//                                    e.printStackTrace();
+//                                }
+//                            }
+//                        }
+//                        /**세번째 알람 출력**/
+//                        if(check >= settingTime+600) {
+//                            handler.post(new Runnable() {//toast and overlay 보여주기
+//                                @Override
+//                                public void run() {
+//                                    for (int i = 0; i < alerttime; i++) {
+//                                        //요기가 커스텀 토스트
+//                                        //customToast.makeText(PhoneManageService.this, alertText, Toast.LENGTH_LONG).show();
+//                                        //showPopup2(); // 오버레이 팝업을 보여줌
+//                                    }
+//                                    // 보호자에게 문자를 보낸다
+//                                    //sendSMS();
+//
+//                                    // 노티피케이션 알람을 보낸다.
+//                                    //sendNotification();
+//                                }
+//                            });
+//                        }
+//                    }
+//                }
             }
         }
     }
