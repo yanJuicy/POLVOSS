@@ -234,6 +234,12 @@ public class PhoneManageService extends Service {
                           switch(settingTime){
                               case 600:
                                   Log.d("timer_cnt", "" + settingTime);
+                                  handler.post(new Runnable() {
+                                      @Override
+                                      public void run() {
+                                              Toast.makeText(PhoneManageService.this, "동작", Toast.LENGTH_SHORT).show();
+                                      }
+                                  });
                                   showPopup();
                                   sendNotification();
                                   sendSMS();
