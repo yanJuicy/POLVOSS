@@ -40,6 +40,9 @@ import androidx.core.app.NotificationCompat;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import static java.lang.Thread.sleep;
 
@@ -227,11 +230,20 @@ public class PhoneManageService extends Service {
 
                 timer = new Timer();
 
-                TimerTask timerTask = new TimerTask(){
+                Runnable runnable = new Runnable(){
                   @Override
                   public void run(){
                       if(isCount){
-                          switch(settingTime){
+                          Log.d("timer_cnt", "" + settingTime);
+                          if(settingTime%60==0){
+                              handler.post(new Runnable() {
+                                  @Override
+                                  public void run() {
+                                      Toast.makeText(PhoneManageService.this, settingTime+"", Toast.LENGTH_SHORT).show();
+                                  }
+                              });
+                          }
+                         switch(settingTime){
                               case 600:
                                   Log.d("timer_cnt", "" + settingTime);
                                   handler.post(new Runnable() {
@@ -258,17 +270,22 @@ public class PhoneManageService extends Service {
                                   timer.cancel();
                                   Log.d("timer_cnt", "타이머 끝남");
                                   break;
+
                               default:
                                   break;
                           }
-                          settingTime--;
-                      } else{
+
+                          settingTime=settingTime-60;
+                      }
+                      else{
                           timer.cancel();
                           Log.d("timer_cnt", "끝!");
                       }
                   }
                 };
-                timer.schedule(timerTask, 0, 1000);
+                //timer.scheduleAtFixedRate(timerTask, 0, 1000);
+                ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
+                service.scheduleAtFixedRate(runnable, 0, 1, TimeUnit.MINUTES);
 
 
 //                /**첫번째 알람 카운팅**/
