@@ -56,11 +56,14 @@ public class PhoneManageService extends Service {
     SharedPreferences sf;               // DB 객체
     boolean isServiceStop;
     boolean isCount;
+    TimerTask timerTask;
 
     Timer timer;
 
     WindowManager wm;
     View mView;
+
+    boolean phonecheck = false;
 
     public PhoneManageService() {
     }
@@ -88,7 +91,6 @@ public class PhoneManageService extends Service {
 
     }
 
-
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
 
@@ -107,6 +109,7 @@ public class PhoneManageService extends Service {
         phoneStateListener  = new PhoneStateListener() {
             @Override
             public void onCallStateChanged(int state, String phoneNumber) {
+                counter = new Thread(new Counter());
                 if (state == TelephonyManager.CALL_STATE_IDLE) {
                     // 평소 상태
                     Log.d("PhoneManageService", "일반 상태");
@@ -125,8 +128,9 @@ public class PhoneManageService extends Service {
                     if(!contactList.contains(phoneNumber)) {
                         Log.d("PhoneManageService", "카운트 서비스 시작");
                         isCount = true;
-                        counter = new Thread(new Counter());
+                        //counter = new Thread(new Counter());
                         counter.start();
+
                     }
                 }
             }
@@ -136,8 +140,8 @@ public class PhoneManageService extends Service {
                 super.onServiceStateChanged(serviceState);
             }
         };
-        telephonyManager.listen(phoneStateListener, PhoneStateListener.LISTEN_CALL_STATE);
 
+        telephonyManager.listen(phoneStateListener, PhoneStateListener.LISTEN_CALL_STATE);
         return super.onStartCommand(intent, flags, startId);
 
     }
@@ -229,20 +233,20 @@ public class PhoneManageService extends Service {
                 int check3 = 0;
 
                 timer = new Timer();
-
-                Runnable runnable = new Runnable(){
-                  @Override
+                //Runnable runnable = new Runnable(){
+                timerTask = new TimerTask(){
+                @Override
                   public void run(){
                       if(isCount){
                           Log.d("timer_cnt", "" + settingTime);
-                          if(settingTime%60==0){
+/*                           if(settingTime%60==0){
                               handler.post(new Runnable() {
                                   @Override
                                   public void run() {
                                       Toast.makeText(PhoneManageService.this, settingTime+"", Toast.LENGTH_SHORT).show();
                                   }
                               });
-                          }
+                          }*/
                          switch(settingTime){
                               case 600:
                                   Log.d("timer_cnt", "" + settingTime);
@@ -274,8 +278,7 @@ public class PhoneManageService extends Service {
                               default:
                                   break;
                           }
-
-                          settingTime=settingTime-60;
+                          settingTime--;
                       }
                       else{
                           timer.cancel();
@@ -283,9 +286,14 @@ public class PhoneManageService extends Service {
                       }
                   }
                 };
-                //timer.scheduleAtFixedRate(timerTask, 0, 1000);
-                ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
-                service.scheduleAtFixedRate(runnable, 0, 1, TimeUnit.MINUTES);
+
+                //timer.scheduleAtFixedRate(timerTask, 0, 60000);
+                timer.scheduleAtFixedRate(timerTask, 0, 1000);
+
+
+/*                ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
+                service.scheduleAtFixedRate(runnable, 0, 1, TimeUnit.MINUTES);*/
+
 
 
 //                /**첫번째 알람 카운팅**/
