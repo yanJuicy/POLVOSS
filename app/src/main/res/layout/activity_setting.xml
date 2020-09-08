@@ -79,6 +79,15 @@
                         android:text="착신 불명 상대방과의 통화 허용 시간을 설정합니다."
                         android:textColor="#80000000"
                         android:textSize="12sp" />
+                    <TextView
+                        android:id="@+id/textView12"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="0dp"
+                        android:showText="true"
+                        android:text="보이스피싱 피해 사례를 보았을 때 10분을 권장합니다."
+                        android:textColor="#80000000"
+                        android:textSize="12sp" />
 
                 </LinearLayout>
 
