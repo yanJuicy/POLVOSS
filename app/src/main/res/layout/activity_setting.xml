@@ -85,7 +85,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="0dp"
                         android:showText="true"
-                        android:text="보이스피싱 피해 사례를 보았을 때 10분을 권장합니다."
+                        android:text="사기전화 피해사례를 볼 때 10분 설정을 권장합니다."
                         android:textColor="#80000000"
                         android:textSize="12sp" />
 
