@@ -454,7 +454,7 @@ public class PhoneManageService extends Service {
         String phoneNum4 = sf.getString("contactPhone4", "");
         String phoneNum5 = sf.getString("contactPhone5", "");
 
-        String sms = "[경찰 폴보스 앱 자동발신]\n모르는 전화와 장시간 통화 중으로 사기피해를 당할 수 있으니 확인 전화해주세요.\n피해신고 112";
+        String sms = "[경찰 폴보스 앱 자동발신]\n모르는 전화와 장시간 통화 중으로 사기피해를 당할 수 있으니 확인전화 해주세요.\n피해신고 112";
         //String sms2 = "사기전화일 수 있으니 사용자에게 안심전화를 걸어주세요. 지급정지, 피해신고 긴급전화 112";
 
         if (!phoneNum1.equals("")) { // 번호가 존재하면 문자 전송

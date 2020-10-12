@@ -657,7 +657,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_marginBottom="15dp"
-                    android:text="아래 버튼을 눌러 미리 보호자에게 메세지가 정상적으로 전송되는지 확인하세요."
+                    android:text="아래 버튼을 눌러 미리 보호자에게 메시지가 정상적으로 전송되는지 확인하세요."
                     android:textColor="#80000000"
                     android:textSize="12sp" />
 
