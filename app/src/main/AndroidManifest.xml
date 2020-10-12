@@ -108,21 +108,33 @@
             android:exported="true" />
 
 
-        <activity android:name=".MainActivity" />
-        <activity android:name=".DesignActivity" />
+        <activity android:name=".MainActivity"
+            android:screenOrientation="portrait" />
+
+        <activity android:name=".DesignActivity"
+            android:screenOrientation="portrait"/>
+
         <activity android:name=".LogoActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".UserGuide" />
-        <activity android:name=".SettingActivity" />
-        <activity android:name=".FirstSettingActivity" />
+
+        <activity android:name=".UserGuide"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".SettingActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".FirstSettingActivity"
+            android:screenOrientation="portrait"/>
+
         <activity
+            android:screenOrientation="portrait"
             android:name=".SetNumberPopupActivity"
             android:theme="@android:style/Theme.Dialog" />
+
     </application>
 
 </manifest>
