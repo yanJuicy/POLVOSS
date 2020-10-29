@@ -2,6 +2,7 @@ package com.example.ringtest;
 
 import android.Manifest;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Bundle;
@@ -36,6 +37,7 @@ public class LogoActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mainlogo);
