@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.ringtest">
+    package="com.polvoss.ringtest">
 
     <uses-permission android:name="android.permission.MANAGE_OWN_CALLS" />
     <uses-permission android:name="android.permission.READ_CALL_LOG" />
@@ -28,7 +28,7 @@
         android:theme="@style/Theme.AppCompat.NoActionBar">
 
         <service
-            android:name=".NotificationGetService"
+            android:name="com.polvoss.ringtest.NotificationGetService"
             android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
             <intent-filter>
                 <action android:name="android.service.notification.NotificationListenerService"/>
@@ -36,7 +36,7 @@
         </service>
 
         <receiver
-            android:name=".AutoRunReceiver"
+            android:name="com.polvoss.ringtest.AutoRunReceiver"
             android:enabled="true"
             android:exported="false">
             <intent-filter>
@@ -46,7 +46,7 @@
         <!-- android:name=".Popup" -->
         <!-- android:theme="@style/Theme.AppCompat.Dialog.Alert" /> -->
         <receiver
-            android:name=".MMSReceiver"
+            android:name="com.polvoss.ringtest.MMSReceiver"
             android:permission="android.permission.BROADCAST_WAP_PUSH">
             <intent-filter>
                 <action android:name="android.intent.action.DATA_SMS_RECEIVED" />
@@ -61,7 +61,7 @@
             </intent-filter>
         </receiver>
         <receiver
-            android:name=".SmsReceiver"
+            android:name="com.polvoss.ringtest.SmsReceiver"
             android:permission="android.permission.BROADCAST_SMS">
             <intent-filter>
                 <action android:name="android.provider.Telephony.SMS_RECEIVED" />
@@ -69,70 +69,70 @@
         </receiver>
 
         <service
-            android:name=".OverlayService"
+            android:name="com.polvoss.ringtest.OverlayService"
             android:enabled="true"
             android:exported="true"
             android:permission="android.permission.SYSTEM_ALERT_WINDOW" />
         <service
-            android:name=".OverlayService1"
+            android:name="com.polvoss.ringtest.OverlayService1"
             android:enabled="true"
             android:exported="true"
             android:permission="android.permission.SYSTEM_ALERT_WINDOW" />
         <service
-            android:name=".OverlayService2"
+            android:name="com.polvoss.ringtest.OverlayService2"
             android:enabled="true"
             android:exported="true"
             android:permission="android.permission.SYSTEM_ALERT_WINDOW" />
         <service
-            android:name=".OverlayServiceSMS"
+            android:name="com.polvoss.ringtest.OverlayServiceSMS"
             android:enabled="true"
             android:exported="true"
             android:permission="android.permission.SYSTEM_ALERT_WINDOW" />
         <service
-            android:name=".OverlayServiceTest"
+            android:name="com.polvoss.ringtest.OverlayServiceTest"
             android:enabled="true"
             android:exported="true"
             android:permission="android.permission.SYSTEM_ALERT_WINDOW" />
         <service
-            android:name=".AcceptOverlay"
+            android:name="com.polvoss.ringtest.AcceptOverlay"
             android:enabled="true"
             android:exported="true"
             android:permission="android.permission.SYSTEM_ALERT_WINDOW" />
         <service
-            android:name=".PhoneManageService"
+            android:name="com.polvoss.ringtest.PhoneManageService"
             android:enabled="true"
             android:exported="true" />
         <service
-            android:name=".TestService"
+            android:name="com.polvoss.ringtest.TestService"
             android:enabled="true"
             android:exported="true" />
 
 
-        <activity android:name=".MainActivity"
+        <activity android:name="com.polvoss.ringtest.MainActivity"
             android:screenOrientation="portrait" />
 
-        <activity android:name=".DesignActivity"
+        <activity android:name="com.polvoss.ringtest.DesignActivity"
             android:screenOrientation="portrait"/>
 
-        <activity android:name=".LogoActivity">
+        <activity android:name="com.polvoss.ringtest.LogoActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
 
-        <activity android:name=".UserGuide"
+        <activity android:name="com.polvoss.ringtest.UserGuide"
             android:screenOrientation="portrait"/>
 
-        <activity android:name=".SettingActivity"
+        <activity android:name="com.polvoss.ringtest.SettingActivity"
             android:screenOrientation="portrait"/>
 
-        <activity android:name=".FirstSettingActivity"
+        <activity android:name="com.polvoss.ringtest.FirstSettingActivity"
             android:screenOrientation="portrait"/>
 
         <activity
             android:screenOrientation="portrait"
-            android:name=".SetNumberPopupActivity"
+            android:name="com.polvoss.ringtest.SetNumberPopupActivity"
             android:theme="@android:style/Theme.Dialog" />
 
     </application>

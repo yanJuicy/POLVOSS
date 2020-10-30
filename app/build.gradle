@@ -13,7 +13,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.example.ringtest"
+        applicationId "com.polvoss.ringtest"
         minSdkVersion 21
         targetSdkVersion 29
         versionCode 2
