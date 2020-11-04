@@ -236,7 +236,7 @@ public class PhoneManageService extends Service {
                                   }
                               });
                           }*/
-                         switch(settingTime){
+                         switch(settingTime) {
                               case 600:
                                   Log.d("timer_cnt", "" + settingTime);
                                   handler.post(new Runnable() {

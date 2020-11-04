@@ -4,15 +4,15 @@
     "type": "APK",
     "kind": "Directory"
   },
-  "applicationId": "com.example.ringtest",
+  "applicationId": "com.polvoss.ringtest",
   "variantName": "release",
   "elements": [
     {
       "type": "SINGLE",
       "filters": [],
       "properties": [],
-      "versionCode": 2,
-      "versionName": "2.0",
+      "versionCode": 3,
+      "versionName": "2.1",
       "enabled": true,
       "outputFile": "app-release.apk"
     }
