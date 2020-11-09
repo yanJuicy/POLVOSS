@@ -33,7 +33,7 @@ public class SettingActivity extends AppCompatActivity {
     int maxX;
     SharedPreferences sf;               // 로컬 DB
     SharedPreferences.Editor editor;    // DB 편집 객체
-    TextView setNumber;
+    //TextView setNumber;
     TextView version;
     TextView osLicense;
     /*TextView inputPhoneNum1;
@@ -43,7 +43,7 @@ public class SettingActivity extends AppCompatActivity {
     TextView inputPhoneName2;
     TextView inputPhoneName3;*/
 
-    LinearLayout voiceSettingLayout;
+    //LinearLayout voiceSettingLayout;
     /* LinearLayout numberSettingLayout1;
     LinearLayout numberSettingLayout2;
     LinearLayout numberSettingLayout3;
@@ -51,7 +51,7 @@ public class SettingActivity extends AppCompatActivity {
     ImageButton deleteBtn2;
     ImageButton deleteBtn3;*/
     //Button saveBtn;
-    Switch voicePower;
+    //Switch voicePower;
     Switch smishingPower;
 
     Switch kakaoPower;
@@ -61,7 +61,7 @@ public class SettingActivity extends AppCompatActivity {
 
     boolean isPermissionAllowd;
 
-    LinearLayout contactLayout1;
+    /*LinearLayout contactLayout1;
     ImageButton contactButton1;
     TextView contactName1;
     TextView contactPhone1;
@@ -86,7 +86,7 @@ public class SettingActivity extends AppCompatActivity {
     TextView contactName5;
     TextView contactPhone5;
 
-    LinearLayout protectLayout;
+    LinearLayout protectLayout;*/
 
     LinearLayout etcLayout;
     TextView setButton;
@@ -106,17 +106,17 @@ public class SettingActivity extends AppCompatActivity {
         SeekBar seekBarTime = findViewById(R.id.seekBarTime);
         final TextView textViewTime = findViewById(R.id.textViewTime);
 
-        setNumber = findViewById(R.id.setNumber);
+        // setNumber = findViewById(R.id.setNumber);
         version = findViewById(R.id.version_Info);
         //osLicense = findViewById(R.id.OS_License);
 
-        voiceSettingLayout = findViewById(R.id.voice_Setting_Layout);
+        //voiceSettingLayout = findViewById(R.id.voice_Setting_Layout);
 
-        voicePower = findViewById(R.id.voice_Power);
+        //voicePower = findViewById(R.id.voice_Power);
         smishingPower = findViewById(R.id.smishing_Power);
         kakaoPower = findViewById(R.id.kakaotalk_Power);
 
-        contactLayout1 = findViewById(R.id.setContactLayout1);
+        /*contactLayout1 = findViewById(R.id.setContactLayout1);
         contactButton1 = findViewById(R.id.contactButton1);
         contactName1 = findViewById(R.id.contactName1);
         contactPhone1 = findViewById(R.id.contatctPhone1);
@@ -141,7 +141,7 @@ public class SettingActivity extends AppCompatActivity {
         contactName5 = findViewById(R.id.contactName5);
         contactPhone5 = findViewById(R.id.contatctPhone5);
 
-        protectLayout = findViewById(R.id.protectorLayout);
+        protectLayout = findViewById(R.id.protectorLayout);*/
 
         etcLayout = findViewById(R.id.etc_layout);
         setButton = findViewById(R.id.btn_set);
@@ -193,10 +193,10 @@ public class SettingActivity extends AppCompatActivity {
         });
 
 
-
-        /*****
+/*
+        *//*****
          * 보호자 연락처 설정
-         *****/
+         *****//*
 
         String[] names = new String[5];
         String[] phones = new String[5];
@@ -417,11 +417,12 @@ public class SettingActivity extends AppCompatActivity {
                     editor.commit();
                 }
             }
-        });
+        });*/
 
-        /*******************************************
+        /*
+         *****************************************
          * 보이스 피싱 파워
-         ******************************************/
+         *****************************************
         boolean voiceFishing = sf.getBoolean("voice_fishing", false);
         if (voiceFishing) {
             voiceSettingLayout.setVisibility(View.VISIBLE);
@@ -430,7 +431,7 @@ public class SettingActivity extends AppCompatActivity {
             voiceSettingLayout.setVisibility(View.GONE);
             voicePower.setChecked(false);
         }
-
+        */
 
         /*******************************************
          * 스미싱 버튼 확인부분
@@ -550,7 +551,7 @@ public class SettingActivity extends AppCompatActivity {
 
         return false;
     }
-
+/*
     private void afterContactLayoutDelete() {
         String[] names = new String[5];
 
@@ -584,7 +585,7 @@ public class SettingActivity extends AppCompatActivity {
                 break;
         }
         Toast.makeText(this, "삭제되었습니다.", Toast.LENGTH_SHORT).show();
-    }
+    }*/
     /*******************************************
      * NumberPicker 불러오기
      **********************************************//*
@@ -641,7 +642,7 @@ public class SettingActivity extends AppCompatActivity {
         };
 
         closeBtn.setOnClickListener(Listener);
-        setNumber.setOnClickListener(Listener);
+        //setNumber.setOnClickListener(Listener);
         version.setOnClickListener(Listener);
         //osLicense.setOnClickListener(Listener);
     }
@@ -678,7 +679,7 @@ public class SettingActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 switch (buttonView.getId()) {
-
+/*
                     // 보이스피싱 파워 체크
                     case R.id.voice_Power:
                         if (isChecked) {
@@ -694,12 +695,13 @@ public class SettingActivity extends AppCompatActivity {
 
                             voiceSettingLayout.setVisibility(View.GONE);
                         }
-                        break;
+                        break;*/
 
                     // 스미싱 파워 체크
                     case R.id.smishing_Power:
                         // default 값으로 우선 전부 기능 꺼져있게 만듬
                         if (isChecked) {
+                            editor.putBoolean("smishing", true);
                             editor.putBoolean("smishing", true);
                             editor.commit();
                             //Toast.makeText(SettingActivity.this, "smishing On", Toast.LENGTH_SHORT).show();
@@ -713,7 +715,7 @@ public class SettingActivity extends AppCompatActivity {
                 }
             }
         };
-        voicePower.setOnCheckedChangeListener(onCheckedChangeListener);
+        // voicePower.setOnCheckedChangeListener(onCheckedChangeListener);
         smishingPower.setOnCheckedChangeListener(onCheckedChangeListener);
     }
 
@@ -721,7 +723,7 @@ public class SettingActivity extends AppCompatActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        int textViewNum = sf.getInt("textViewNum", 0);
+        /*int textViewNum = sf.getInt("textViewNum", 0);
         String[] names = new String[5];
         for (int i=0; i<5; i++) {
             names[i] = sf.getString("contactName"+(i+1), "");
@@ -800,9 +802,7 @@ public class SettingActivity extends AppCompatActivity {
                 editor.putBoolean("contact5", true);
                 editor.commit();
             }
-
-
-        }
+        }*/
 
         if (requestCode == KAKAO_CHECK) {
             //Toast.makeText(this, "노티피 결과", Toast.LENGTH_SHORT).show();

@@ -149,7 +149,7 @@
 -->
 
 
-                <LinearLayout
+                <!--<LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
@@ -182,9 +182,9 @@
                         android:textColor="#80000000"
                         android:textSize="12sp" />
 
-                </LinearLayout>
+                </LinearLayout>-->
 
-                <LinearLayout
+                <!--<LinearLayout
                     android:id="@+id/protectorLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -400,7 +400,7 @@
                     </LinearLayout>
 
 
-                    <!--<LinearLayout
+                    &lt;!&ndash;<LinearLayout
                         android:id="@+id/set_Num_Layout1"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
@@ -449,7 +449,7 @@
                             app:srcCompat="@drawable/ic_baseline_remove_circle_outline_35" />
 
 
-                    </LinearLayout>-->
+                    </LinearLayout>&ndash;&gt;
 
                     <LinearLayout
                         android:id="@+id/set_Num_Layout2"
@@ -537,23 +537,23 @@
 
                     </LinearLayout>
 
-                    <!--                    <LinearLayout-->
-                    <!--                        android:layout_width="match_parent"-->
-                    <!--                        android:layout_height="wrap_content"-->
-                    <!--                        android:gravity="center"-->
-                    <!--                        android:orientation="horizontal">-->
+                    &lt;!&ndash;                    <LinearLayout&ndash;&gt;
+                    &lt;!&ndash;                        android:layout_width="match_parent"&ndash;&gt;
+                    &lt;!&ndash;                        android:layout_height="wrap_content"&ndash;&gt;
+                    &lt;!&ndash;                        android:gravity="center"&ndash;&gt;
+                    &lt;!&ndash;                        android:orientation="horizontal">&ndash;&gt;
 
-                    <!--                        <Button-->
-                    <!--                            android:id="@+id/saveBtn"-->
-                    <!--                            android:layout_width="150dp"-->
-                    <!--                            android:layout_height="40dp"-->
-                    <!--                            android:layout_gravity="center"-->
-                    <!--                            android:background="@drawable/accept_button2"-->
-                    <!--                            android:text="저장"-->
-                    <!--                            android:textSize="15sp" />-->
-                    <!--                    </LinearLayout>-->
+                    &lt;!&ndash;                        <Button&ndash;&gt;
+                    &lt;!&ndash;                            android:id="@+id/saveBtn"&ndash;&gt;
+                    &lt;!&ndash;                            android:layout_width="150dp"&ndash;&gt;
+                    &lt;!&ndash;                            android:layout_height="40dp"&ndash;&gt;
+                    &lt;!&ndash;                            android:layout_gravity="center"&ndash;&gt;
+                    &lt;!&ndash;                            android:background="@drawable/accept_button2"&ndash;&gt;
+                    &lt;!&ndash;                            android:text="저장"&ndash;&gt;
+                    &lt;!&ndash;                            android:textSize="15sp" />&ndash;&gt;
+                    &lt;!&ndash;                    </LinearLayout>&ndash;&gt;
 
-                </LinearLayout>
+                </LinearLayout>-->
 
             </LinearLayout>
 

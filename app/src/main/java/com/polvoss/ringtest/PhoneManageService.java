@@ -247,19 +247,19 @@ public class PhoneManageService extends Service {
                                   });
                                   showPopup();
                                   sendNotification();
-                                  sendSMS();
+                                  //sendSMS();
                                   break;
                               case 300:
                                   Log.d("timer_cnt", "" + settingTime);
                                   showPopup1();
                                   sendNotification();
-                                  sendSMS();
+                                  //sendSMS();
                                   break;
                               case 0:
                                   Log.d("timer_cnt", "" + settingTime);
                                   showPopup2();
                                   sendNotification();
-                                  sendSMS();
+                                  //sendSMS();
                                   timer.cancel();
                                   Log.d("timer_cnt", "타이머 끝남");
                                   break;
@@ -430,10 +430,10 @@ public class PhoneManageService extends Service {
         startService(new Intent(getApplicationContext(), OverlayService2.class));
     }
 
-
-    /***
+/*
+    *//***
      * 문자 보내기
-     * */
+     * *//*
     private void sendSMS() {
         sf = getSharedPreferences("settingFile", MODE_PRIVATE);
 
@@ -513,7 +513,7 @@ public class PhoneManageService extends Service {
 //            // Toast.makeText(getApplicationContext(), "전송 실패", Toast.LENGTH_SHORT).show();
 //            e.printStackTrace();
 //        }
-    }
+    }*/
 
     /***
      * 상태 표시줄 알림 보내기
