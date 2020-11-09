@@ -90,10 +90,12 @@ public class DesignActivity extends AppCompatActivity implements AutoPermissions
         powerOn = sf.getBoolean("power", false);
         if (powerOn) {
             powerButton.setImageResource(R.mipmap.lock5);
+            changeUI();
 //            voiceState.setText("활성화");
 //            smsState.setText("활성화");
         } else {
             powerButton.setImageResource(R.mipmap.unlock5);
+            changeUI();
 //            voiceState.setText("비 활성화");
 //            smsState.setText("비 활성화");
         }
