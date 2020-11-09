@@ -209,9 +209,9 @@ public class PhoneManageService extends Service {
             // DB에서 설정된 시간을 가져옴
             sf = getSharedPreferences("settingFile", MODE_PRIVATE);
             long min = sf.getLong("min", 10);
-            boolean voice = sf.getBoolean("voice_fishing", false);
+            // boolean voice = sf.getBoolean("voice_fishing", false);
 
-            if(voice){
+            if(true){
                 /**테스트 끝나면 아래걸로 하기**/
                 settingTime = (int) min * 60 + 600;
                 //settingTime = 0;
