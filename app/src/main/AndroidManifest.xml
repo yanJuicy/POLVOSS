@@ -112,7 +112,7 @@
             android:screenOrientation="portrait" />
 
         <activity android:name="com.polvoss.ringtest.DesignActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" android:launchMode="singleTask"/>
 
         <activity android:name="com.polvoss.ringtest.LogoActivity">
             <intent-filter>

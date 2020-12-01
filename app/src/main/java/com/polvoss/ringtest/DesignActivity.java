@@ -32,6 +32,7 @@ public class DesignActivity extends AppCompatActivity implements AutoPermissions
     boolean powerOn;
     boolean smsOn;
     boolean voiceOn;
+    boolean kakaoOn;
     SharedPreferences sf;
     SharedPreferences.Editor editor;
     Intent serviceIntent;
@@ -90,10 +91,14 @@ public class DesignActivity extends AppCompatActivity implements AutoPermissions
         powerOn = sf.getBoolean("power", false);
         if (powerOn) {
             powerButton.setImageResource(R.mipmap.lock5);
+            changeUI();
+            changeReceiver();
 //            voiceState.setText("활성화");
 //            smsState.setText("활성화");
         } else {
             powerButton.setImageResource(R.mipmap.unlock5);
+            changeUI();
+            changeReceiver();
 //            voiceState.setText("비 활성화");
 //            smsState.setText("비 활성화");
         }
@@ -103,12 +108,14 @@ public class DesignActivity extends AppCompatActivity implements AutoPermissions
             @Override
             public void onClick(View v) {
                 checkPermission();
+                changeUI();
                 // DB에서 보호자 번호가 있는지 확인
                 String phoneNo1 = sf.getString("contactPhone1", "");
                 String phoneNo2 = sf.getString("contactPhone2", "");
                 String phoneNo3 = sf.getString("contactPhone3", "");
                 smsOn = sf.getBoolean("smishing", false);
                 voiceOn = sf.getBoolean("voice_fishing", false);
+                kakaoOn = sf.getBoolean("kakaoCheck", false);
                 boolean kakaoOn = sf.getBoolean("kakaoCheck", false);
 
                 // 파워 버튼 상태 변경
@@ -118,69 +125,117 @@ public class DesignActivity extends AppCompatActivity implements AutoPermissions
 
                 Log.d("DesignActivity ", phoneNo1);
 
-                if (powerOn && smsOn && voiceOn) { // 서비스 시작 (스미싱, 보이스피싱 둘 다 켜져있을때)
-                    if (phoneNo1.equals("")) { // 설정된 휴대폰 번호가 없으면 MainActivity로 이동
-                        // 파워 버튼 상태 변경
-                        powerOn = !powerOn;
-                        editor.putBoolean("power", powerOn);
-                        editor.commit();
+                if(powerOn){        //파워가 켜졌을때 (voice가 켜져있으면 연락처도 확인해봐야 한다.)
+                    if(voiceOn && smsOn && kakaoOn){        //셋 다 켜져있을때
+                        if (phoneNo1.equals("")) { // 설정된 휴대폰 번호가 없으면 MainActivity로 이동
+                            // 파워 버튼 상태 변경
+                            powerOn = !powerOn;
+                            editor.putBoolean("power", powerOn);
+                            editor.commit();
 
-                        Toast.makeText(DesignActivity.this, "보호자 연락처를 설정해 주세요.", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(DesignActivity.this, SettingActivity.class));
-                        return;
-                    } else{
-                        Toast.makeText(DesignActivity.this, "서비스 시작(보이스, 스미싱)", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(DesignActivity.this, "보호자 연락처를 설정해 주세요.", Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(DesignActivity.this, SettingActivity.class));
+                            return;
+                        } else{     //설정된 휴대폰 번호가 있으면 서비스 실행
+                            Toast.makeText(DesignActivity.this, "서비스 시작(보이스, 스미싱, 카카오)", Toast.LENGTH_SHORT).show();
+                            changeUI();
+                            changeReceiver();
+                            serviceIntent = new Intent(DesignActivity.this, PhoneManageService.class);
+                            serviceIntent.setAction("startForeground"); //포그라운드 액션지정
+                            startService(serviceIntent);
+                        }
+                    }
+                    else if(voiceOn && smsOn && !kakaoOn){    //카카오만 꺼져있을때
+                        if (phoneNo1.equals("")) { // 설정된 휴대폰 번호가 없으면 MainActivity로 이동
+                            // 파워 버튼 상태 변경
+                            powerOn = !powerOn;
+                            editor.putBoolean("power", powerOn);
+                            editor.commit();
+
+                            Toast.makeText(DesignActivity.this, "보호자 연락처를 설정해 주세요.", Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(DesignActivity.this, SettingActivity.class));
+                            return;
+                        } else{     //설정된 휴대폰 번호가 있으면 서비스 실행
+                            Toast.makeText(DesignActivity.this, "서비스 시작(보이스, 스미싱)", Toast.LENGTH_SHORT).show();
+                            changeUI();
+                            changeReceiver();
+                            serviceIntent = new Intent(DesignActivity.this, PhoneManageService.class);
+                            serviceIntent.setAction("startForeground"); //포그라운드 액션지정
+                            startService(serviceIntent);
+                        }
+                    }
+                    else if(voiceOn && !smsOn && kakaoOn){    //스미싱만 꺼져있을때
+                        if (phoneNo1.equals("")) { // 설정된 휴대폰 번호가 없으면 MainActivity로 이동
+                            // 파워 버튼 상태 변경
+                            powerOn = !powerOn;
+                            editor.putBoolean("power", powerOn);
+                            editor.commit();
+
+                            Toast.makeText(DesignActivity.this, "보호자 연락처를 설정해 주세요.", Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(DesignActivity.this, SettingActivity.class));
+                            return;
+                        } else{     //설정된 휴대폰 번호가 있으면 서비스 실행
+                            Toast.makeText(DesignActivity.this, "서비스 시작(보이스, 카카오)", Toast.LENGTH_SHORT).show();
+                            changeUI();
+                            changeReceiver();
+                            serviceIntent = new Intent(DesignActivity.this, PhoneManageService.class);
+                            serviceIntent.setAction("startForeground"); //포그라운드 액션지정
+                            startService(serviceIntent);
+                        }
+                    }
+                    else if(!voiceOn && smsOn && kakaoOn){    //보이스만 꺼져있을때
+                        Toast.makeText(DesignActivity.this, "서비스 시작(스미싱, 카카오)", Toast.LENGTH_SHORT).show();
                         changeUI();
                         changeReceiver();
                         serviceIntent = new Intent(DesignActivity.this, PhoneManageService.class);
                         serviceIntent.setAction("startForeground"); //포그라운드 액션지정
                         startService(serviceIntent);
                     }
-                } else if(powerOn && smsOn && !voiceOn){ // 서비스 시작 (스미싱만 켜져있을때)
-                    Toast.makeText(DesignActivity.this, "서비스 시작(스미싱)", Toast.LENGTH_SHORT).show();
-                    changeUI();
-                    changeReceiver();
-                    serviceIntent = new Intent(DesignActivity.this, PhoneManageService.class);
-                    serviceIntent.setAction("startForeground"); //포그라운드 액션지정
-                    startService(serviceIntent);
-                } else if(powerOn && !smsOn && voiceOn){ // 서비스 시작 (보이스만 켜져있을때)
-                    if (phoneNo1.equals("")) { // 설정된 휴대폰 번호가 없으면 MainActivity로 이동
-                        // 파워 버튼 상태 변경
-                        powerOn = !powerOn;
-                        editor.putBoolean("power", powerOn);
-                        editor.commit();
+                    else if(voiceOn && !smsOn && !kakaoOn){   //카카오, 스미싱 꺼져있을때
+                        if (phoneNo1.equals("")) { // 설정된 휴대폰 번호가 없으면 MainActivity로 이동
+                            // 파워 버튼 상태 변경
+                            powerOn = !powerOn;
+                            editor.putBoolean("power", powerOn);
+                            editor.commit();
 
-                        Toast.makeText(DesignActivity.this, "보호자 연락처를 설정해 주세요.", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(DesignActivity.this, SettingActivity.class));
-                        return;
-                    } else{
-                        Toast.makeText(DesignActivity.this, "서비스 시작(보이스)", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(DesignActivity.this, "보호자 연락처를 설정해 주세요.", Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(DesignActivity.this, SettingActivity.class));
+                            return;
+                        } else{     //설정된 휴대폰 번호가 있으면 서비스 실행
+                            Toast.makeText(DesignActivity.this, "서비스 시작(보이스)", Toast.LENGTH_SHORT).show();
+                            changeUI();
+                            changeReceiver();
+                            serviceIntent = new Intent(DesignActivity.this, PhoneManageService.class);
+                            serviceIntent.setAction("startForeground"); //포그라운드 액션지정
+                            startService(serviceIntent);
+                        }
+                    }
+                    else if(!voiceOn && smsOn && !kakaoOn){   //카카오, 보이스 꺼져있을때
+                        Toast.makeText(DesignActivity.this, "서비스 시작(스미싱)", Toast.LENGTH_SHORT).show();
                         changeUI();
                         changeReceiver();
                         serviceIntent = new Intent(DesignActivity.this, PhoneManageService.class);
                         serviceIntent.setAction("startForeground"); //포그라운드 액션지정
                         startService(serviceIntent);
                     }
-                } else if(powerOn && !smsOn && !voiceOn){ // 버튼 둘다 꺼져있는데 실행눌렀을때
-                    if(kakaoOn){
+                    else if(!voiceOn && !smsOn && kakaoOn){   //보이스, 스미싱 꺼져있을때
                         Toast.makeText(DesignActivity.this, "서비스 시작(카카오)", Toast.LENGTH_SHORT).show();
                         changeUI();
                         changeReceiver();
                         serviceIntent = new Intent(DesignActivity.this, PhoneManageService.class);
                         serviceIntent.setAction("startForeground"); //포그라운드 액션지정
                         startService(serviceIntent);
-                    } else{
-                        // 파워 버튼 상태 변경
+                    }
+                    else{     //다 꺼져있을때
                         powerOn = !powerOn;
                         editor.putBoolean("power", powerOn);
                         editor.commit();
 
-                        Toast.makeText(DesignActivity.this, "보이스피싱 또는 스미싱 기능을 켜주세요", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(DesignActivity.this, "기능을 실행시켜 주세요.", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(DesignActivity.this, SettingActivity.class));
                         return;
                     }
-
-                } else { // 서비스 종료
+                } else{             //파워 꺼졌을때
                     changeUI();
                     changeReceiver();
                     if(serviceIntent == null){
@@ -192,8 +247,84 @@ public class DesignActivity extends AppCompatActivity implements AutoPermissions
                         stopService(serviceIntent);
                         serviceIntent = null;
                     }
-
                 }
+
+//                if (powerOn && smsOn && voiceOn) { // 서비스 시작 (스미싱, 보이스피싱 둘 다 켜져있을때)
+//                    if (phoneNo1.equals("")) { // 설정된 휴대폰 번호가 없으면 MainActivity로 이동
+//                        // 파워 버튼 상태 변경
+//                        powerOn = !powerOn;
+//                        editor.putBoolean("power", powerOn);
+//                        editor.commit();
+//
+//                        Toast.makeText(DesignActivity.this, "보호자 연락처를 설정해 주세요.", Toast.LENGTH_SHORT).show();
+//                        startActivity(new Intent(DesignActivity.this, SettingActivity.class));
+//                        return;
+//                    } else{
+//                        Toast.makeText(DesignActivity.this, "서비스 시작(보이스, 스미싱)", Toast.LENGTH_SHORT).show();
+//                        changeUI();
+//                        changeReceiver();
+//                        serviceIntent = new Intent(DesignActivity.this, PhoneManageService.class);
+//                        serviceIntent.setAction("startForeground"); //포그라운드 액션지정
+//                        startService(serviceIntent);
+//                    }
+//                } else if(powerOn && smsOn && !voiceOn){ // 서비스 시작 (스미싱만 켜져있을때)
+//                    Toast.makeText(DesignActivity.this, "서비스 시작(스미싱)", Toast.LENGTH_SHORT).show();
+//                    changeUI();
+//                    changeReceiver();
+//                    serviceIntent = new Intent(DesignActivity.this, PhoneManageService.class);
+//                    serviceIntent.setAction("startForeground"); //포그라운드 액션지정
+//                    startService(serviceIntent);
+//                } else if(powerOn && !smsOn && voiceOn){ // 서비스 시작 (보이스만 켜져있을때)
+//                    if (phoneNo1.equals("")) { // 설정된 휴대폰 번호가 없으면 MainActivity로 이동
+//                        // 파워 버튼 상태 변경
+//                        powerOn = !powerOn;
+//                        editor.putBoolean("power", powerOn);
+//                        editor.commit();
+//
+//                        Toast.makeText(DesignActivity.this, "보호자 연락처를 설정해 주세요.", Toast.LENGTH_SHORT).show();
+//                        startActivity(new Intent(DesignActivity.this, SettingActivity.class));
+//                        return;
+//                    } else{
+//                        Toast.makeText(DesignActivity.this, "서비스 시작(보이스)", Toast.LENGTH_SHORT).show();
+//                        changeUI();
+//                        changeReceiver();
+//                        serviceIntent = new Intent(DesignActivity.this, PhoneManageService.class);
+//                        serviceIntent.setAction("startForeground"); //포그라운드 액션지정
+//                        startService(serviceIntent);
+//                    }
+//                } else if(powerOn && !smsOn && !voiceOn){ // 버튼 둘다 꺼져있는데 실행눌렀을때
+//                    if(kakaoOn){
+//                        Toast.makeText(DesignActivity.this, "서비스 시작(카카오)", Toast.LENGTH_SHORT).show();
+//                        changeUI();
+//                        changeReceiver();
+//                        serviceIntent = new Intent(DesignActivity.this, PhoneManageService.class);
+//                        serviceIntent.setAction("startForeground"); //포그라운드 액션지정
+//                        startService(serviceIntent);
+//                    } else{
+//                        // 파워 버튼 상태 변경
+//                        powerOn = !powerOn;
+//                        editor.putBoolean("power", powerOn);
+//                        editor.commit();
+//
+//                        Toast.makeText(DesignActivity.this, "보이스피싱 또는 스미싱 기능을 켜주세요", Toast.LENGTH_SHORT).show();
+//                        startActivity(new Intent(DesignActivity.this, SettingActivity.class));
+//                        return;
+//                    }
+//
+//                } else { // 서비스 종료
+//                    changeUI();
+//                    changeReceiver();
+//                    if(serviceIntent == null){
+//                        serviceIntent = new Intent(DesignActivity.this, PhoneManageService.class);
+//                    }
+//                    if (serviceIntent != null) {
+//                        Toast.makeText(DesignActivity.this, "서비스 종료", Toast.LENGTH_SHORT).show();
+//                        serviceIntent.putExtra("stop", true);
+//                        stopService(serviceIntent);
+//                        serviceIntent = null;
+//                    }
+//
+//                }
             }
         });
 
@@ -268,6 +399,7 @@ public class DesignActivity extends AppCompatActivity implements AutoPermissions
         if (powerOn){
             // SMS Broadcast Receiver 켜기
             if(smsOn){
+                Log.d("receiverLog", "Receiver On");
                 smsPackage.setComponentEnabledSetting(
                         smsComponent,
                         PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
@@ -280,6 +412,7 @@ public class DesignActivity extends AppCompatActivity implements AutoPermissions
                 );
                 // SMS Broadcast Receiver 끄기
             } else{
+                Log.d("receiverLog", "Receiver Off");
                 smsPackage.setComponentEnabledSetting(
                         smsComponent,
                         PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
@@ -293,6 +426,7 @@ public class DesignActivity extends AppCompatActivity implements AutoPermissions
             }
             // SMS, MMS Broadcast Receiver 끄기
         } else{
+            Log.d("receiverLog", "Receiver Off");
             smsPackage.setComponentEnabledSetting(
                     smsComponent,
                     PackageManager.COMPONENT_ENABLED_STATE_DISABLED,

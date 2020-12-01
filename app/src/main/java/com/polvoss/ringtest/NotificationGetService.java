@@ -81,7 +81,11 @@ public class NotificationGetService extends NotificationListenerService {
 
         boolean powerState = sf.getBoolean("power", false);
         boolean kakaoState = sf.getBoolean("kakaoCheck", false);
-        if (!powerState || !kakaoState) return;
+        if (!powerState || !kakaoState ) {
+            Log.d("NotificationListener", "power = " + powerState);
+            Log.d("NotificationListener", "kakao = " + kakaoState);
+            return;
+        }
 
         String kakao = "com.kakao.talk";
 
