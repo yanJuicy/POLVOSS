@@ -29,24 +29,334 @@ public class TrustedWebsite extends NotificationGetService {
 
         //언론사 52개소
         String[] URL1 = new String[] {"mydaily.co.kr",
-                        "dt.co.kr",
-                        "donga.com",
-                        "dailian.co.kr",
+                "dt.co.kr",
+                "donga.com",
+                "dailian.co.kr",
                 "newsis.com",
-                "newstapa.org","newdaily.co.kr/"};
+                "newstapa.org",
+                "newdaily.co.kr",
+                "nocutnews.co.kr",
+                "kmib.co.kr",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                ""
+        };
         for(int i =0 ; i<52;i++){
             if(contents.contains(URL1[i])) check=true;
         }
         //충북 언론사 16개소
+        String[] URL2 = new String[] {"",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                ""
+        };
+        for(int i =0 ; i<16;i++){
+            if(contents.contains(URL2[i])) check=true;
+        }
+
         //통신사 3개소
+        String[] URL3 = new String[] {"",
+                "",
+                ""
+        };
+        for(int i =0 ; i<3;i++){
+            if(contents.contains(URL3[i])) check=true;
+        }
+
         //국가기관 44개소
+        String[] URL4 = new String[] {"",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                ""
+        };
+        for(int i =0 ; i<44;i++){
+            if(contents.contains(URL4[i])) check=true;
+        }
+
+
         //충북 자치 단체 12개소
+        String[] URL5 = new String[] {"",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                ""
+        };
+        for(int i =0 ; i<12;i++){
+            if(contents.contains(URL5[i])) check=true;
+        }
+
         //인터넷 포털사이트 및 sns 12개소
+        String[] URL6 = new String[] {"",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                ""
+        };
+        for(int i =0 ; i<12;i++){
+            if(contents.contains(URL6[i])) check=true;
+        }
+
         //금융기관-보험사 11개소
+        String[] URL7 = new String[] {"",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                ""
+        };
+        for(int i =0 ; i<11;i++){
+            if(contents.contains(URL7[i])) check=true;
+        }
+
         //금융기관 - 은행 30개소
+        String[] URL8 = new String[] {"",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                ""
+        };
+        for(int i =0 ; i<30;i++){
+            if(contents.contains(URL8[i])) check=true;
+        }
+
         //금융기관 - 증권사 25개소
+        String[] URL9 = new String[] {"",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+        };
+        for(int i =0 ; i<25;i++){
+            if(contents.contains(URL9[i])) check=true;
+        }
+
         //쇼핑몰(25개소)
+        String[] URL10 = new String[] {"",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+        };
+        for(int i =0 ; i<25;i++){
+            if(contents.contains(URL10[i])) check=true;
+        }
+
         //택배(34개소)
+        String[] URL11 = new String[] {"",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+
+        };
+        for(int i =0 ; i<34;i++){
+            if(contents.contains(URL11[i])) check=true;
+        }
 
         if (check) {
             Log.d("NotificationListener", " 안전한 url일 확률이 있음");
