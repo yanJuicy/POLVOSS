@@ -107,8 +107,9 @@ public class NotificationGetService extends NotificationListenerService {
         if (sbn.getPackageName().equals(kakao)) {
             if (text != null
                     && URLCheck(text.toString())
-                    && ((TrustedWebsite) TrustedWebsite.mContext).WebsiteCheck(text.toString())) {
-                // 오버레이 서비스 시작
+                    && (TrustedWebsite.getContext()).WebsiteCheck(text.toString()) ){
+                   // && ((TrustedWebsite)TrustedWebsite.mContext).WebsiteCheck(text.toString())) {
+                //                // 오버레이 서비스 시작
                 Intent intent = new Intent(NotificationGetService.this, OverlayServiceSMS.class);
                 startService(intent);
             }

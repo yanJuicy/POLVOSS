@@ -7,6 +7,7 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -16,12 +17,14 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Vibrator;
+import android.provider.ContactsContract;
 import android.telephony.SmsMessage;
 import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -42,6 +45,8 @@ public class SmsReceiver extends BroadcastReceiver {
 
     private int vibratetime = 5000;
 
+    ArrayList<String> contactList;      // 전화번호부를 담을 객ㅊ체
+
     @Override
     public void onReceive(Context context, Intent intent) { OnSmsReceive(context, intent); }
 
@@ -51,23 +56,32 @@ public class SmsReceiver extends BroadcastReceiver {
         SmsMessage[] messages = parseSmsMessage(bundle);  // parseSmsMessage() 메서드의 코드들은 SMS문자의 내용을 뽑아내는 정형화된 코드이다.
         int CheckNum = 0;
 
+
+
         if(messages.length>0){
             // 문자메세지에서 송신자와 관련된 내용을 뽑아낸다.
             String sender = messages[0].getOriginatingAddress();
             Log.d(TAG, "sender: "+sender);
 
-            // 문자메세지 내용 추출
-            String contents = messages[0].getMessageBody().toString();
-            Log.d(TAG, "contents: "+contents);
+            contactList = getContacts(context);
+            // Log.d("PhoneManageService", "전화번호부 사이즈: " + contactList.size());
 
-            // 수신 날짜/시간 데이터 추출
-            Date receivedDate = new Date(messages[0].getTimestampMillis());
-            Log.d(TAG, "received date: "+receivedDate);
+            if(!contactList.contains(sender)) {
+                Log.d("SmsReceiver", "있는 번호!");
 
-            // 해당 내용을 모두 합쳐서 액티비티로 보낸다.
-            URLCheck(contents, context);
-            //sendToActivity(context, sender, contents, receivedDate);
-            //OnSmsNotification(context, sender, contents);
+                // 문자메세지 내용 추출
+                String contents = messages[0].getMessageBody().toString();
+                Log.d(TAG, "contents: "+contents);
+
+                // 수신 날짜/시간 데이터 추출
+                Date receivedDate = new Date(messages[0].getTimestampMillis());
+                Log.d(TAG, "received date: "+receivedDate);
+
+                // 해당 내용을 모두 합쳐서 액티비티로 보낸다.
+                URLCheck(contents, context);
+                //sendToActivity(context, sender, contents, receivedDate);
+                //OnSmsNotification(context, sender, contents);
+            }
         }
     }
 
@@ -270,6 +284,29 @@ public class SmsReceiver extends BroadcastReceiver {
 
         NotificationManager manager = (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
         manager.notify(4, builder.build());
+    }
+
+    /***
+     * 전화번호부 가져오기
+     * */
+    public ArrayList<String> getContacts(Context context) {
+        ArrayList<String> contacts = new ArrayList<String>();
+        int idx = 0;
+        Cursor c = context.getContentResolver().query(
+                ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null,
+                null, null, null);
+        while (c.moveToNext()) {
+            String phNumber = c
+                    .getString(c
+                            .getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+            if(phNumber.indexOf('-') != -1){
+                phNumber = phNumber.replaceAll("-", "");
+            }
+            contacts.add(phNumber);
+        }
+        c.close();
+
+        return contacts;
     }
 
 }

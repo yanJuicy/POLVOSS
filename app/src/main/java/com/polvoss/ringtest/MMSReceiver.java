@@ -14,6 +14,7 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Handler;
 import android.os.Vibrator;
+import android.provider.ContactsContract;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -24,6 +25,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -38,6 +40,8 @@ public class MMSReceiver extends BroadcastReceiver
     Vibrator vibrator;  // 진동 관리 변수
     private int vibratetime = 5000;
     private Handler handler = new Handler();
+
+    ArrayList<String> contactList;      // 전화번호부를 담을 객ㅊ체
 
 
     @Override
@@ -116,6 +120,11 @@ public class MMSReceiver extends BroadcastReceiver
         cursor.close();
 
         String number = parseNumber(id);
+
+        contactList = getContacts(_context);
+
+
+
         String msg = parseMessage(id);
         Log.d("MMS", "MMS Parse");
 
@@ -374,5 +383,28 @@ public class MMSReceiver extends BroadcastReceiver
                 return 1;
         }
         return -1;
+    }
+
+    /***
+     * 전화번호부 가져오기
+     * */
+    public ArrayList<String> getContacts(Context context) {
+        ArrayList<String> contacts = new ArrayList<String>();
+        int idx = 0;
+        Cursor c = context.getContentResolver().query(
+                ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null,
+                null, null, null);
+        while (c.moveToNext()) {
+            String phNumber = c
+                    .getString(c
+                            .getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+            if(phNumber.indexOf('-') != -1){
+                phNumber = phNumber.replaceAll("-", "");
+            }
+            contacts.add(phNumber);
+        }
+        c.close();
+
+        return contacts;
     }
 }
