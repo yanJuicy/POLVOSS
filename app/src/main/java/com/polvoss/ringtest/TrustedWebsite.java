@@ -107,9 +107,9 @@ public class TrustedWebsite extends NotificationGetService {
         }
 
         //통신사 3개소
-        String[] URL3 = new String[] {"",
-                "",
-                ""
+        String[] URL3 = new String[] {"sktelecom.com",
+                "kt.com",
+                "uplus.co.kr"
         };
         for(int i =0 ; i<3;i++){
             if(contents.contains(URL3[i])) check=true;
