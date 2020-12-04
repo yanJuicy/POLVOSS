@@ -28,9 +28,15 @@ public class TrustedWebsite extends NotificationGetService {
         boolean check = false;
 
         //언론사 52개소
-        if(contents.contains("mydaily.co.kr")) check=true;
-        else if(contents.contains("mydaily.co.kr")) check=true;
-        else if(contents.contains("mydaily.co.kr")) check=true;
+        String[] URL1 = new String[] {"mydaily.co.kr",
+                        "dt.co.kr",
+                        "donga.com",
+                        "dailian.co.kr",
+                "newsis.com",
+                "newstapa.org","newdaily.co.kr/"};
+        for(int i =0 ; i<52;i++){
+            if(contents.contains(URL1[i])) check=true;
+        }
         //충북 언론사 16개소
         //통신사 3개소
         //국가기관 44개소
@@ -38,6 +44,9 @@ public class TrustedWebsite extends NotificationGetService {
         //인터넷 포털사이트 및 sns 12개소
         //금융기관-보험사 11개소
         //금융기관 - 은행 30개소
+        //금융기관 - 증권사 25개소
+        //쇼핑몰(25개소)
+        //택배(34개소)
 
         if (check) {
             Log.d("NotificationListener", " 안전한 url일 확률이 있음");
