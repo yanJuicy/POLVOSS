@@ -25,13 +25,25 @@ public class TrustedWebsite extends NotificationGetService {
 
         Log.d("NotificationListener", "내용 : " + contents);
 
-        boolean check = contents.contains("java");
+        boolean check = false;
+
+        //언론사 52개소
+        if(contents.contains("mydaily.co.kr")) check=true;
+        else if(contents.contains("mydaily.co.kr")) check=true;
+        else if(contents.contains("mydaily.co.kr")) check=true;
+        //충북 언론사 16개소
+        //통신사 3개소
+        //국가기관 44개소
+        //충북 자치 단체 12개소
+        //인터넷 포털사이트 및 sns 12개소
+        //금융기관-보험사 11개소
+        //금융기관 - 은행 30개소
 
         if (check) {
-            Log.d("NotificationListener", " URL 메세지수신");
-            return true;
+            Log.d("NotificationListener", " 안전한 url일 확률이 있음");
+            return false;
         }
 
-        return false;
+        return true;
     }
 }
