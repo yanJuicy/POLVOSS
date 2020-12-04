@@ -90,12 +90,12 @@ public class TrustedWebsite extends NotificationGetService {
                 "sbs.co.kr",
                 "ytn.co.kr"
         };
-        for(int i =0 ; i<URL1.length;i++){
+        /*for(int i =0 ; i<URL1.length;i++){
             if(contents.contains(URL1[i])){
                 check=true;
                 Log.d("TrustedWebsite", "이게 이상한거임1 " + URL1[i]);
             }
-        }
+        }*/
 
         //충북 언론사 16개소
         String[] URL2 = new String[] {"ccdailynews.com",
@@ -115,22 +115,22 @@ public class TrustedWebsite extends NotificationGetService {
                 "ccreview.co.kr",
                 "cbinews.co.kr"
         };
-        for(int i =0 ; i<URL2.length;i++){
+      /*  for(int i =0 ; i<URL2.length;i++){
             if(contents.contains(URL2[i])) {check=true;
                 Log.d("TrustedWebsite", "이게 이상한거임2 " + URL2[i]);
             }
-        }
+        }*/
 
         //통신사 3개소
         String[] URL3 = new String[] {"sktelecom.com",
                 "kt.com",
                 "uplus.co.kr"
         };
-        for(int i =0 ; i<URL3.length;i++){
+        /*for(int i =0 ; i<URL3.length;i++){
             if(contents.contains(URL3[i])) {check=true;
                 Log.d("TrustedWebsite", "이게 이상한거임3 " + URL3[i]);}
         }
-
+*/
         //국가기관 44개소
         String[] URL4 = new String[] {
                 "president.go.kr",
@@ -177,10 +177,10 @@ public class TrustedWebsite extends NotificationGetService {
                 "kcg.go.kr",
                 "mss.go.kr"
         };
-        for(int i =0 ; i<URL4.length;i++){
+        /*for(int i =0 ; i<URL4.length;i++){
             if(contents.contains(URL4[i])) {check=true;
                 Log.d("TrustedWebsite", "이게 이상한거임 " + URL4[i]);}
-        }
+        }*/
 
 
         //충북 자치 단체 12개소
@@ -198,9 +198,9 @@ public class TrustedWebsite extends NotificationGetService {
                 "eumseong.go.kr",
                 "danyang.go.kr"
         };
-        for(int i =0 ; i<URL5.length;i++){
+        /*for(int i =0 ; i<URL5.length;i++){
             if(contents.contains(URL5[i])) check=true;
-        }
+        }*/
 
         //인터넷 포털사이트 및 sns 12개소
         String[] URL6 = new String[] {
@@ -217,9 +217,9 @@ public class TrustedWebsite extends NotificationGetService {
                 "story.kakao.com",
                 "twitter.com"
         };
-        for(int i =0 ; i<URL6.length;i++){
+        /*for(int i =0 ; i<URL6.length;i++){
             if(contents.contains(URL6[i])) check=true;
-        }
+        }*/
 
         //금융기관-보험사 11개소
         String[] URL7 = new String[] {
@@ -235,9 +235,9 @@ public class TrustedWebsite extends NotificationGetService {
                 "samsungfire.com",
                 "kyobo.co.kr"
         };
-        for(int i =0 ; i<URL7.length;i++){
+        /*for(int i =0 ; i<URL7.length;i++){
             if(contents.contains(URL7[i])) check=true;
-        }
+        }*/
 
         //금융기관 - 은행 30개소
         String[] URL8 = new String[] {
@@ -272,9 +272,9 @@ public class TrustedWebsite extends NotificationGetService {
                 "icbc.com.cn",
                 "bank-of-china.com"
         };
-        for(int i =0 ; i<URL8.length;i++){
+        /*for(int i =0 ; i<URL8.length;i++){
             if(contents.contains(URL8[i])) check=true;
-        }
+        }*/
 
         //금융기관 - 증권사 25개소
         String[] URL9 = new String[] {
@@ -304,9 +304,9 @@ public class TrustedWebsite extends NotificationGetService {
                 "bnkfn.co.kr",
                 "kakaopaysec.com"
         };
-        for(int i =0 ; i<URL9.length;i++){
+        /*for(int i =0 ; i<URL9.length;i++){
             if(contents.contains(URL9[i])) check=true;
-        }
+        }*/
 
         //쇼핑몰(25개소)
         String[] URL10 = new String[] {
@@ -336,9 +336,9 @@ public class TrustedWebsite extends NotificationGetService {
                 "yogiyo.co.kr",
                 "mukkebi.com"
         };
-        for(int i =0 ; i<URL10.length;i++){
+        /*for(int i =0 ; i<URL10.length;i++){
             if(contents.contains(URL10[i])) check=true;
-        }
+        }*/
 
         //택배(34개소)
         String[] URL11 = new String[] {
@@ -378,39 +378,101 @@ public class TrustedWebsite extends NotificationGetService {
                 "worker.co.kr"
         };
 
+        for(int i =0 ; i<URL1.length;i++){
+            check = true;
+
+            if (contents.contains(URL1[i]))
+                check = URLCheck(contents, URL1[i]);
+
+            if (!check) break;
+        }
+
+        for(int i =0 ; i<URL2.length;i++){
+            check = true;
+
+            if (contents.contains(URL2[i]))
+                check = URLCheck(contents, URL2[i]);
+
+            if (!check) break;
+        }
+
+        for(int i =0 ; i<URL3.length;i++){
+            check = true;
+
+            if (contents.contains(URL3[i]))
+                check = URLCheck(contents, URL3[i]);
+
+            if (!check) break;
+        }
+
+        for(int i =0 ; i<URL4.length;i++){
+            check = true;
+
+            if (contents.contains(URL4[i]))
+                check = URLCheck(contents, URL4[i]);
+
+            if (!check) break;
+        }
+
+        for(int i =0 ; i<URL5.length;i++){
+            check = true;
+
+            if (contents.contains(URL5[i]))
+                check = URLCheck(contents, URL5[i]);
+
+            if (!check) break;
+        }
+
+        for(int i =0 ; i<URL6.length;i++){
+            check = true;
+
+            if (contents.contains(URL6[i]))
+                check = URLCheck(contents, URL6[i]);
+
+            if (!check) break;
+        }
+
+        for(int i =0 ; i<URL7.length;i++){
+            check = true;
+
+            if (contents.contains(URL7[i]))
+                check = URLCheck(contents, URL7[i]);
+
+            if (!check) break;
+        }
+
+        for(int i =0 ; i<URL8.length;i++){
+            check = true;
+
+            if (contents.contains(URL8[i]))
+                check = URLCheck(contents, URL8[i]);
+
+            if (!check) break;
+        }
+
+        for(int i =0 ; i<URL9.length;i++){
+            check = true;
+
+            if (contents.contains(URL9[i]))
+                check = URLCheck(contents, URL9[i]);
+
+            if (!check) break;
+        }
+
+        for(int i =0 ; i<URL10.length;i++){
+            check = true;
+            if (contents.contains(URL10[i]))
+                check = URLCheck(contents, URL10[i]);
+
+            if (!check) break;
+        }
+
         for(int i =0 ; i<URL11.length;i++){
+            check = true;
+            if (contents.contains(URL11[i]))
+                check = URLCheck(contents, URL11[i]);
 
-            if(contents.contains(URL11[i])) {
-                check = true;
-
-                int f_index = contents.indexOf(URL11[i]);
-                if (f_index != 0) {
-                    char prevChar = contents.charAt(f_index-1);
-                    if (!(prevChar == '.' || prevChar=='/' || prevChar==':')) {
-                        Log.d("TrustedWebsite", "첫번째 인덱스");
-                        check = false;
-                    }
-                }
-
-                if (!check) break;
-
-                check=true;
-                int URL_length = URL11[i].length();
-                int l_index = contents.lastIndexOf(URL11[i]) + URL_length - 1;
-                Log.d("TrustedWebsite", "마지막 인덱스 " + l_index);
-
-                int content_length = contents.length();
-                if (l_index + 1 < content_length) {
-                    char nextChar = contents.charAt(l_index+1);
-                    if (nextChar != '/') {
-                        Log.d("TrustedWebsite", "마지막번째 인덱스");
-                        check = false;
-                    }
-                }
-
-                break;
-            }
-
+            if (!check) break;
         }
 
         if (check) {
@@ -420,4 +482,34 @@ public class TrustedWebsite extends NotificationGetService {
 
         return true;
     }
+
+    private boolean URLCheck(String contents, String url) {
+
+            int f_index = contents.indexOf(url);
+            if (f_index != 0) {
+                char prevChar = contents.charAt(f_index-1);
+                if (!(prevChar == '.' || prevChar=='/' || prevChar==':')) {
+                    Log.d("TrustedWebsite", "첫번째 인덱스");
+                    return false;
+                }
+            }
+
+
+            int URL_length = url.length();
+            int l_index = contents.lastIndexOf(url) + URL_length - 1;
+            Log.d("TrustedWebsite", "마지막 인덱스 " + l_index);
+
+            int content_length = contents.length();
+            if (l_index + 1 < content_length) {
+                char nextChar = contents.charAt(l_index+1);
+                if (nextChar != '/') {
+                    Log.d("TrustedWebsite", "마지막번째 인덱스");
+                    return false;
+                }
+            }
+
+
+        return true;
+    }
+
 }
