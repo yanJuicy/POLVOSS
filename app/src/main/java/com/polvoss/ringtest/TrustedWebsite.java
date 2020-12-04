@@ -85,22 +85,22 @@ public class TrustedWebsite extends NotificationGetService {
         }
 
         //충북 언론사 16개소
-        String[] URL2 = new String[] {"",
-                "",
-                "",
-                "",
-                "",
-                "",
-                "",
-                "",
-                "",
-                "",
-                "",
-                "",
-                "",
-                "",
-                "",
-                ""
+        String[] URL2 = new String[] {"ccdailynews.com",
+                "dynews.co.kr",
+                "cctimes.kr",
+                "jbnews.com",
+                "inews365.com",
+                "ccdn.co.kr",
+                "cctoday.co.kr",
+                "cheongju.kbs.co.kr",
+                "chungju.kbs.co.kr",
+                "mbccb.co.kr",
+                "cjb.co.kr",
+                "cjcbs.co.kr",
+                "cjbbs.co.kr",
+                "hcn.co.kr",
+                "ccreview.co.kr",
+                "cbinews.co.kr"
         };
         for(int i =0 ; i<16;i++){
             if(contents.contains(URL2[i])) check=true;
