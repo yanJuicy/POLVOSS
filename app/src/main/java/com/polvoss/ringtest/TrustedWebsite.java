@@ -379,100 +379,100 @@ public class TrustedWebsite extends NotificationGetService {
         };
 
         for(int i =0 ; i<URL1.length;i++){
-            check = true;
+//            check = true;
 
             if (contents.contains(URL1[i]))
                 check = URLCheck(contents, URL1[i]);
 
-            if (!check) break;
+//            if (!check) break;
         }
 
         for(int i =0 ; i<URL2.length;i++){
-            check = true;
+//            check = true;
 
             if (contents.contains(URL2[i]))
                 check = URLCheck(contents, URL2[i]);
 
-            if (!check) break;
+//            if (!check) break;
         }
 
         for(int i =0 ; i<URL3.length;i++){
-            check = true;
+//            check = true;
 
             if (contents.contains(URL3[i]))
                 check = URLCheck(contents, URL3[i]);
 
-            if (!check) break;
+//            if (!check) break;
         }
 
         for(int i =0 ; i<URL4.length;i++){
-            check = true;
+//            check = true;
 
             if (contents.contains(URL4[i]))
                 check = URLCheck(contents, URL4[i]);
 
-            if (!check) break;
+//            if (!check) break;
         }
 
         for(int i =0 ; i<URL5.length;i++){
-            check = true;
+//            check = true;
 
             if (contents.contains(URL5[i]))
                 check = URLCheck(contents, URL5[i]);
 
-            if (!check) break;
+//            if (!check) break;
         }
 
         for(int i =0 ; i<URL6.length;i++){
-            check = true;
+//            check = true;
 
             if (contents.contains(URL6[i]))
                 check = URLCheck(contents, URL6[i]);
 
-            if (!check) break;
+//            if (!check) break;
         }
 
         for(int i =0 ; i<URL7.length;i++){
-            check = true;
+//            check = true;
 
             if (contents.contains(URL7[i]))
                 check = URLCheck(contents, URL7[i]);
 
-            if (!check) break;
+//            if (!check) break;
         }
 
         for(int i =0 ; i<URL8.length;i++){
-            check = true;
+//            check = true;
 
             if (contents.contains(URL8[i]))
                 check = URLCheck(contents, URL8[i]);
 
-            if (!check) break;
+//            if (!check) break;
         }
 
         for(int i =0 ; i<URL9.length;i++){
-            check = true;
+//            check = true;
 
             if (contents.contains(URL9[i]))
                 check = URLCheck(contents, URL9[i]);
 
-            if (!check) break;
+//            if (!check) break;
         }
 
         for(int i =0 ; i<URL10.length;i++){
-            check = true;
+//            check = true;
             if (contents.contains(URL10[i]))
                 check = URLCheck(contents, URL10[i]);
 
-            if (!check) break;
+//            if (!check) break;
         }
 
         for(int i =0 ; i<URL11.length;i++){
-            check = true;
+//            check = true;
             if (contents.contains(URL11[i]))
                 check = URLCheck(contents, URL11[i]);
 
-            if (!check) break;
+//            if (!check) break;
         }
 
         if (check) {

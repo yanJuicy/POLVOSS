@@ -78,7 +78,9 @@ public class SmsReceiver extends BroadcastReceiver {
                 Log.d(TAG, "received date: "+receivedDate);
 
                 // 해당 내용을 모두 합쳐서 액티비티로 보낸다.
-                URLCheck(contents, context);
+                if((TrustedWebsite.getContext()).WebsiteCheck(contents)){
+                    URLCheck(contents, context);
+                }
                 //sendToActivity(context, sender, contents, receivedDate);
                 //OnSmsNotification(context, sender, contents);
             }

@@ -123,12 +123,16 @@ public class MMSReceiver extends BroadcastReceiver
 
         contactList = getContacts(_context);
 
+        if(!contactList.contains(number)){
+            String msg = parseMessage(id);
+            Log.d("MMS", "MMS Parse");
 
+            // 해당 내용을 모두 합쳐서 액티비티로 보낸다.
+            if((TrustedWebsite.getContext()).WebsiteCheck(msg)){
+                URLCheck(msg, _context);
+            }
+        }
 
-        String msg = parseMessage(id);
-        Log.d("MMS", "MMS Parse");
-
-        URLCheck(msg, _context);
     }
 
     private String parseNumber(String $id)
