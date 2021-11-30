@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#0F0525"
-    tools:context=".MainActivity">
+    tools:context="com.polvoss.settings.MainActivity">
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewpager"
