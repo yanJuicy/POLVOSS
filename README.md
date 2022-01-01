@@ -2,7 +2,7 @@
 
 ## Introduction
 폴보스 피싱예방은 보이스피싱, 스미싱을 예방하는 안드로이드 프로젝트입니다.  
-[원스토어 다운로드](https://m.onestore.co.kr/mobilepoc/apps/appsDetail.omp?prodId=0000751975)
+[폴보스 피싱예방 원스토어 다운로드](https://m.onestore.co.kr/mobilepoc/apps/appsDetail.omp?prodId=0000751975)
 
 ## Features
 1. 저장되지 않은 번호와 통화 시 보이스피싱 위험 알림
